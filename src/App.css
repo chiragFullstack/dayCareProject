@@ -1,19 +1,45 @@
+*{
+  padding:0;
+  margin:0;
+}
 body,html{
   background-color: rgb(3,52,133);
   color:white;
 }
-.container-fluid{
+.container-fluid, .login{
   background-color: rgb(3,52,133);
-}
-.container{
-  border:1px solid yellow;
   text-align: center;
-  margin-top:5%;
-  padding:10px;
+}
+
+.navMenu{
+  background-color:green;
 }
 .container h1{
   font-size:40px;
   color:yellow;
+}
+.col-md-2{
+  padding:0px !important;
+}
+.heading-section{
+  color:yellow;
+  margin:10px;
+}
+.leftSide ul{
+  margin:0px;
+  padding:0px !important;
+  font-size:20px;
+  color:white;
+}
+.leftSide ul li{
+  list-style: none;
+  border:1px solid yellow;
+  padding:5px;
+  margin-bottom:20px;
+}
+.leftSide, .rightSide{
+  border:1px solid white;
+  height:100vh;
 }
 
 .form-group .form-control{
