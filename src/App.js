@@ -6,6 +6,10 @@ import SuperAdminLogin from './superAdmin/SuperAdminLogin';
 import Dashboard from './superAdmin/Dashboard/Dashboard';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
 import Home from './superAdmin/Home';
+import Staff from './superAdmin/Dashboard/Staff';
+import Subadmin from './superAdmin/Dashboard/Subadmin';
+import Addclass from './superAdmin/Dashboard/Addclass';
+import AddSchool from './superAdmin/Dashboard/AddSchool';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -57,6 +61,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/Superlogin" element={<SuperAdminLogin/>}/>
+          <Route path='/Staff' element={<Staff/>}/>
+          <Route path='/AddSchool' element={<AddSchool/>}/>
+          <Route path='/SubAdmin' element={<Subadmin/>}/>
+          <Route path='/AddClass' element={<Addclass/>}/>
           <Route path="/Dashboard" element={<Dashboard/>}/>
         </Routes>
       </Router>
