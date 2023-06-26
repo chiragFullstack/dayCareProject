@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SuperAdminLogin from './superAdmin/SuperAdminLogin';
 import Dashboard from './superAdmin/Dashboard/Dashboard';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
+import Home from './superAdmin/Home';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -54,7 +55,8 @@ function App() {
     </nav>
     <Router>
         <Routes>
-          <Route path="/" element={<SuperAdminLogin/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/Superlogin" element={<SuperAdminLogin/>}/>
           <Route path="/Dashboard" element={<Dashboard/>}/>
         </Routes>
       </Router>

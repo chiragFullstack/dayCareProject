@@ -2,9 +2,9 @@
   padding:0;
   margin:0;
 }
-body,html{
-  background-color: rgb(3,52,133);
-  color:white;
+body {
+  background-color: #edf6ff;
+  padding: 40px;
 }
 .container-fluid, .login{
   background-color: rgb(3,52,133);

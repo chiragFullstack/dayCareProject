@@ -1,0 +1,73 @@
+
+.maiv-div-box {
+    display: flex;
+    gap: 25px;
+}
+.sidebar{
+  width: 300px;
+  height: calc(100vh - 80px);
+  background-color: #fff;
+  border-radius: 20px;
+  border: 3px solid #e4f1ff;
+  box-shadow: 0  0 10px #a4d1ff81;
+  padding: 30px;
+  color: #00204e;
+}
+
+.sidebar .logo {
+    font-size: 30px;
+    font-weight: 700;
+    padding-left: 35px;
+    position: relative;
+}
+.sidebar .logo:before {
+    content: "";
+    clip-path: polygon(0 55%, 75% 0%, 100% 50%, 48% 100%, 51% 51%);
+    width: 30px;
+    height: 30px;
+    background: #00204e;
+    position: absolute;
+    left: 0;
+    top: 10px;
+}
+.sidebar li{
+    list-style:none;
+}
+.sidebar .sidenav-item a {
+    display: block;
+    color: #565656;
+    text-decoration: none;
+    padding: 15px;
+}
+.sidenav-active {
+    background-color: #00204e;
+    border-radius: 30px;
+}
+.sidebar .sidenav-active a {
+    color: #fff;
+}
+
+.sidebar .sidenav-active a svg path{
+    fill: #fff;
+}
+.right-box{
+    width: calc(100% - 365px);
+}
+.topbar{
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 3px solid #e4f1ff;
+    box-shadow: 0  0 10px #a4d1ff81;
+    padding: 20px;
+}
+.db-content-display {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    border: 3px solid #e4f1ff;
+    box-shadow: 0  0 10px #a4d1ff81;
+    padding: 20px;
+    margin-top: 24px;
+    height: calc(100vh - 190px);
+}
