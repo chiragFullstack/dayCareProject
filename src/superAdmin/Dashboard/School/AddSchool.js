@@ -1,16 +1,11 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useRoutes,
-  Outlet,
-  Link,
-} from "react-router-dom";
-import Leftmenu from "./Leftmenu";
-
+import React, { useState,useEffect } from "react";
+import axios from 'axios';
+import Leftmenu from "../Leftmenu";
+import { BrowserRouter as Router, Routes, Route, NavLink, Link,useNavigate  } from 'react-router-dom';
 
 function AddSchool() {
+    
+    const history = useNavigate ();
 
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
@@ -20,17 +15,42 @@ function AddSchool() {
     const [forecolor, setForeColorCode] = useState('');
     const [websiteUrl, setWebsiteURL] = useState('');
     const [image, setImage] = useState(null);
-    
-      const handleSubmit = (event) => {
+   
+    //calling the method 
+      const handleSubmit = async (event) => {
         event.preventDefault();
-        // Perform form submission logic here, e.g., send data to the server
-        console.log('Name:', name);
-        console.log('Email:', email);
-        console.log('Image:', image);
+
+        //here we need to call the API to post the data to the backend server 
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('address', address);
+        formData.append('contact', contact);
+        formData.append('email', email);
+        formData.append('bgcolor', bgcolor);
+        formData.append('forecolor',forecolor);
+        formData.append('logo', image);
+        formData.append('websiteurl', websiteUrl);
+        
+        try {
+          const response = await axios.post('http://localhost:5000/addSchool', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          console.log(response.data);
+          history('/Schoollist');
+        } catch (error) {
+          console.error(error);
+        }
         // Reset form fields
         setName('');
         setEmail('');
         setImage(null);
+        setAddress('');
+        setContact('');
+        setBgColorCode('');
+        setForeColorCode('');
+        setWebsiteURL('');
       };
 
     return (
@@ -43,7 +63,7 @@ function AddSchool() {
         </div>
         <div className="right-box">
           <div className="db-content-display">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType='multiplart/form-data'>
               <label>
                 Name:
                 <input type="text" value={name} onChange={(e)=>{
@@ -112,9 +132,9 @@ function AddSchool() {
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>
           </div>
+          
         </div>
       </div>
-    
     </>
   )
 }

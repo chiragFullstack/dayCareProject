@@ -16,8 +16,6 @@ function Dashboard() {
     <>
 <div className="maiv-div-box">
         <div className="sidebar">
-            <p className="logo pb-2">BREES</p>
-            <hr className=""/>
             <Leftmenu/>
         </div>   
         <div className="right-box">

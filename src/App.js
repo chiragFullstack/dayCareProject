@@ -7,25 +7,35 @@ import Dashboard from './superAdmin/Dashboard/Dashboard';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
 import Home from './superAdmin/Home';
 import Staff from './superAdmin/Dashboard/Staff';
-import Subadmin from './superAdmin/Dashboard/Subadmin';
+import Subadmin from './superAdmin/Dashboard/Subadmin/Subadmin';
 import Addclass from './superAdmin/Dashboard/Addclass';
-import AddSchool from './superAdmin/Dashboard/AddSchool';
+import AddSchool from './superAdmin/Dashboard/School/AddSchool';
+import Editschool from './superAdmin/Dashboard/School/Editschool';
+import Schoollist from './superAdmin/Dashboard/School/Schoollist';
+import Servicelist from './superAdmin/Dashboard/Service/Servicelist';
+import AddService from './superAdmin/Dashboard/Service/AddService';
+import EditService from './superAdmin/Dashboard/Service/EditService';
+import SubadminList from './superAdmin/Dashboard/Subadmin/SubadminList';
+import EditSubadmin from './superAdmin/Dashboard/Subadmin/EditSubadmin';
+import Allclaimedservice from './superAdmin/Dashboard/Claimedservice/Allclaimedservice';
+import Claimnewservice from './superAdmin/Dashboard/Claimedservice/Claimnewservice';
+import Editclaimservice from './superAdmin/Dashboard/Claimedservice/Editclaimservice';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
   
-  useEffect=()=>{
-      if(localStorage.getItem('userType')=='superAdmin'){
-          setloginDashboard('visible');
-      }else{
-        setloginDashboard('hidden');
-      }
-  }
+  // useEffect=()=>{
+  //     if(localStorage.getItem('userType')=='superAdmin'){
+  //         setloginDashboard('visible');
+  //     }else{
+  //       setloginDashboard('hidden');
+  //     }
+  // }
   return (
     <>
-    <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-sm">
       <div className="container-fluid">
-        <a className="navbar-brand">
+        <a className="navbar-brand logo">
           Day Care Services 
         </a>
         <button
@@ -39,17 +49,17 @@ function App() {
         <div className="collapse navbar-collapse" id="mynavbar">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-            <a className="nav-link" href="javascript:void(0)">
+            <a className="nav-link">
                 Home
               </a>
             </li>
             <li className="nav-item">
-            <a className="nav-link" href="javascript:void(0)">
+            <a className="nav-link" >
                 Link
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="javascript:void(0)">
+              <a className="nav-link" >
                 Link
               </a>
             </li>
@@ -63,9 +73,22 @@ function App() {
           <Route path="/Superlogin" element={<SuperAdminLogin/>}/>
           <Route path='/Staff' element={<Staff/>}/>
           <Route path='/AddSchool' element={<AddSchool/>}/>
-          <Route path='/SubAdmin' element={<Subadmin/>}/>
           <Route path='/AddClass' element={<Addclass/>}/>
+          <Route path='/Editschool/:id' element={<Editschool/>}/>
           <Route path="/Dashboard" element={<Dashboard/>}/>
+          
+          <Route path="/Schoollist" element={<Schoollist/>}/>
+          <Route path="/Servicelist" element={<Servicelist/>}/>
+          <Route path="/Addservice" element={<AddService/>}/>
+          <Route path='/EditService/:id' element={<EditService/>}/>
+
+          <Route path="/SubadminList" element={<SubadminList/>}/>
+          <Route path='/SubAdmin' element={<Subadmin/>}/>
+          <Route path='/EditSubadmin/:id' element={<EditSubadmin/>}/>
+
+          <Route path="/Allclaimedservice" element={<Allclaimedservice/>}/>
+          <Route path="/Claimnewservice" element={<Claimnewservice/>}/>
+          <Route path="/Editclaimservice/:id" element={<Editclaimservice/>}/>
         </Routes>
       </Router>
 

@@ -5,22 +5,34 @@
 }
 .sidebar{
   width: 300px;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 141px);
   background-color: #fff;
   border-radius: 20px;
   border: 3px solid #e4f1ff;
   box-shadow: 0  0 10px #a4d1ff81;
   padding: 30px;
   color: #00204e;
+  overflow-y: auto;
 }
+.sidebar::-webkit-scrollbar, .db-content-display::-webkit-scrollbar {
+    width: 5px;
+    margin-right: 10px;
+    
+}
+.sidebar::-webkit-scrollbar-track, .db-content-display::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+.sidebar::-webkit-scrollbar-thumb, .db-content-display::-webkit-scrollbar-thumb {
+    background-color: #00204e;
+  }
 
-.sidebar .logo {
+.logo {
     font-size: 30px;
     font-weight: 700;
-    padding-left: 35px;
     position: relative;
+    color: #00204e;
 }
-.sidebar .logo:before {
+/* .sidebar .logo:before {
     content: "";
     clip-path: polygon(0 55%, 75% 0%, 100% 50%, 48% 100%, 51% 51%);
     width: 30px;
@@ -29,7 +41,7 @@
     position: absolute;
     left: 0;
     top: 10px;
-}
+} */
 .sidebar li{
     list-style:none;
 }
@@ -40,7 +52,7 @@
     padding: 15px;
 }
 .sidenav-active {
-    background-color: #00204e;
+    background-color: #3B99FC;
     border-radius: 30px;
 }
 .sidebar .sidenav-active a {
@@ -53,13 +65,14 @@
 .right-box{
     width: calc(100% - 365px);
 }
-.topbar{
+.topbar, .navbar{
     width: 100%;
     background-color: #fff;
     border-radius: 20px;
     border: 3px solid #e4f1ff;
     box-shadow: 0  0 10px #a4d1ff81;
-    padding: 20px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
 }
 .db-content-display {
     width: 100%;
@@ -68,6 +81,46 @@
     border: 3px solid #e4f1ff;
     box-shadow: 0  0 10px #a4d1ff81;
     padding: 20px;
-    margin-top: 24px;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 141px);
+    overflow-y: auto;
+}
+
+/* forms */
+
+.db-content-display label {
+    color: #565656;
+    font-weight: 500;
+    width: 100%;
+    padding-top: 8px;
+}
+
+.db-content-display form {
+    padding: 5px 20px 20px;
+}
+.db-content-display input {
+    width: 100%;
+    min-height: 45px;
+    border-radius: 10px;
+    border: 1px solid #a6cbff;
+    box-shadow: 0  0 5px #0000000c;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+.db-content-display label:nth-child(15) input {
+    border: none !important;
+    border-radius: 0;
+}
+.db-content-display .btn {
+    background: #00204e;
+    border-radius: 20px;
+    padding: 8px 40px;
+    border: 1px solid #00204e;
+    font-weight: 500;
+}
+.db-content-display .btn:hover {
+    color: #00204e;
+    background-color: transparent;
+}
+p.logo.pb-2, hr{
+    display: none;
 }
