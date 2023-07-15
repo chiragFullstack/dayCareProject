@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,16 +9,17 @@ import {
 } from "react-router-dom";
 import Leftmenu from "../Leftmenu";
 import axios from 'axios';
+import ContextData from '../../Context/ContextData';
 
 function Subadmin() {
 
   const history = useNavigate ();
-
+  const { schoolId } = useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
     const [address, setAddress] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
     const [schoolid, setSchoolId] = useState('');
     const [image, setImage] = useState(null);
 
@@ -26,28 +27,18 @@ function Subadmin() {
     function generateRandomPassword(length) {
       const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
       let password = '';
-    
       for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * charset.length);
         password += charset.charAt(randomIndex);
       }
-    
       return password;
     }
-    
-    const [data, setData] = useState([]);
     useEffect(() => {
       fetchData();  
     },[]);
       const fetchData = async () => {
           try {
-              const response = await axios.get('http://localhost:5000/allSchool');
-              setData(response?.data?.data);
-              
-              const password = generateRandomPassword(12);
-              setPassword(password);
-              console.log('Generated Password:', password);
-
+              console.log('sub Admin School Id ',schoolId);
           } catch (error) {
               console.error(error);
           }
@@ -62,8 +53,8 @@ function Subadmin() {
         formData.append('contact', contact);
         formData.append('address', address);
         formData.append('email', email);
-        formData.append('password', password);
-        formData.append('schoolid',schoolid);
+        formData.append('username', username);
+        formData.append('schoolid',schoolId);
         formData.append('picurl', image);
 
         try {
@@ -112,6 +103,13 @@ function Subadmin() {
               </label>
               <br />
               <label>
+                Username:
+                <input type="text" value={username} onChange={(e)=>{
+                    setUsername(e.target.value);
+                }} />
+              </label>
+              <br />
+              <label>
                 Email:
                 <input
                   type="email"
@@ -120,19 +118,6 @@ function Subadmin() {
                     setEmail(e.target.value);
                   }}
                 />
-              </label>
-              <br />
-              <label>
-                School Name: <br/>
-                <select value={schoolid}  className="form-control" onChange={(e)=>{
-                  setSchoolId(e.target.value);
-                }}>
-                   {data.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.name}
-                      </option>
-                    ))}
-                </select>
               </label>
               <br />
               <label>

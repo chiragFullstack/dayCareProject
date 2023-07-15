@@ -60,6 +60,9 @@ function Schoollist() {
                           <td>
                             <input type="button" className="btn btn-danger" 
                             onClick={(e)=> deleteSchool(item.id)} value="delete" />
+                            
+                            <Link to={`/Schooldetails/${item.id}`} className="btn btn-success"> Add Features </Link>
+                            
                             <Link to={`/Editschool/${item.id}`} className="btn btn-success"> Edit </Link>
                            </td>
                         </tr>

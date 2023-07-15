@@ -1,10 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
+import ContextData from '../../Context/ContextData';
+
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavigate } from 'react-router-dom';
 
 function EditSubadmin() {
-
+  
+  const { schoolId } = useContext(ContextData);
+  
     const history = useNavigate ();
     const {id}=useParams("");
 
@@ -15,6 +19,7 @@ function EditSubadmin() {
     const [password, setPassword] = useState('');
     const [schoolid, setSchoolId] = useState('');
     const [image, setImage] = useState(null);
+    const [username, setUsername] = useState('');
     const [data, setData] = useState([]);
     const [schooldata, setSchoolData] = useState([]);
     useEffect(() => {
@@ -22,21 +27,18 @@ function EditSubadmin() {
     },[]);
       const fetchData = async () => {
           try {
+              console.log('edit sub admin',schoolId);
               const response = await axios.get(`http://localhost:5000/api/subadmin/getSubadminById/${id}`);
               console.log(response?.data?.data);
               setData(response?.data?.data);
               setName(response?.data?.data[0].name);
               setContact(response?.data?.data[0].contact);
               setAddress(response?.data?.data[0].address);
+              setUsername(response?.data?.data[0].username);
               setEmail(response?.data?.data[0].email);
               setPassword(response?.data?.data[0].password);
-              setSchoolId(response?.data?.data[0].schoolid);
+              setSchoolId(schoolId);
               setImage(response?.data?.data[0].picurl);
-
-            const res =  await axios.get('http://localhost:5000/allSchool');
-            console.log("all School Data ",res?.data?.data);
-            setSchoolData(res?.data?.data);
-
           } catch (error) {
               console.error(error);
           }
@@ -44,19 +46,19 @@ function EditSubadmin() {
 
       const handleSubmit =async (event) => {
         event.preventDefault();
-
+        console.log('edit sub admin----',schoolId);
         //here we need to call the API to post the data to the backend server 
         const formData = new FormData();
         formData.append('name', name);
         formData.append('contact', contact);
         formData.append('address', address);
         formData.append('email', email);
+        formData.append('username', username);
         formData.append('password', password);
-        formData.append('schoolid',schoolid);
-        formData.append('picurl', image);
-
+        formData.append('schoolId',schoolId);
+        formData.append('picurl', image);  
         try {
-          const response = await axios.post('http://localhost:5000/api/subadmin/addSubadmin', formData, {
+          const response = await axios.put(`http://localhost:5000/api/subadmin/editSubadmin/${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -100,6 +102,13 @@ function EditSubadmin() {
               </label>
               <br />
               <label>
+                Username:
+                <input type="text" value={username} onChange={(e)=>{
+                    setUsername(e.target.value);
+                }} />
+              </label>
+              <br />
+              <label>
                 Email:
                 <input
                   type="email"
@@ -109,19 +118,7 @@ function EditSubadmin() {
                   }}
                 />
               </label>
-              <br />
-              <label>
-                School Name: <br/>
-                <select value={schoolid}  className="form-control" onChange={(e)=>{
-                  setSchoolId(e.target.value);
-                }}>
-                   {schooldata.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.name}
-                      </option>
-                    ))}
-                </select>
-              </label>
+             
               <br />
               <label>
                 Image:

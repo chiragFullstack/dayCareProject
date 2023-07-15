@@ -9,7 +9,19 @@ body {
 .container-fluid, .login{
   text-align: center;
 }
-
+.fullWidth{
+  width: 100% !important;;
+}
+.section{
+  border:1px solid #3B99FC;
+  height:150px;
+  padding:30px;
+  text-align: center;
+  background-color: blue;
+  color:white;
+  font-size:20px;
+  border-radius: 5px;
+}
 .navMenu{
   background-color:green;
 }

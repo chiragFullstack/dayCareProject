@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState } from 'react'
+import { useEffect, useState,React } from 'react'
+
 import 'bootstrap/dist/css/bootstrap.css';
 import SuperAdminLogin from './superAdmin/SuperAdminLogin';
 import Dashboard from './superAdmin/Dashboard/Dashboard';
@@ -20,10 +21,18 @@ import EditSubadmin from './superAdmin/Dashboard/Subadmin/EditSubadmin';
 import Allclaimedservice from './superAdmin/Dashboard/Claimedservice/Allclaimedservice';
 import Claimnewservice from './superAdmin/Dashboard/Claimedservice/Claimnewservice';
 import Editclaimservice from './superAdmin/Dashboard/Claimedservice/Editclaimservice';
+import Roomlist from './superAdmin/Dashboard/Addroom/Roomlist';
+import Addroom from './superAdmin/Dashboard/Addroom/Addroom';
+import EditRoom from './superAdmin/Dashboard/Addroom/EditRoom';
+import Schooldetails from './superAdmin/Dashboard/School/Schooldetails';
+import ContextData from './superAdmin/Context/ContextData';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
   
+  const [schoolId, setSchoolId] = useState("");
+
+
   // useEffect=()=>{
   //     if(localStorage.getItem('userType')=='superAdmin'){
   //         setloginDashboard('visible');
@@ -33,6 +42,7 @@ function App() {
   // }
   return (
     <>
+     
     <nav className="navbar navbar-expand-sm">
       <div className="container-fluid">
         <a className="navbar-brand logo">
@@ -67,17 +77,23 @@ function App() {
         </div>
       </div>
     </nav>
+   
+<ContextData.Provider value={{ schoolId, setSchoolId }}>
     <Router>
         <Routes>
           <Route path="/" element={<Home/>}/>
           <Route path="/Superlogin" element={<SuperAdminLogin/>}/>
           <Route path='/Staff' element={<Staff/>}/>
-          <Route path='/AddSchool' element={<AddSchool/>}/>
+
           <Route path='/AddClass' element={<Addclass/>}/>
-          <Route path='/Editschool/:id' element={<Editschool/>}/>
           <Route path="/Dashboard" element={<Dashboard/>}/>
           
           <Route path="/Schoollist" element={<Schoollist/>}/>
+          <Route path='/AddSchool' element={<AddSchool/>}/>
+          <Route path='/Editschool/:id' element={<Editschool/>}/>
+          <Route path='/Schooldetails/:id' element={<Schooldetails/>}/>
+         
+
           <Route path="/Servicelist" element={<Servicelist/>}/>
           <Route path="/Addservice" element={<AddService/>}/>
           <Route path='/EditService/:id' element={<EditService/>}/>
@@ -89,9 +105,16 @@ function App() {
           <Route path="/Allclaimedservice" element={<Allclaimedservice/>}/>
           <Route path="/Claimnewservice" element={<Claimnewservice/>}/>
           <Route path="/Editclaimservice/:id" element={<Editclaimservice/>}/>
+
+
+          <Route path="/AllRoom" element={<Roomlist/>}/>
+          <Route path="/Addroom" element={<Addroom/>}/>
+          <Route path="/EditRoom/:id" element={<EditRoom/>}/>
+
+
         </Routes>
       </Router>
-
+    </ContextData.Provider>
     </>
     );
 }
