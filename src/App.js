@@ -26,6 +26,13 @@ import Addroom from './superAdmin/Dashboard/Addroom/Addroom';
 import EditRoom from './superAdmin/Dashboard/Addroom/EditRoom';
 import Schooldetails from './superAdmin/Dashboard/School/Schooldetails';
 import ContextData from './superAdmin/Context/ContextData';
+import Parentlist from './superAdmin/Dashboard/Parent/Parentlist';
+import AddParent from './superAdmin/Dashboard/Parent/AddParent';
+import EditParent from './superAdmin/Dashboard/Parent/EditParent';
+import ParentDetails from './superAdmin/Dashboard/Parent/ParentDetails';
+import StaffList from './superAdmin/Dashboard/Staff/StaffList';
+import AddStaff from './superAdmin/Dashboard/Staff/AddStaff';
+import EditStaff from './superAdmin/Dashboard/Staff/EditStaff';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -111,6 +118,15 @@ function App() {
           <Route path="/Addroom" element={<Addroom/>}/>
           <Route path="/EditRoom/:id" element={<EditRoom/>}/>
 
+
+          <Route path="/AllParent" element={<Parentlist/>}/>
+          <Route path="/AddParent" element={<AddParent/>}/>
+          <Route path="/EditParent/:id" element={<EditParent/>}/>
+          <Route path="/ParentDetails/:id" element={<ParentDetails/>}/>
+
+          <Route path="/AllStaff" element={<StaffList/>}/>
+          <Route path="/AddStaff" element={<AddStaff/>}/>
+          <Route path="/EditStaff/:id" element={<EditStaff/>}/>
 
         </Routes>
       </Router>
