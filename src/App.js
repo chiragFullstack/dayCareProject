@@ -33,12 +33,16 @@ import ParentDetails from './superAdmin/Dashboard/Parent/ParentDetails';
 import StaffList from './superAdmin/Dashboard/Staff/StaffList';
 import AddStaff from './superAdmin/Dashboard/Staff/AddStaff';
 import EditStaff from './superAdmin/Dashboard/Staff/EditStaff';
+import Childlist from './superAdmin/Dashboard/Child/Childlist';
+import Addchild from './superAdmin/Dashboard/Child/Addchild';
+import Editchild from './superAdmin/Dashboard/Child/Editchild';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
   
   const [schoolId, setSchoolId] = useState("");
 
+  const [parentId, setParentId] = useState("");
 
   // useEffect=()=>{
   //     if(localStorage.getItem('userType')=='superAdmin'){
@@ -85,7 +89,7 @@ function App() {
       </div>
     </nav>
    
-<ContextData.Provider value={{ schoolId, setSchoolId }}>
+<ContextData.Provider value={{ schoolId, setSchoolId,parentId,setParentId }}>
     <Router>
         <Routes>
           <Route path="/" element={<Home/>}/>
@@ -127,6 +131,10 @@ function App() {
           <Route path="/AllStaff" element={<StaffList/>}/>
           <Route path="/AddStaff" element={<AddStaff/>}/>
           <Route path="/EditStaff/:id" element={<EditStaff/>}/>
+
+          <Route path="/Allchild" element={<Childlist/>}/>
+          <Route path="/Addchild" element={<Addchild/>}/>
+          <Route path="/Editchild/:id" element={<Editchild/>}/>
 
         </Routes>
       </Router>

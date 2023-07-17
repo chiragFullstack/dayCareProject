@@ -7,12 +7,12 @@ import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavi
 function ParentDetails() {
     const history = useNavigate ();
     const {id}=useParams("");
-    const { schoolId, setSchoolId } = useContext(ContextData);
-
+    const { schoolId, setSchoolId,parentId,setParentId } = useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
     const [email, setEmail] = useState('');
-    
+    setParentId(id);
+   console.log('parent_Id',parentId);
       //when the page or event is loaded then this method will automatically called 
       useEffect(() => {
         fetchData();  
@@ -20,15 +20,11 @@ function ParentDetails() {
 
       const fetchData = async () => {
         try {
-         setSchoolId(id);
-        console.log('school_Id',id);
-
           const response = await axios.get(`http://localhost:5000/api/Parent/ParentById/${id}`);
           console.log(response.data.data);
             setName(response?.data?.data[0].name);
             setContact(response?.data?.data[0].contact);
-            setEmail(response?.data?.data[0].email);
-            
+            setEmail(response?.data?.data[0].email);   
         } catch (error) {
           console.error(error);
         }
@@ -44,9 +40,8 @@ function ParentDetails() {
                 <p>Contact: {contact}</p>
                 <p>Email: {email}</p>
           </div>
-          <Link to={`/SubadminList`} className="section m-3"> Manage Sub Admin </Link>
-          <Link to={`/AllRoom`} className="section m-3"> Manage Rooms </Link>
-          <Link to={`/AllParent`} className="section m-3"> Manage Parent  </Link>
+          <br/><br/>
+          <Link to={`/Allchild`} className="section m-3"> Manage Child </Link>
           </div>
           <div>
         

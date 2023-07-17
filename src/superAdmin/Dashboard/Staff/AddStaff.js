@@ -48,8 +48,8 @@ function AddStaff() {
             formData.append('schoolId',schoolId);
             formData.append('classId',classId);
             formData.append('logo', image);
-            formData.append('userName', username);
-            
+            formData.append('username', username);
+
             try {
                 const response = await axios.post('http://localhost:5000/api/staff/addStaff', formData, {
                   headers: {

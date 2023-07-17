@@ -39,7 +39,6 @@ function AddParent() {
             formData.append('email', email);
             formData.append('username', username);
             formData.append('schoolId',schoolId);
-
             try {
             const response = await axios.post('http://localhost:5000/api/Parent/addParent', formData, {
                 headers: {
