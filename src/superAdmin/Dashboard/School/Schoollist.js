@@ -2,6 +2,10 @@ import React, { useState,useEffect } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
+import add from '../../../Assets/add.png';
+import edit from '../../../Assets/edit.png';
+import del from '../../../Assets/delete.png';
+import more from '../../../Assets/more.png';
 
 
 function Schoollist() {
@@ -15,7 +19,7 @@ function Schoollist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/allSchool');
+        const response = await axios.get('https://daycare-tas4.onrender.com/api/School/allSchool');
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -24,7 +28,9 @@ function Schoollist() {
     };
   async function deleteSchool(id){
     console.log(id);
-    await axios.delete(`http://localhost:5000/deleteSchool/${id}`);
+    const res=await axios.delete(`https://daycare-tas4.onrender.com/api/School/deleteSchool?id=${id}`);
+   //const res=await axios.delete(`http://localhost:5000/api/School/deleteSchool?id=${id}`);
+   console.log(res);
     fetchData();  
    }
   return (
@@ -37,11 +43,11 @@ function Schoollist() {
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/AddSchool`} className="btn btn-primary"> Add School </Link>
+          <Link to={`/AddSchool`} className="icon"> <img src={add}/> </Link>
           <br/><br/>
             <div className="allRecord">
                  <h1>View All School</h1> 
-                 <table className="table table-border">
+                 <table className="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -58,12 +64,13 @@ function Schoollist() {
                           <td>{item.name}</td>
                           <td>{item.email}</td>
                           <td>
-                            <input type="button" className="btn btn-danger" 
-                            onClick={(e)=> deleteSchool(item.id)} value="delete" />
+                            {/* <input type="button" className="btn btn-danger" 
+                             value="delete" /> */}
+                            <Link to={`/Editschool?id=${item.id}`} > <img src={edit}/> </Link>
+                            <span onClick={(e)=> deleteSchool(item.id)}><img src={del}/> </span>
+                            <Link to={`/Schooldetails?id=${item.id}`} > <img src={more}/> </Link>
                             
-                            <Link to={`/Schooldetails/${item.id}`} className="btn btn-success"> Add Features </Link>
                             
-                            <Link to={`/Editschool/${item.id}`} className="btn btn-success"> Edit </Link>
                            </td>
                         </tr>
                       )):(

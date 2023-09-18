@@ -1,12 +1,17 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
+import ContextData from '../../Context/ContextData';
+import add from '../../../Assets/add.png';
+import edit from '../../../Assets/edit.png';
+import del from '../../../Assets/delete.png';
 
 function Allclaimedservice() {
   const history = useNavigate ();
   //get all entries so we can show the record 
+  const { schoolId } = useContext(ContextData);
   const [data, setData] = useState([]);
   const [status,setStatus]=useState('');
   //when the page or event is loaded then this method will automatically called 
@@ -15,7 +20,7 @@ function Allclaimedservice() {
   },[]);
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/claimedService/claimedServiceList');
+      const response = await axios.get(`https://daycare-tas4.onrender.com/api/claimedService/getClaimServiceBySchoolId?id=${schoolId}`);
       setData(response?.data?.data);
       console.log(response.data.data);
     } catch (error) {
@@ -24,7 +29,7 @@ function Allclaimedservice() {
   };
 async function deleteService(id){
   console.log(id);
-  await axios.delete(`http://localhost:5000/api/claimedService/deleteService/${id}`);
+  await axios.delete(`https://daycare-tas4.onrender.com/api/claimedService/deleteService?id=${id}`);
   fetchData();  
  }
 
@@ -34,7 +39,7 @@ async function deleteService(id){
   const form_Data = new FormData();
   form_Data.append('status', status);
   try {
-    const response = await axios.put(`http://localhost:5000/api/claimedService/deactivateService/${id}`, form_Data, {
+    const response = await axios.put(`https://daycare-tas4.onrender.com/api/claimedService/deactivateService?id=${id}`, form_Data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -62,11 +67,11 @@ async function deleteService(id){
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Claimnewservice`} className="btn btn-primary"> Claim New Service  </Link>
+          <Link to={`/Claimnewservice`} > <img src={add}/>   </Link>
           <br/><br/>
             <div className="allRecord">
                  <h1>View All Claimed Service</h1> 
-                 <table className="table table-border">
+                 <table className="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -89,13 +94,17 @@ async function deleteService(id){
                           }</td>
                           <td>{item.status}</td>
                           <td>
-                            <input type="button" className="btn btn-danger" 
-                            onClick={(e)=> deleteService(item.id)} value="delete" />
+                            {/* <input type="button" className="btn btn-danger" 
+                            onClick={(e)=> deleteService(item.id)} value="delete" /> */}
+                            <span onClick={(e)=> deleteService(item.id)}>
+                                <img src={del}/>
+                            </span>
+                            
 
                             <input type="button" className="btn btn-danger" 
                             onClick={(e)=> deactivateService(item.id,(item.status=="Activate"?"Deactivate":"Activate"))} value={(item.status=="Activate"?"Deactivate":"Activate")} />
                             
-                            <Link to={`/Editclaimservice/${item.id}`} className="btn btn-success"> Edit Details </Link>
+                            <Link to={`/Editclaimservice/${item.id}`} > <img src={edit}/> </Link>
                            </td>
                         </tr>
                       )):(

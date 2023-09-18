@@ -33,14 +33,14 @@ function Editclaimservice() {
       const fetchData = async () => {
         try {
             //get all school name and id
-            const response = await axios.get('http://localhost:5000/allSchool');
+            const response = await axios.get('https://daycare-tas4.onrender.com/allSchool');
             setSchoolData(response?.data?.data);
             
             //get all service and id
-            const res = await axios.get('http://localhost:5000/api/service/allService');
+            const res = await axios.get('https://daycare-tas4.onrender.com/api/service/allService');
             setServiceData(res?.data?.data);
             
-            const resp = await axios.get(`http://localhost:5000/api/claimedService/ServiceById/${id}`);
+            const resp = await axios.get(`https://daycare-tas4.onrender.com/api/claimedService/ServiceById/${id}`);
             console.log(resp?.data?.data);
 
             setObtainingDate( formatDate(resp?.data?.data[0].obtainingdate));
@@ -62,7 +62,7 @@ function Editclaimservice() {
         form_Data.append('obtainingdate', obtainingdate);
         
         try {
-          const response = await axios.put(`http://localhost:5000/api/claimedService/editClaimedService/${id}`, form_Data, {
+          const response = await axios.put(`https://daycare-tas4.onrender.com/api/claimedService/editClaimedService/${id}`, form_Data, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

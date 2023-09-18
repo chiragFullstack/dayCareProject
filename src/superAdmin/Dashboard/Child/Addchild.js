@@ -5,8 +5,9 @@ import { BrowserRouter as Router, Routes, Route, NavLink,useNavigate, Link } fro
 import ContextData from '../../Context/ContextData';
 
 function Addchild() {
-    const {schoolId,parentId}=useContext(ContextData);
 
+    const {schoolId,parentId}=useContext(ContextData);
+    
     const history = useNavigate ();
 
     const [data,setData]=useState([]);
@@ -20,14 +21,15 @@ function Addchild() {
 
     const fetchData = async () => {
         try {
+          console.log('sub Admin School Id ',schoolId,'---',parentId);
             if(schoolId=="" || parentId==""){
                 history('/AllChild');
             }else{
-                const response = await axios.get(`http://localhost:5000/api/staff/getRoombySchool/${schoolId}`);
+                const response = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(response.data.data);
                 setData(response?.data?.data);
             }
-            console.log('sub Admin School Id ',schoolId,'---',parentId);
+            
         } catch (error) {
             console.error(error);
         }
@@ -45,7 +47,7 @@ function Addchild() {
         formData.append('parentid',parentId);
         formData.append('logo', image);
         try {
-            const response = await axios.post('http://localhost:5000/api/student/addStudent', formData, {
+            const response = await axios.post('https://daycare-tas4.onrender.com/api/student/addStudent', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

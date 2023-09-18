@@ -1,6 +1,6 @@
-import React from 'react'
+import  { useState,useEffect,useContext,React  } from "react";
 import './dashboard.css';
-
+import ContextData from '../Context/ContextData';
 import {
     BrowserRouter as Router,
     Routes,
@@ -12,6 +12,8 @@ import {
 import Leftmenu from './Leftmenu';
 
 function Dashboard() {
+  const { loginType } = useContext(ContextData);
+
   return (
     <>
 <div className="maiv-div-box">
@@ -20,6 +22,7 @@ function Dashboard() {
         </div>   
         <div className="right-box">
             <div className="db-content-display">
+
             </div>
         </div> 
     </div>

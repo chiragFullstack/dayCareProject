@@ -1,11 +1,16 @@
 
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
+import ContextData from "../../Context/ContextData";
+import add from '../../../Assets/add.png';
+import edit from '../../../Assets/edit.png';
+import del from '../../../Assets/delete.png';
+import more from '../../../Assets/more.png';
 
 function Parentlist() {
-    
+  const {schoolId}= useContext(ContextData);
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
     
@@ -16,16 +21,17 @@ function Parentlist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/Parent/allParent');
-        setData(response?.data?.data);
-        console.log(response.data.data);
+        const response = await axios.get(`https://daycare-tas4.onrender.com/api/parent/allParent?id=${schoolId}`);
+        setData(response?.data?.data?.parent);
+        console.log(response?.data?.data.parent);
+        console.log('---',data);
       } catch (error) {
         console.error(error);
       }
     };
     async function deleteParent(id){
         console.log(id);
-        await axios.delete(`http://localhost:5000/api/Parent/deleteParent/${id}`);
+        await axios.delete(`https://daycare-tas4.onrender.com/api/Parent/deleteParent?id=${id}`);
         fetchData();  
     }
    return (
@@ -38,11 +44,11 @@ function Parentlist() {
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/AddParent`} className="btn btn-primary"> Add Parent </Link>
+          <Link to={`/AddParent`} > <img src={add}/></Link>
           <br/><br/>
             <div className="allRecord">
                  <h1>View All Parents</h1> 
-                 <table className="table table-border">
+                 <table className="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -63,15 +69,18 @@ function Parentlist() {
                           <td>{item.contact}</td>
                           <td>{item.email}</td>
                           <td>{item.username}</td>
-                          <td>{item.schoolid}</td>
+                          <td>{schoolId}</td>
                           <td>
-                            <input type="button" className="btn btn-danger" 
-                            onClick={(e)=> deleteParent(item.id)} value="delete" />
-                            
-                            <Link to={`/ParentDetails/${item.id}`} className="btn btn-success"> View All Details </Link>
-                            
-                            <Link to={`/EditParent/${item.id}`} className="btn btn-success"> Edit </Link>
-                           </td>
+                            {/* <input type="button" className="btn btn-danger" 
+                            onClick={(e)=> deleteParent(item.id)} value="delete" /> */}                           
+                             <Link to={`/EditParent?id=${item.id}`}> <img src={edit}/> </Link>
+                         
+                         
+                            <span onClick={(e)=> deleteParent(item.id)}>
+                                <img src={del}/>
+                            </span>
+                            <Link to={`/ParentDetails?id=${item.id}`}><img src={more}/> </Link>
+                            </td>
                         </tr>
                       )):(
                       <tr>

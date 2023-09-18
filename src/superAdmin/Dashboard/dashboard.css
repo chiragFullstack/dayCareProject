@@ -1,7 +1,18 @@
-
+.login{
+    height: 100vh;
+    width: 100%;
+    background-color: #efffff5e;
+    z-index: 9;
+    position: relative;
+}
 .maiv-div-box {
     display: flex;
     gap: 25px;
+    margin: 110px 30px 30px;
+    height: calc(100vh - 140px);
+}
+.section img{
+    margin-left: -13px !important;
 }
 .sidebar{
   width: 300px;
@@ -25,7 +36,9 @@
 .sidebar::-webkit-scrollbar-thumb, .db-content-display::-webkit-scrollbar-thumb {
     background-color: #00204e;
   }
-
+.card-body img{
+    margin:5px;
+}
 .logo {
     font-size: 30px;
     font-weight: 700;
@@ -63,59 +76,100 @@
     fill: #fff;
 }
 .right-box{
-    width: calc(100% - 365px);
+    width: calc(100% - 300px);
 }
 .topbar, .navbar{
     width: 100%;
     background-color: #fff;
-    border-radius: 20px;
     border: 3px solid #e4f1ff;
-    box-shadow: 0  0 10px #a4d1ff81;
-    padding: 15px 20px;
-    margin-bottom: 25px;
+    padding: 10px 10px;
+    position:absolute;
+    top:0px;
+    z-index: 8;
 }
-.db-content-display {
+.title-login {
+    font-size: 24px;
+    color: #04070c;
+}
+
+.db-content-display, .db-content-display-login {
     width: 100%;
     background-color: #fff;
-    border-radius: 20px;
-    border: 3px solid #e4f1ff;
-    box-shadow: 0  0 10px #a4d1ff81;
-    padding: 20px;
-    height: calc(100vh - 141px);
-    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #d7d7d733;
+    padding: 30px;
+}
+.db-content-display-login {
+    width: 450px;
 }
 
 /* forms */
-
-.db-content-display label {
+h1.login-heading{
+    font-size: 20px;
+    color: #04070c;
+    text-align: left;
+}
+.db-content-display label, .db-content-display-login label {
     color: #565656;
     font-weight: 500;
     width: 100%;
     padding-top: 8px;
+    text-align: left;
 }
 
-.db-content-display form {
-    padding: 5px 20px 20px;
-}
-.db-content-display input {
+.db-content-display input, .db-content-display-login input {
     width: 100%;
     min-height: 45px;
     border-radius: 10px;
-    border: 1px solid #a6cbff;
-    box-shadow: 0  0 5px #0000000c;
     margin-top: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 7px;
+    padding-left:15px;
+    border: 1px solid #e1e5e8;
+    background-color: #ebf2f8;
 }
 .db-content-display label:nth-child(15) input {
     border: none !important;
     border-radius: 0;
 }
-.db-content-display .btn {
-    background: #00204e;
-    border-radius: 20px;
-    padding: 8px 40px;
-    border: 1px solid #00204e;
-    font-weight: 500;
+.db-content-display img {
+    border:0px solid black;
+    display: inline-block;
+    padding:5px;
+}
+.db-content-display .icon{
+    text-align: right;
+}
+.db-content-display .btn, .db-content-display-login .btn, .five-school-btn a {
+    background:#35bfbf;
+    border-radius: 10px;
+    width:100%;
+    border: 1px solid #35bfbf;
+    font-size: 16px !important;
+    margin: 20px 0;
+}
+.five-school-btn a {
+    width: 18.5%;
+    text-align: center;padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 0 10px; 
+}
+.db-content-display .school-detail-sec img {
+    padding: 0 8px 0 0;
+}
+.school-detail-sec h5{
+    font-size: 28px;
+    text-transform: capitalize;
+    border-bottom: 1px solid #e3e3e3;
+    padding-bottom: 20px;
+}
+.five-school-btn a img {
+    height: 30px;
+    padding: 0 5px;
 }
 .db-content-display .btn:hover {
     color: #00204e;
@@ -123,4 +177,43 @@
 }
 p.logo.pb-2, hr{
     display: none;
+}
+@media (max-width: 1240px) {
+    
+    .five-school-btn {
+        justify-content: flex-start !important;
+        gap: 1.25%;
+    }
+    .five-school-btn a {
+        width: 32.5%;
+    }
+}
+@media (max-width: 768px) {
+    .five-school-btn a {
+        width: 49%;
+    }
+    .right-box {
+        width: 100%;
+    }
+    .sidebar{
+        position: absolute;
+        left: -100%;
+    }
+}
+
+.messagearea{
+    border:1px solid red;
+    height:100vh;
+    width:100%;
+}
+.left_side{
+    height:100vh;
+}
+.allMessages{
+    height:400px;
+    width:100%;
+    overflow: scroll;
+}
+.chat-message{
+    border: 1px solid red;
 }

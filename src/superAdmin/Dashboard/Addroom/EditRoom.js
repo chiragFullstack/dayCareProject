@@ -7,9 +7,12 @@ import ContextData from "../../Context/ContextData";
 function EditRoom() {
   
     const {schoolId}=useContext(ContextData);
-
-    const {id}=useParams("");
-    const [_id, setId] = useState('');
+    const urlSearchParams = new URLSearchParams(window.location.search);
+        // Get the value of the "id" variable
+        const Sid = urlSearchParams.get('id');
+      
+    
+    const [id, setId] = useState('');
 
     const history = useNavigate ();
     const [name, setName] = useState('');
@@ -22,7 +25,9 @@ function EditRoom() {
 
       const fetchData = async () => {
           try {
-              const Roomresponse = await axios.get(`http://localhost:5000/api/room/roomById/${id}`);
+            console.log(' edit room school Id',Sid);
+            setId(Sid);
+              const Roomresponse = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomById?id=${Sid}`);
               console.log(Roomresponse);
               setName(Roomresponse?.data?.data[0].name);
               setDescription(Roomresponse?.data?.data[0].description);     
@@ -41,7 +46,7 @@ function EditRoom() {
         formData.append('schoolId', schoolId);
         formData.append('description', description);
         try {
-          const response = await axios.put(`http://localhost:5000/api/room/editroom/${id}`,formData);
+          const response = await axios.put(`https://daycare-tas4.onrender.com/api/room/editroom?id=${id}`,formData);
           console.log(response.data);
         } catch (error) {
           console.error(error);

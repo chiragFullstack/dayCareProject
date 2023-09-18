@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState,React } from 'react'
 
 import 'bootstrap/dist/css/bootstrap.css';
-import SuperAdminLogin from './superAdmin/SuperAdminLogin';
+
 import Dashboard from './superAdmin/Dashboard/Dashboard';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
 import Home from './superAdmin/Home';
@@ -36,6 +36,17 @@ import EditStaff from './superAdmin/Dashboard/Staff/EditStaff';
 import Childlist from './superAdmin/Dashboard/Child/Childlist';
 import Addchild from './superAdmin/Dashboard/Child/Addchild';
 import Editchild from './superAdmin/Dashboard/Child/Editchild';
+import AdminLogin from './superAdmin/AdminLogin';
+import SelectChild from './superAdmin/Dashboard/Report/SelectChild';
+import Addreport from './superAdmin/Dashboard/Report/Addreport';
+import SearchReport from './superAdmin/Dashboard/Report/SearchReport';
+import Childattendence from './superAdmin/Dashboard/Attendence/Childattendence';
+import Attendencereport from './superAdmin/Dashboard/Attendence/Attendencereport';
+import NoticeList from './superAdmin/Dashboard/Notice/NoticeList';
+import AddNotes from './superAdmin/Dashboard/Notice/AddNotes';
+import ChatRoomid from './superAdmin/Dashboard/chat/ChatRoomid';
+import Message from './superAdmin/Dashboard/chat/Message';
+import SendVideo from './superAdmin/Dashboard/chat/SendVideo';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -44,17 +55,14 @@ function App() {
 
   const [parentId, setParentId] = useState("");
 
-  // useEffect=()=>{
-  //     if(localStorage.getItem('userType')=='superAdmin'){
-  //         setloginDashboard('visible');
-  //     }else{
-  //       setloginDashboard('hidden');
-  //     }
-  // }
+  const [loginType, setLoginType] = useState("");
+
+  const [principalId, setPrincipalId] = useState("");
+
+  
   return (
     <>
-     
-    <nav className="navbar navbar-expand-sm">
+<nav className="navbar navbar-expand-sm">
       <div className="container-fluid">
         <a className="navbar-brand logo">
           Day Care Services 
@@ -68,32 +76,13 @@ function App() {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="mynavbar">
-          <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-            <a className="nav-link">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-            <a className="nav-link" >
-                Link
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" >
-                Link
-              </a>
-            </li>
-          </ul>
         </div>
       </div>
     </nav>
-   
-<ContextData.Provider value={{ schoolId, setSchoolId,parentId,setParentId }}>
+<ContextData.Provider value={{loginType, setLoginType, schoolId, setSchoolId,parentId,setParentId,principalId,setPrincipalId }}>
     <Router>
         <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/Superlogin" element={<SuperAdminLogin/>}/>
+          <Route path="/" element={<AdminLogin/>}/>
           <Route path='/Staff' element={<Staff/>}/>
 
           <Route path='/AddClass' element={<Addclass/>}/>
@@ -101,41 +90,57 @@ function App() {
           
           <Route path="/Schoollist" element={<Schoollist/>}/>
           <Route path='/AddSchool' element={<AddSchool/>}/>
-          <Route path='/Editschool/:id' element={<Editschool/>}/>
-          <Route path='/Schooldetails/:id' element={<Schooldetails/>}/>
+          <Route path='/Editschool' element={<Editschool/>}/>
+          <Route path='/Schooldetails' element={<Schooldetails/>}/>
          
 
           <Route path="/Servicelist" element={<Servicelist/>}/>
           <Route path="/Addservice" element={<AddService/>}/>
-          <Route path='/EditService/:id' element={<EditService/>}/>
+          <Route path='/EditService' element={<EditService/>}/>
 
           <Route path="/SubadminList" element={<SubadminList/>}/>
           <Route path='/SubAdmin' element={<Subadmin/>}/>
-          <Route path='/EditSubadmin/:id' element={<EditSubadmin/>}/>
+          <Route path='/EditSubadmin' element={<EditSubadmin/>}/>
 
           <Route path="/Allclaimedservice" element={<Allclaimedservice/>}/>
           <Route path="/Claimnewservice" element={<Claimnewservice/>}/>
-          <Route path="/Editclaimservice/:id" element={<Editclaimservice/>}/>
+          <Route path="/Editclaimservice" element={<Editclaimservice/>}/>
 
 
           <Route path="/AllRoom" element={<Roomlist/>}/>
           <Route path="/Addroom" element={<Addroom/>}/>
-          <Route path="/EditRoom/:id" element={<EditRoom/>}/>
+          <Route path="/EditRoom" element={<EditRoom/>}/>
 
 
           <Route path="/AllParent" element={<Parentlist/>}/>
           <Route path="/AddParent" element={<AddParent/>}/>
-          <Route path="/EditParent/:id" element={<EditParent/>}/>
-          <Route path="/ParentDetails/:id" element={<ParentDetails/>}/>
+          <Route path="/EditParent" element={<EditParent/>}/>
+          <Route path="/ParentDetails" element={<ParentDetails/>}/>
 
           <Route path="/AllStaff" element={<StaffList/>}/>
           <Route path="/AddStaff" element={<AddStaff/>}/>
-          <Route path="/EditStaff/:id" element={<EditStaff/>}/>
+          <Route path="/EditStaff" element={<EditStaff/>}/>
 
           <Route path="/Allchild" element={<Childlist/>}/>
           <Route path="/Addchild" element={<Addchild/>}/>
-          <Route path="/Editchild/:id" element={<Editchild/>}/>
+          <Route path="/Editchild" element={<Editchild/>}/>
 
+          <Route path="/selectChild" element={<SelectChild/>}/>
+          <Route path="/addReport" element={<Addreport/>}/>
+          <Route path="/searchReport" element={<SearchReport/>}/>
+
+
+          <Route path="/childAttendence" element={<Childattendence/>}/>
+          <Route path="/attendenceReport" element={<Attendencereport/>}/>
+
+
+          <Route path="/noticeList" element={<NoticeList/>}/>
+          <Route path="/addNotes" element={<AddNotes/>}/>
+
+
+          <Route path="/chatroomlist" element={<ChatRoomid/>}/>
+          <Route path="/message" element={<Message/>}/>
+          <Route path="/video" element={<SendVideo/>}/>
         </Routes>
       </Router>
     </ContextData.Provider>

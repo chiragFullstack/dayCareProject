@@ -29,7 +29,7 @@ function AddStaff() {
       },[]);
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/staff/getRoombySchool/${schoolId}`);
+                const response = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(response.data.data);
                 setData(response.data.data);
             } catch (error) {
@@ -47,11 +47,11 @@ function AddStaff() {
             formData.append('designation', designation);
             formData.append('schoolId',schoolId);
             formData.append('classId',classId);
-            formData.append('logo', image);
+            formData.append('picUrl', image);
             formData.append('username', username);
 
             try {
-                const response = await axios.post('http://localhost:5000/api/staff/addStaff', formData, {
+                const response = await axios.post('https://daycare-tas4.onrender.com/api/staff/addStaff', formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data',
                   },
@@ -125,19 +125,6 @@ function AddStaff() {
                 <input type="text" value={username} onChange={(e)=>{
                     setUsername(e.target.value);
                 }} />
-              </label>
-              
-              <br />
-              <label>
-                Image:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e)=>{
-                    const selectedImage = e.target.files[0];
-                    setImage(selectedImage);
-                  }}
-                />
               </label>
               <br />
               <button type="submit" className='btn btn-primary'>Submit</button>

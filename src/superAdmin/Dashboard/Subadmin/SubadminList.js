@@ -3,7 +3,9 @@ import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import ContextData from '../../Context/ContextData';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
-
+import add from '../../../Assets/add.png';
+import edit from '../../../Assets/edit.png';
+import del from '../../../Assets/delete.png';
 
 function SubadminList() {
     //get all entries so we can show the record 
@@ -16,7 +18,7 @@ function SubadminList() {
 
     const fetchData = async () => {
     try {
-        const response = await axios.get('http://localhost:5000/api/subadmin/subadminlist');
+        const response = await axios.get('https://daycare-tas4.onrender.com/api/subadmin/subadminlist');
         setData(response?.data?.data);
         console.log(response.data.data);
     } catch (error) {
@@ -25,7 +27,7 @@ function SubadminList() {
     };
     async function deleteService(id){
     console.log(id);
-    await axios.delete(`http://localhost:5000/api/subadmin/deleteSubadmin/${id}`);
+    await axios.delete(`https://daycare-tas4.onrender.com/api/subadmin/deleteSubadmin?id=${id}`);
     fetchData();  
     }
 
@@ -39,12 +41,12 @@ function SubadminList() {
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Subadmin`} className="btn btn-primary m-3"> Add SubAdmin </Link>
-          <Link to={`/Schooldetails/${schoolId}`} className="btn btn-primary"> Back to Details </Link>
+          <Link to={`/Subadmin`} className="icon"> <img src={add}/> </Link>
+          
           <br/><br/>
             <div className="allRecord">
                  <h1>View All Sub Admin</h1> 
-                 <table className="table table-border">
+                 <table className="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -52,7 +54,6 @@ function SubadminList() {
                         <th>contact</th>
                         <th>Address</th>
                         <th>School ID </th>
-                        <th>Modification</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -65,10 +66,11 @@ function SubadminList() {
                           <td>{item.address}</td>
                           <td>{item.schoolid}</td>
                           
-                          <td>
-                            <input type="button" className="btn btn-danger" 
-                            onClick={(e)=> deleteService(item.id)} value="delete" />
-                            <Link to={`/EditSubadmin/${item.id}`} className="btn btn-success"> Edit </Link>
+                          <td>                          
+                            <Link to={`/EditSubadmin?id=${item.id}`} ><img src={edit}/> </Link>
+                            <span onClick={(e)=> deleteService(item.id)}>
+                                <img src={del}/>
+                            </span>
                            </td>
                         </tr>
                       )):(

@@ -1,15 +1,20 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useNavigate  } from 'react-router-dom';
+import ContextData from '../../Context/ContextData';
 
 
 function Claimnewservice() {
     const history = useNavigate ();
+
+    const { schoolId } = useContext(ContextData);
+
     const [service_id, setServiceId] = useState('');
     const [status, setStatus] = useState('Activate');
-    const [schoolid, setSchoolId] = useState('');
+    const [schoolid, setSchoolId] = useState(schoolId);
     const [obtainingdate, setObtainingDate] = useState('');
+   
 
     const [servicedata, setServiceData] = useState([]);
     const [schooldata, setSchoolData] = useState([]);
@@ -19,12 +24,8 @@ function Claimnewservice() {
 
       const fetchData = async () => {
         try {
-            //get all school name and id
-            const response = await axios.get('http://localhost:5000/allSchool');
-            setSchoolData(response?.data?.data);
-            
             //get all service and id
-            const res = await axios.get('http://localhost:5000/api/service/allService');
+            const res = await axios.get('https://daycare-tas4.onrender.com/api/service/allService');
             setServiceData(res?.data?.data);
             
         } catch (error) {
@@ -45,7 +46,7 @@ function Claimnewservice() {
     form_Data.append('obtainingdate', obtainingdate);
     
     try {
-      const response = await axios.post('http://localhost:5000/api/claimedService/claimedService', form_Data, {
+      const response = await axios.post('https://daycare-tas4.onrender.com/api/claimedService/claimedService', form_Data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -86,19 +87,6 @@ function Claimnewservice() {
                 <input type="date" value={obtainingdate} onChange={(e)=>{
                     setObtainingDate(e.target.value);
                 }} />
-              </label>
-              <br />
-              <label>
-                School Name: <br/>
-                <select value={schoolid}  className="form-control" onChange={(e)=>{
-                  setSchoolId(e.target.value);
-                }}>
-                   {schooldata.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.name}
-                      </option>
-                    ))}
-                </select>
               </label>
               <br />
               <button type="submit" className='btn btn-primary'>Submit</button>

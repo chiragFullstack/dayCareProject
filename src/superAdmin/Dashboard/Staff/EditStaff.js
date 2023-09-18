@@ -17,8 +17,11 @@ function EditStaff() {
     const { schoolId } = useContext(ContextData);
     const history = useNavigate ();
 
-    const {id}=useParams("");
-    
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    // Get the value of the "id" variable
+    const Sid = urlSearchParams.get('id');
+    const [id,setId]=useState(Sid);
+
     const[data,setData]=useState([]);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
@@ -38,7 +41,7 @@ function EditStaff() {
     },[]);
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/staff/staffById/${id}`);
+            const response = await axios.get(`https://daycare-tas4.onrender.com/api/staff/staffById?id=${id}`);
             console.log(response.data.data);
             setName(response?.data?.data[0].name);
             setContact(response?.data?.data[0].contact);
@@ -50,7 +53,7 @@ function EditStaff() {
             setImage(response?.data?.data[0].logo);
             setUsername(response?.data?.data[0].username);
             console.log('school id--',schoolId);
-            const respnse = await axios.get(`http://localhost:5000/api/staff/getRoombySchool/${schoolId}`);
+            const respnse = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
             console.log(respnse.data.data);
             setData(respnse.data.data);
 
@@ -70,11 +73,11 @@ function EditStaff() {
         formData.append('designation', designation);
         formData.append('schoolId',schoolId);
         formData.append('classId',classId);
-        formData.append('logo', image);
+        formData.append('principalId',principalId);
+        formData.append('picUrl', image);
         formData.append('userName', username);
-        
         try {
-            const response = await axios.put(`http://localhost:5000/api/staff/EditStaff/${id}`, formData, {
+            const response = await axios.put(`https://daycare-tas4.onrender.com/api/staff/editStaff?id=${id}`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -150,21 +153,8 @@ function EditStaff() {
                     setUsername(e.target.value);
                 }} />
               </label>
-              
               <br />
-              <label>
-                Image:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e)=>{
-                    const selectedImage = e.target.files[0];
-                    setImage(selectedImage);
-                  }}
-                />
-              </label>
-              <br />
-              <button type="submit" className='btn btn-primary'>Submit</button>
+              <button className='btn btn-primary'>Submit</button>
             </form>
           </div>
         </div>

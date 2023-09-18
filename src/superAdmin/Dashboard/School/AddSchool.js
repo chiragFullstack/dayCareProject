@@ -31,7 +31,7 @@ function AddSchool() {
         formData.append('logo', image);
         formData.append('websiteurl', websiteUrl);
         try {
-          const response = await axios.post('http://localhost:5000/addSchool', formData, {
+          const response = await axios.post('https://daycare-tas4.onrender.com/api/School/addSchool', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

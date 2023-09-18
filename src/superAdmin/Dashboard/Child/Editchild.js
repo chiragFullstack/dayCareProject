@@ -8,7 +8,11 @@ import ContextData from '../../Context/ContextData';
 function Editchild() {
     const history = useNavigate ();
     const [data,setData]=useState([]);
-    const {id}=useParams("");
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    // Get the value of the "id" variable
+    const id = urlSearchParams.get('id');
+    
     const {schoolId,parentId}=useContext(ContextData);
     const [name, setName] = useState('');
     const [dateofbirth, setDateofbirth] = useState('');
@@ -28,14 +32,15 @@ function Editchild() {
             if(schoolId=="" || parentId==""){
                 history('/AllChild');
             }else{
-                const response = await axios.get(`http://localhost:5000/api/student/getStudentById/${id}`);
+              console.log('Child ID ',id);
+                const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/getStudentById?id=${id}`);
                 console.log(response.data.data);
                 setName(response.data.data[0].name);
                 setDateofbirth(formatDate(response.data.data[0].dateofbirth));
                 setRoomId(response.data.data[0].roomid);
                 setImage(response.data.data[0].picurl);
 
-                const respnse = await axios.get(`http://localhost:5000/api/staff/getRoombySchool/${schoolId}`);
+                const respnse = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(respnse.data.data);
                 setData(respnse?.data?.data);
                 
@@ -54,9 +59,9 @@ function Editchild() {
         formData.append('schoolid',schoolId);
         formData.append('roomid',roomId);
         formData.append('parentid',parentId);
-        formData.append('picurl', image);
+        formData.append('logo', image);
         try {
-            const response = await axios.put(`http://localhost:5000/api/student/editStudent/${id}`, formData, {
+            const response = await axios.put(`https://daycare-tas4.onrender.com/api/student/editStudent?id=${id}`, formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },

@@ -8,7 +8,12 @@ import ContextData from '../../Context/ContextData';
 function EditParent() {
     const history = useNavigate ();
 
-    const {id}=useParams("");
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    // Get the value of the "id" variable
+    const id = urlSearchParams.get('id');
+    console.log('Parent ID ',id);
+
+
     const {schoolId}=useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
@@ -25,7 +30,7 @@ function EditParent() {
                 history('/Schoollist');
             }else{
                 try {
-                    const response = await axios.get(`http://localhost:5000/api/Parent/ParentById/${id}`);
+                    const response = await axios.get(`https://daycare-tas4.onrender.com/api/parent/ParentById?id=${id}`);
                     console.log(response?.data?.data);
                     setName(response?.data?.data[0].name);
                     setContact(response?.data?.data[0].contact);
@@ -56,7 +61,7 @@ function EditParent() {
             formData.append('schoolId',schoolId);
 
             try {
-            const response = await axios.put(`http://localhost:5000/api/Parent/editParent/${id}`, formData, {
+            const response = await axios.put(`https://daycare-tas4.onrender.com/api/parent/editParent?id=${id}`, formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },

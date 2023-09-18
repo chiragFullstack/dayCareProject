@@ -10,7 +10,10 @@ function EditSubadmin() {
   const { schoolId } = useContext(ContextData);
   
     const history = useNavigate ();
-    const {id}=useParams("");
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    // Get the value of the "id" variable
+    const Sid = urlSearchParams.get('id');
+    const [id,setId]=useState(Sid);
 
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
@@ -25,10 +28,11 @@ function EditSubadmin() {
     useEffect(() => {
       fetchData();  
     },[]);
-      const fetchData = async () => {
+
+    const fetchData = async () => {
           try {
               console.log('edit sub admin',schoolId);
-              const response = await axios.get(`http://localhost:5000/api/subadmin/getSubadminById/${id}`);
+              const response = await axios.get(`https://daycare-tas4.onrender.com/api/subadmin/getSubadminById?id=${id}`);
               console.log(response?.data?.data);
               setData(response?.data?.data);
               setName(response?.data?.data[0].name);
@@ -58,7 +62,7 @@ function EditSubadmin() {
         formData.append('schoolId',schoolId);
         formData.append('picurl', image);  
         try {
-          const response = await axios.put(`http://localhost:5000/api/subadmin/editSubadmin/${id}`, formData, {
+          const response = await axios.put(`https://daycare-tas4.onrender.com/api/subadmin/editSubadmin?id=${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

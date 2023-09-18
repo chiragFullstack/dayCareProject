@@ -10,31 +10,21 @@ function Addroom() {
     const history = useNavigate ();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    
-    useEffect(() => {
-      fetchData();  
-    },[]);
-
-      const fetchData = async () => {
-          try {
-              
-          } catch (error) {
-              console.error(error);
-          }
-      }
-
        //calling the method 
        const handleSubmit = async (event) => {
         event.preventDefault();
         //here we need to call the API to post the data to the backend server 
         const form_Data = new FormData();
         form_Data.append('name', name);
-        form_Data.append('schoolId', schoolId);
+        form_Data.append('schoolid', schoolId);
         form_Data.append('description', description);
-        console.log(form_Data);
+        console.log('all===data---',form_Data);
         try {
-          const response = await axios.post('http://localhost:5000/api/room/addRoom', form_Data);
-          console.log(response.data);
+          const response = await axios.post('https://daycare-tas4.onrender.com/api/room/addRoom', 
+          form_Data,{
+            headers: {'Content-Type': 'multipart/form-data'},
+          });
+          console.log('respnse data--',response.data);
           history('/AllRoom');
         } catch (error) {
           console.error(error);
@@ -53,7 +43,7 @@ function Addroom() {
         </div>
         <div className="right-box">
           <div className="db-content-display">
-            <form onSubmit={handleSubmit} >
+            <form onSubmit={handleSubmit} encType='multiplart/form-data'>
               <label>
                 Room Name:
                 <input type="text" value={name} onChange={(e)=>{

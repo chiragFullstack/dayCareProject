@@ -20,6 +20,7 @@ function AddParent() {
       },[]);
     const fetchData = async () => {
         try {
+          console.log('add parent School Id --',schoolId);
             if(schoolId==""){
                 history('/AllParent');
             }
@@ -40,7 +41,7 @@ function AddParent() {
             formData.append('username', username);
             formData.append('schoolId',schoolId);
             try {
-            const response = await axios.post('http://localhost:5000/api/Parent/addParent', formData, {
+            const response = await axios.post('https://daycare-tas4.onrender.com/api/parent/addParent', formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },

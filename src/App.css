@@ -4,7 +4,6 @@
 }
 body {
   background-color: #edf6ff;
-  padding: 40px;
 }
 .container-fluid, .login{
   text-align: center;
@@ -15,12 +14,35 @@ body {
 .section{
   border:1px solid #3B99FC;
   height:150px;
-  padding:30px;
+  padding:10px;
   text-align: center;
-  background-color: blue;
+  background-color: #3b99fc;
   color:white;
   font-size:20px;
   border-radius: 5px;
+  text-decoration: none;
+}
+.section:hover{
+  background-color:#000 ;
+  color:#fff;
+}
+.green{
+  background-color:#025f22 !important;
+}
+.red{
+  background-color:#df3405 !important;
+}
+.yellow{
+  background-color:#d1dc09 !important;
+}
+.checkBox{
+  min-height:20px !important;
+  width:20px !important;
+  vertical-align: middle;
+  margin-top:17px !important;
+}
+.fSize{
+  font-size:12px !important;
 }
 .navMenu{
   background-color:green;
@@ -66,4 +88,11 @@ body {
 .error{
   font-size: 20px;
   color:red;
+}
+.heading{
+  color:#3b99fc !important;
+}
+.reportIcon{
+  border:1px solid rgb(224, 224, 224) !important;
+  margin:10px !important;
 }

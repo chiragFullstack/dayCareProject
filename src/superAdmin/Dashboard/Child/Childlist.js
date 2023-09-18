@@ -3,7 +3,11 @@ import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import ContextData from '../../Context/ContextData';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavigate } from 'react-router-dom';
-
+import add from '../../../Assets/add.png';
+import edit from '../../../Assets/edit.png';
+import del from '../../../Assets/delete.png';
+import more from '../../../Assets/more.png';
+import profile from '../../../Assets/profile.png';
 
 function Childlist() {
   
@@ -26,16 +30,16 @@ function Childlist() {
     const fetchData = async () => {
       try {
         console.log('Parent ID ',parentId);
-        const response = await axios.get(`http://localhost:5000/api/student/getStudentByParentId/${parentId}`);
+        const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/getStudentByparentId?id=${parentId}`);
         setData(response?.data?.data);
-        console.log(response.data.data);
+        console.log(response.data.data[0].dateofbirth);
       } catch (error) {
-        console.error(error);
+        console.error(error); 
       }
     };
     async function deleteChild(id){
         console.log(id);
-        await axios.delete(`http://localhost:5000/api/student/deleteStudent/${id}`);
+        await axios.delete(`https://daycare-tas4.onrender.com/api/student/deleteStudent?id=${id}`);
         fetchData();  
     }
 
@@ -49,20 +53,22 @@ function Childlist() {
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/AddChild`} className="btn btn-primary"> Add Child </Link>
+          <Link to={`/AddChild`} ><img src={add}/> </Link>
           <br/><br/>
             <div className="allRecord">
                  <h1>View Child Details </h1> 
-                 <table className="table table-border">
+                 <table className="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
+                        <th>Image </th> 
                         <th>Name</th>
                         <th>Date of Birth</th>
                         <th>School Id </th>
                         <th>Room Id </th>
                         <th>Parent Id </th>
-                        <th>Modifications </th>
+                        
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -70,15 +76,18 @@ function Childlist() {
                     data.length>0 ? data.map((item) => (
                         <tr key={item.id}>
                           <td>{item.id}</td>
+                          <td><img src={item.pic_url?item.pic_url:profile} style={{height:'50px',width:'50px' }}/></td>
                           <td>{item.name}</td>
                           <td>{formatDate(item.dateofbirth)}</td>
                           <td>{item.schoolid}</td>
                           <td>{item.roomid}</td>
                           <td>{item.parentid}</td>
+                         
                           <td>
-                            <input type="button" className="btn btn-danger" 
-                            onClick={(e)=> deleteChild(item.id)} value="delete" />
-                            <Link to={`/Editchild/${item.id}`} className="btn btn-success"> Edit </Link>
+                          <Link to={`/Editchild?id=${item.id}`} > <img src={edit} /> </Link>
+                             <span onClick={(e)=> deleteChild(item.id)}>
+                                <img src={del}/>
+                            </span>
                            </td>
                         </tr>
                       )):(
