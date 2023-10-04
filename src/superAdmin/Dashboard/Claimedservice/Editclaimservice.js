@@ -33,11 +33,11 @@ function Editclaimservice() {
       const fetchData = async () => {
         try {
             //get all school name and id
-            const response = await axios.get('https://daycare-tas4.onrender.com/allSchool');
+            const response = await axios.get('http://54.172.2.94:5000/allSchool');
             setSchoolData(response?.data?.data);
             
             //get all service and id
-            const res = await axios.get('https://daycare-tas4.onrender.com/api/service/allService');
+            const res = await axios.get('http://54.172.2.94:5000/api/service/allService');
             setServiceData(res?.data?.data);
             
             const resp = await axios.get(`https://daycare-tas4.onrender.com/api/claimedService/ServiceById/${id}`);

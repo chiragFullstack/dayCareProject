@@ -40,12 +40,12 @@ function SearchReport() {
         const fetchData = async () => {
           try {
             if(roomid){
-              const response = await axios.get(`https://daycare-tas4.onrender.com/api/report/getReportByRoomId?id=${roomid}&fromdate=${formattedDate}`);
+              const response = await axios.get(`http://54.172.2.94:5000/api/report/getReportByRoomId?id=${roomid}&fromdate=${formattedDate}`);
               setData(response?.data?.data);
               console.log(response.data.data);
             }
             if(parentId!==""){
-              const response = await axios.get(`https://daycare-tas4.onrender.com/api/report/getTodayReportByParentId?id=${parentId}&fromdate=${formattedDate}`);
+              const response = await axios.get(`http://54.172.2.94:5000/api/report/getTodayReportByParentId?id=${parentId}&fromdate=${formattedDate}`);
               setData(response?.data?.data);
               console.log(response.data.data);
             }
@@ -65,14 +65,14 @@ function SearchReport() {
             if(roomid){
               console.log(fromdate);
               console.log(todate);
-              const response = await axios.get(`https://daycare-tas4.onrender.com/api/report/getFullReportByRoomId?id=${roomid}&fromdate=${fromdate}&todate=${todate}`);
+              const response = await axios.get(`http://54.172.2.94:5000/api/report/getFullReportByRoomId?id=${roomid}&fromdate=${fromdate}&todate=${todate}`);
               setData(response?.data?.data);
               console.log(response.data);
             }
             if(parentId!==""){
               console.log(fromdate);
               console.log(todate);
-              const response = await axios.get(`https://daycare-tas4.onrender.com/api/report/getReportByParentId?id=${parentId}&fromdate=${fromdate}&todate=${todate}`);
+              const response = await axios.get(`http://54.172.2.94:5000/api/report/getReportByParentId?id=${parentId}&fromdate=${fromdate}&todate=${todate}`);
               setData(response?.data?.data);
               console.log(response.data);
             }

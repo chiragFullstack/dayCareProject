@@ -53,7 +53,7 @@ function EditStaff() {
             setImage(response?.data?.data[0].logo);
             setUsername(response?.data?.data[0].username);
             console.log('school id--',schoolId);
-            const respnse = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
+            const respnse = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
             console.log(respnse.data.data);
             setData(respnse.data.data);
 
@@ -77,7 +77,7 @@ function EditStaff() {
         formData.append('picUrl', image);
         formData.append('userName', username);
         try {
-            const response = await axios.put(`https://daycare-tas4.onrender.com/api/staff/editStaff?id=${id}`, formData, {
+            const response = await axios.put(`http://54.172.2.94:5000/api/staff/editStaff?id=${id}`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

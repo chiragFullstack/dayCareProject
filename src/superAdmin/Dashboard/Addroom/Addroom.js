@@ -20,7 +20,7 @@ function Addroom() {
         form_Data.append('description', description);
         console.log('all===data---',form_Data);
         try {
-          const response = await axios.post('https://daycare-tas4.onrender.com/api/room/addRoom', 
+          const response = await axios.post('http://54.172.2.94:5000/api/room/addRoom', 
           form_Data,{
             headers: {'Content-Type': 'multipart/form-data'},
           });

@@ -27,7 +27,7 @@ function AdminLogin() {
         form_Data.append('devicetype','Browser');
         form_Data.append('devicetoken','Computer');
         try {
-          const response = await axios.post('https://daycare-tas4.onrender.com/api/checkLogin', 
+          const response = await axios.post('http://54.172.2.94:5000/api/checkLogin', 
           //const response = await axios.post('http://localhost:5000/api/checkLogin', 
           form_Data,{
             headers: {'Content-Type': 'multipart/form-data'},

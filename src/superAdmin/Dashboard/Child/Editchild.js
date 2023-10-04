@@ -33,14 +33,14 @@ function Editchild() {
                 history('/AllChild');
             }else{
               console.log('Child ID ',id);
-                const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/getStudentById?id=${id}`);
+                const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentById?id=${id}`);
                 console.log(response.data.data);
                 setName(response.data.data[0].name);
                 setDateofbirth(formatDate(response.data.data[0].dateofbirth));
                 setRoomId(response.data.data[0].roomid);
                 setImage(response.data.data[0].picurl);
 
-                const respnse = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
+                const respnse = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(respnse.data.data);
                 setData(respnse?.data?.data);
                 
@@ -61,7 +61,7 @@ function Editchild() {
         formData.append('parentid',parentId);
         formData.append('logo', image);
         try {
-            const response = await axios.put(`https://daycare-tas4.onrender.com/api/student/editStudent?id=${id}`, formData, {
+            const response = await axios.put(`http://54.172.2.94:5000/api/student/editStudent?id=${id}`, formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },

@@ -58,7 +58,7 @@ function Subadmin() {
         formData.append('picurl', image);
 
         try {
-          const response = await axios.post('https://daycare-tas4.onrender.com/api/subadmin/addSubadmin', formData, {
+          const response = await axios.post('http://54.172.2.94:5000/api/subadmin/addSubadmin', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

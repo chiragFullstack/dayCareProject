@@ -34,7 +34,7 @@ function Editschool() {
         const Sid = urlSearchParams.get('id');
         console.log('school Id',Sid);
         setId(Sid);
-        const response = await axios.get(`https://daycare-tas4.onrender.com/api/School/schoolById?id=${Sid}`);
+        const response = await axios.get(`http://54.172.2.94:5000/api/School/schoolById?id=${Sid}`);
         setData(response?.data?.data);
         console.log(response?.data?.data);
         setName(response?.data?.data[0].name);
@@ -66,7 +66,7 @@ function Editschool() {
         formData.append('websiteurl', websiteUrl);
         
         try {
-          const response = await axios.put(`https://daycare-tas4.onrender.com/api/School/editSchool?id=${id}`, formData, {
+          const response = await axios.put(`http://54.172.2.94:5000/api/School/editSchool?id=${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

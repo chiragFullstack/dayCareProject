@@ -62,7 +62,7 @@ function EditSubadmin() {
         formData.append('schoolId',schoolId);
         formData.append('picurl', image);  
         try {
-          const response = await axios.put(`https://daycare-tas4.onrender.com/api/subadmin/editSubadmin?id=${id}`, formData, {
+          const response = await axios.put(`http://54.172.2.94:5000/api/subadmin/editSubadmin?id=${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

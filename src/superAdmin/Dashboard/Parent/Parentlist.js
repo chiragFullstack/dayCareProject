@@ -21,7 +21,7 @@ function Parentlist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://daycare-tas4.onrender.com/api/parent/allParent?id=${schoolId}`);
+        const response = await axios.get(`http://54.172.2.94:5000/api/parent/allParent?id=${schoolId}`);
         setData(response?.data?.data?.parent);
         console.log(response?.data?.data.parent);
         console.log('---',data);
@@ -31,7 +31,7 @@ function Parentlist() {
     };
     async function deleteParent(id){
         console.log(id);
-        await axios.delete(`https://daycare-tas4.onrender.com/api/Parent/deleteParent?id=${id}`);
+        await axios.delete(`http://54.172.2.94:5000/api/Parent/deleteParent?id=${id}`);
         fetchData();  
     }
    return (

@@ -27,7 +27,7 @@ function EditRoom() {
           try {
             console.log(' edit room school Id',Sid);
             setId(Sid);
-              const Roomresponse = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomById?id=${Sid}`);
+              const Roomresponse = await axios.get(`http://54.172.2.94:5000/api/room/roomById?id=${Sid}`);
               console.log(Roomresponse);
               setName(Roomresponse?.data?.data[0].name);
               setDescription(Roomresponse?.data?.data[0].description);     
@@ -46,7 +46,7 @@ function EditRoom() {
         formData.append('schoolId', schoolId);
         formData.append('description', description);
         try {
-          const response = await axios.put(`https://daycare-tas4.onrender.com/api/room/editroom?id=${id}`,formData);
+          const response = await axios.put(`http://54.172.2.94:5000/api/room/editroom?id=${id}`,formData);
           console.log(response.data);
         } catch (error) {
           console.error(error);

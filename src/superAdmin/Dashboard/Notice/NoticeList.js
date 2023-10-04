@@ -23,7 +23,7 @@ function NoticeList() {
      const fetchData = async () => {
        try {
          console.log('notes list of school id==',loginType);
-         const response = await axios.get(`https://daycare-tas4.onrender.com/api/Notice/allNoticeBySchoolId?id=${schoolId}`);
+         const response = await axios.get(`http://54.172.2.94:5000/api/Notice/allNoticeBySchoolId?id=${schoolId}`);
          setData(response?.data?.data);
          console.log(response.data.data);
        } catch (error) {

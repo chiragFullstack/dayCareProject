@@ -25,7 +25,7 @@ function Claimnewservice() {
       const fetchData = async () => {
         try {
             //get all service and id
-            const res = await axios.get('https://daycare-tas4.onrender.com/api/service/allService');
+            const res = await axios.get('http://54.172.2.94:5000/api/service/allService');
             setServiceData(res?.data?.data);
             
         } catch (error) {
@@ -46,7 +46,7 @@ function Claimnewservice() {
     form_Data.append('obtainingdate', obtainingdate);
     
     try {
-      const response = await axios.post('https://daycare-tas4.onrender.com/api/claimedService/claimedService', form_Data, {
+      const response = await axios.post('http://54.172.2.94:5000/api/claimedService/claimedService', form_Data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

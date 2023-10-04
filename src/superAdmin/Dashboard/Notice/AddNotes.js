@@ -32,7 +32,7 @@ function AddNotes() {
         formData.append('message',message);
         formData.append('noticedate',convertDate().toString());
         try {
-            const response = await axios.post('https://daycare-tas4.onrender.com/api/Notice/addNotice', formData, {
+            const response = await axios.post('http://54.172.2.94:5000/api/Notice/addNotice', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

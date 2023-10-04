@@ -41,7 +41,7 @@ function AddParent() {
             formData.append('username', username);
             formData.append('schoolId',schoolId);
             try {
-            const response = await axios.post('https://daycare-tas4.onrender.com/api/parent/addParent', formData, {
+            const response = await axios.post('http://54.172.2.94:5000/api/parent/addParent', formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },

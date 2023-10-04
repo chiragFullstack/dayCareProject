@@ -17,7 +17,7 @@ function AddService() {
         form_Data.append('description', description);
         console.log(form_Data);
         try {
-          const response = await axios.post('https://daycare-tas4.onrender.com/api/service/addService', form_Data, {
+          const response = await axios.post('http://54.172.2.94:5000/api/service/addService', form_Data, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

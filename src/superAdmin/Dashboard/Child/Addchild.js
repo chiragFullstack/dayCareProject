@@ -25,7 +25,7 @@ function Addchild() {
             if(schoolId=="" || parentId==""){
                 history('/AllChild');
             }else{
-                const response = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
+                const response = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(response.data.data);
                 setData(response?.data?.data);
             }
@@ -47,7 +47,7 @@ function Addchild() {
         formData.append('parentid',parentId);
         formData.append('logo', image);
         try {
-            const response = await axios.post('https://daycare-tas4.onrender.com/api/student/addStudent', formData, {
+            const response = await axios.post('http://54.172.2.94:5000/api/student/addStudent', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },

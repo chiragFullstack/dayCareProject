@@ -22,7 +22,7 @@ function EditService() {
  
      const fetchData = async () => {
        try {
-         const response = await axios.get(`https://daycare-tas4.onrender.com/api/service/ServiceById/${id}`);
+         const response = await axios.get(`http://54.172.2.94:5000/api/service/ServiceById/${id}`);
          setData(response?.data?.data);
          console.log(response?.data?.data);
          setServiceName(response?.data?.data[0].servicename);
@@ -42,7 +42,7 @@ function EditService() {
         formData.append('servicename', servicename);
         formData.append('description', description);
         try {
-          const response = await axios.put(`https://daycare-tas4.onrender.com/api/service/editService/${id}`, formData, {
+          const response = await axios.put(`http://54.172.2.94:5000/api/service/editService/${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },

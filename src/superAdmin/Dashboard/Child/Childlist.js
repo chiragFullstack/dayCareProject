@@ -30,7 +30,7 @@ function Childlist() {
     const fetchData = async () => {
       try {
         console.log('Parent ID ',parentId);
-        const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/getStudentByparentId?id=${parentId}`);
+        const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentByparentId?id=${parentId}`);
         setData(response?.data?.data);
         console.log(response.data.data[0].dateofbirth);
       } catch (error) {
@@ -39,7 +39,7 @@ function Childlist() {
     };
     async function deleteChild(id){
         console.log(id);
-        await axios.delete(`https://daycare-tas4.onrender.com/api/student/deleteStudent?id=${id}`);
+        await axios.delete(`http://54.172.2.94:5000/api/student/deleteStudent?id=${id}`);
         fetchData();  
     }
 

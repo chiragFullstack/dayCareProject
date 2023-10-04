@@ -42,7 +42,7 @@ function Schooldetails() {
         try {
          setSchoolId(id);
          console.log('school_Id',id);
-          const response = await axios.get(`https://daycare-tas4.onrender.com/api/School/schoolById?id=${id}`);
+          const response = await axios.get(`http://54.172.2.94:5000/api/School/schoolById?id=${id}`);
           console.log(response.data.data);
           setName(response?.data?.data[0].name);
             setAddress(response?.data?.data[0].address);

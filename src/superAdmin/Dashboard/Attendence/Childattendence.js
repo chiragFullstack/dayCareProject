@@ -31,7 +31,7 @@ function Childattendence() {
             formData.append('attendenceby', principalId);
             formData.append('attendencefrom', loginType);
           try {
-            const response = await axios.post('https://daycare-tas4.onrender.com/api/student/studentCheckIn', formData, {
+            const response = await axios.post('http://54.172.2.94:5000/api/student/studentCheckIn', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -46,7 +46,7 @@ function Childattendence() {
             formData.append('studentid', checkboxValue);
             formData.append('schoolId', schoolId);
           try {
-            const response = await axios.post('https://daycare-tas4.onrender.com/api/student/studentCheckOut', formData, {
+            const response = await axios.post('http://54.172.2.94:5000/api/student/studentCheckOut', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -64,11 +64,11 @@ function Childattendence() {
     const fetchData = async () => {
         try {
           if(roomid){
-            const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/getStudentByRoomId?id=${roomid}`);
+            const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentByRoomId?id=${roomid}`);
             setData(response?.data?.data);
             console.log('roomID',roomid);
           }else{
-            const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/getStudentBySchoolId?id=${schoolId}`);
+            const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentBySchoolId?id=${schoolId}`);
             setData(response?.data?.data);
           }
         } catch (error) {

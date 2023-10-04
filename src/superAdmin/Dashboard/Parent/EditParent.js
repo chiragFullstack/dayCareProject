@@ -30,7 +30,7 @@ function EditParent() {
                 history('/Schoollist');
             }else{
                 try {
-                    const response = await axios.get(`https://daycare-tas4.onrender.com/api/parent/ParentById?id=${id}`);
+                    const response = await axios.get(`http://54.172.2.94:5000/api/parent/ParentById?id=${id}`);
                     console.log(response?.data?.data);
                     setName(response?.data?.data[0].name);
                     setContact(response?.data?.data[0].contact);
@@ -61,7 +61,7 @@ function EditParent() {
             formData.append('schoolId',schoolId);
 
             try {
-            const response = await axios.put(`https://daycare-tas4.onrender.com/api/parent/editParent?id=${id}`, formData, {
+            const response = await axios.put(`http://54.172.2.94:5000/api/parent/editParent?id=${id}`, formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },

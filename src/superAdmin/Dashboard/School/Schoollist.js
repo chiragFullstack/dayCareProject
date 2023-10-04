@@ -19,7 +19,7 @@ function Schoollist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://daycare-tas4.onrender.com/api/School/allSchool');
+        const response = await axios.get('http://54.172.2.94:5000/api/School/allSchool');
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -28,7 +28,7 @@ function Schoollist() {
     };
   async function deleteSchool(id){
     console.log(id);
-    const res=await axios.delete(`https://daycare-tas4.onrender.com/api/School/deleteSchool?id=${id}`);
+    const res=await axios.delete(`http://54.172.2.94:5000/api/School/deleteSchool?id=${id}`);
    //const res=await axios.delete(`http://localhost:5000/api/School/deleteSchool?id=${id}`);
    console.log(res);
     fetchData();  

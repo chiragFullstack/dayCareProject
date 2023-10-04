@@ -29,7 +29,7 @@ function ParentDetails() {
 
       const fetchData = async () => {
         try {
-          const response = await axios.get(`https://daycare-tas4.onrender.com/api/parent/ParentById?id=${id}`);
+          const response = await axios.get(`http://54.172.2.94:5000/api/parent/ParentById?id=${id}`);
           console.log(response.data.data?.parent[0].name);
             setName(response?.data?.data?.parent[0].name);
             setContact(response?.data?.data?.parent[0].contact);

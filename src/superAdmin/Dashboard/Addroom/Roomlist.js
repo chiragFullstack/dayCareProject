@@ -24,7 +24,7 @@ function Roomlist() {
     
         const fetchData = async () => {
           try {
-            const response = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
+            const response = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
             setData(response?.data?.data);
             console.log(response.data.data);
           } catch (error) {
@@ -34,7 +34,7 @@ function Roomlist() {
     
         async function deleteService(id){
             console.log(id);
-            await axios.delete(`https://daycare-tas4.onrender.com/api/room/deleteRoom?id=${id}`);
+            await axios.delete(`http://54.172.2.94:5000/api/room/deleteRoom?id=${id}`);
             fetchData();  
         }
   return (

@@ -9,7 +9,7 @@ import Whammy from 'whammy';
 
 function SendVideo() {
 
-   const socket = io('http://localhost:5000');
+   const socket = io('http://54.172.2.94:5000');
 
     const {schoolId, loginType}= useContext(ContextData);
 

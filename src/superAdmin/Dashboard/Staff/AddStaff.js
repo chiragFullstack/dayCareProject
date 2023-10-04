@@ -29,7 +29,7 @@ function AddStaff() {
       },[]);
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://daycare-tas4.onrender.com/api/room/roomBySchoolId?id=${schoolId}`);
+                const response = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(response.data.data);
                 setData(response.data.data);
             } catch (error) {
@@ -51,7 +51,7 @@ function AddStaff() {
             formData.append('username', username);
 
             try {
-                const response = await axios.post('https://daycare-tas4.onrender.com/api/staff/addStaff', formData, {
+                const response = await axios.post('http://54.172.2.94:5000/api/staff/addStaff', formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data',
                   },

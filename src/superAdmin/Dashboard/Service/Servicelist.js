@@ -15,7 +15,7 @@ function Servicelist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://daycare-tas4.onrender.com/api/service/allService');
+        const response = await axios.get('http://54.172.2.94:5000/api/service/allService');
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -24,7 +24,7 @@ function Servicelist() {
     };
   async function deleteService(id){
     console.log(id);
-    await axios.delete(`https://daycare-tas4.onrender.com/api/service/deleteService/${id}`);
+    await axios.delete(`http://54.172.2.94:5000/api/service/deleteService/${id}`);
     fetchData();  
    }
   return (

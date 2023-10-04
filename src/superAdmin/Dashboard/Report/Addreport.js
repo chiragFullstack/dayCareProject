@@ -63,7 +63,7 @@ function Addreport() {
     formData.append('notes', notes);
 
     try {
-        const response = await axios.post('https://daycare-tas4.onrender.com/api/report/addReport', formData, {
+        const response = await axios.post('http://54.172.2.94:5000/api/report/addReport', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

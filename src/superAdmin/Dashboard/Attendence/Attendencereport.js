@@ -41,7 +41,7 @@ function Attendencereport() {
        const fetchData = async () => {
          try {
            if(studentId){
-             const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/studentAttendenceReport?id=${studentId}&fromdate=${formattedDate}&todate=${formattedDate}`);
+             const response = await axios.get(`http://54.172.2.94:5000/api/student/studentAttendenceReport?id=${studentId}&fromdate=${formattedDate}&todate=${formattedDate}`);
              setData(response?.data?.data);
              console.log(response.data.data);
            }
@@ -58,7 +58,7 @@ function Attendencereport() {
           if(studentId){
             console.log(fromdate);
             console.log(todate);
-            const response = await axios.get(`https://daycare-tas4.onrender.com/api/student/studentAttendenceReport?id=${studentId}&fromdate=${fromdate}&todate=${todate}`);
+            const response = await axios.get(`http://54.172.2.94:5000/api/student/studentAttendenceReport?id=${studentId}&fromdate=${fromdate}&todate=${todate}`);
             setData(response?.data?.data);
             console.log(response.data);
           }
