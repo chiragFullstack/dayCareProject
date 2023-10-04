@@ -21,7 +21,7 @@ function ChatRoomid() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/message/getChatRoomId?id=${schoolId}`);
+        const response = await axios.get(`https://daycare-tas4.onrender.com/api/message/getChatRoomId?id=${schoolId}`);
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -61,7 +61,7 @@ function ChatRoomid() {
                             <Link to={`/message?id=${item.parentid}`} > <img src={chat} title="Edit Detail"/> </Link>
                           </td>
                           <td>                         
-                            <Link to={`/sendVideo?id=${item.parentid}`} > <img src={video} title="Edit Detail"/> </Link>
+                            <Link to={`/Video?id=${item.parentid}`} > <img src={video} title="Edit Detail"/> </Link>
                           </td>
                         </tr>
                       )):(

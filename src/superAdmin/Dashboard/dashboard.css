@@ -25,10 +25,16 @@
   color: #00204e;
   overflow-y: auto;
 }
+img.card-img-top{
+    height: calc(100vh - 500px);
+    object-fit: contain;
+}
 .sidebar::-webkit-scrollbar, .db-content-display::-webkit-scrollbar {
     width: 5px;
     margin-right: 10px;
-    
+    display: none;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
 }
 .sidebar::-webkit-scrollbar-track, .db-content-display::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -161,7 +167,7 @@ h1.login-heading{
 .db-content-display .school-detail-sec img {
     padding: 0 8px 0 0;
 }
-.school-detail-sec h5{
+.school-detail-sec h5, .parent_profile_card h5{
     font-size: 28px;
     text-transform: capitalize;
     border-bottom: 1px solid #e3e3e3;
@@ -202,8 +208,7 @@ p.logo.pb-2, hr{
 }
 
 .messagearea{
-    border:1px solid red;
-    height:100vh;
+    border:0px solid red;
     width:100%;
 }
 .left_side{
@@ -212,8 +217,40 @@ p.logo.pb-2, hr{
 .allMessages{
     height:400px;
     width:100%;
-    overflow: scroll;
+    overflow: auto;
+    padding: 5px 30px ;
 }
 .chat-message{
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    width: 75%;
+    margin-bottom: 10px;
+    padding: 15px 8px;
+    position: relative;
+}
+.chat-message .msg_time {
+    position: absolute;
+    right: 8px;
+    bottom: 2px;
+    font-size: 10px;
+}
+
+.inputArea_chatbox {
+    position: relative;
+}
+.inputArea_chatbox img {
+    position: absolute;
+    right: 5px;
+    bottom: 08px;
+}
+
+.parent_profile_card {
+    max-width: 400px;
+}
+.parent-child-btn a{
+    font-size: 16px;
+    padding: 5px 20px 5px 25px;
+}
+.parent-child-btn img{
+    width: 18px;padding: 0;
+    padding-bottom: 5px;
 }

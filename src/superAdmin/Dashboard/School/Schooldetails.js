@@ -101,7 +101,6 @@ function Schooldetails() {
           </div>
           </div>
         </div>
-
     </>
   )
 }

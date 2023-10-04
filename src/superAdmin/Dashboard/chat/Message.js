@@ -11,7 +11,7 @@ import io from 'socket.io-client';
 
 function Message() {
     
-    const socket = io('http://localhost:5000');
+    const socket = io('http://54.172.2.94:5000/');
 
     const {schoolId, loginType}= useContext(ContextData);
 
@@ -91,33 +91,34 @@ function Message() {
                     {messages.map((msg, index) => (
                         loginType=='admin'||loginType=='staff'?
                             msg.sendertype==='admin'?
-                            <div key={index} className="chat-message" style={{background:"yellow", float:"right" }}>
+                            <div key={index} className="chat-message" style={{background:"#d9fdd3", float:"right", boxShadow: "0 0 10px #00000015", borderRadius:"6px" }}>
                                 {msg.message}
+                                <span className="msg_time">11:00 pm</span>
                             </div>
                             :
-                            <div key={index} className="chat-message" style={{background:"green", float:"left" }}>
+                            <div key={index} className="chat-message" style={{background:"#8080801c", float:"left", boxShadow: "0 0 10px #00000015", borderRadius:"6px" }}>
                                 {msg.message}
+                                <span className="msg_time">11:00 pm</span>
                             </div>
                         :
                         msg.sendertype==='parent'?
-                        <div key={index} className="chat-message" style={{background:"yellow", float:"right" }}>
+                        <div key={index} className="chat-message" style={{background:"#d9fdd3", float:"right" }}>
                             {msg.message}
                         </div>
                         :
-                        <div key={index} className="chat-message" style={{background:"green", float:"left" }}>
+                        <div key={index} className="chat-message" style={{background:"#8080801c", float:"left" }}>
                             {msg.message}
                         </div>   
                     ))}
                 </div>
-             <div className="inputArea">
+             <div className="inputArea_chatbox">
                 <label>
                     Message:
                 <input type="text" value={message} onChange={(e)=>{
                     setMessage(e.target.value);
                 }} />
               </label>
-              <br />
-              <img src={sent} onClick={(e)=>{
+              <img className="" src={sent} onClick={(e)=>{
                 sendMessage();
               }}/>
              </div>

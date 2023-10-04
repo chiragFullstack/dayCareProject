@@ -47,17 +47,19 @@ function ParentDetails() {
           <Leftmenu/>
         </div>
         <div className="right-box">
-          <div className="db-content-display">
+          <div className="db-content-display h-100">
             <div className="allRecord">
                
-            <div class="card" style={{width:"18rem",margin:"0 auto",padding:"5px"}}>
-              <img src={profile} className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title"><img src={user_icon} />{name}</h5><hr/>
-                <p className="card-text"><img src={phone} />{contact}</p>
-                <p className="card-text"><img src={mail_icon} /> {email}</p>
-                <Link to={`/Allchild`} className="section m-1" style={{ padding:"10px !important" }}>
+            <div class="parent_profile_card rounded border text-center m-auto p-4" >
+              <img src={profile} className="parent-pro-img w-100 px-4 pb-4 mb-1" alt="..." />
+              <div className="d-flex flex-wrap justify-content-start">
+                <h5 className="card-title w-100 pb-2 mb-2">{name}</h5>
+                <p className="card-text w-100 text-start"><img src={phone} />{contact}</p>
+                <p className="card-text w-100 text-start"><img src={mail_icon} /> {email}</p>
+                <div className="pt-2 parent-child-btn">
+                  <Link to={`/Allchild`} className="section m-1" style={{ padding:"10px !important" }}>
                   <img src={child} />Child </Link>
+                </div>
               </div>
             </div>     
           </div>
