@@ -6,9 +6,10 @@ import log from '../Assets/logo.jpg';
 import slide1 from '../Assets/slide1.jpg';
 import slide2 from '../Assets/slide2.jpg';
 import slide3 from '../Assets/slide3.jpg';
+import logo from '../Assets/logo.jpeg';
 
 function AdminLogin() {
-    const { loginType, setLoginType } = useContext(ContextData);
+    const { loginType, setLoginType,apiurl } = useContext(ContextData);
     const {schoolId , setSchoolId } = useContext(ContextData);
     const {principalId, setPrincipalId}=useContext(ContextData);
     const {parentId, setParentId}=useContext(ContextData);
@@ -27,7 +28,7 @@ function AdminLogin() {
         form_Data.append('devicetype','Browser');
         form_Data.append('devicetoken','Computer');
         try {
-          const response = await axios.post('http://54.172.2.94:5000/api/checkLogin', 
+          const response = await axios.post(`${apiurl}/api/checkLogin`, 
           //const response = await axios.post('http://localhost:5000/api/checkLogin', 
           form_Data,{
             headers: {'Content-Type': 'multipart/form-data'},
@@ -82,22 +83,22 @@ function AdminLogin() {
                   </div>
                 </div>
                 <div className='col-md-6 d-flex flex-wrap flex-column justify-content-center' style={{zIndex: '9', background: 'rgb(245 255 255)'}}>
-                    <h2 className="title-login w-100">Day Care Services</h2>
                     <div className='container mt-3 db-content-display-login'>
-                    <h1 className='login-heading'>Super Admin Login</h1>
+                      <img src={logo} height="100px" width="100px"/>
+                    <h1 className='login-heading'>Login</h1>
                     <form onSubmit={handleSubmit} encType='multiplart/form-data'>
                     <label>
                             User Name:
                             <input type="text" value={username} onChange={(e)=>{
-                                setUserName(e.target.value);
-                            }}  />
+                                setUserName(e.target.value); 
+                            }} placeholder="User Name" required/>
                         </label>
                         <br />
                         <label>
                             Password:
                             <input type="password" value={userpassword} onChange={(e)=>{
                                 setUserPassword(e.target.value);
-                            }} />
+                            }} placeholder="Password" required />
                         </label>
                         <br />                        
                         <button type="submit" className='btn btn-primary button'>Submit</button>

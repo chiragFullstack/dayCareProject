@@ -1,12 +1,12 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavigate } from 'react-router-dom';
-
+import ContextData from '../../Context/ContextData';
 
 function Editclaimservice() {
     const history = useNavigate ();
-
+    const { schoolId,apiurl } = useContext(ContextData);
     const {id}=useParams("");
 
     const [service_id, setServiceId] = useState('');
@@ -33,14 +33,14 @@ function Editclaimservice() {
       const fetchData = async () => {
         try {
             //get all school name and id
-            const response = await axios.get('http://54.172.2.94:5000/allSchool');
+            const response = await axios.get(`${apiurl}/allSchool`);
             setSchoolData(response?.data?.data);
             
             //get all service and id
-            const res = await axios.get('http://54.172.2.94:5000/api/service/allService');
+            const res = await axios.get(`${apiurl}/api/service/allService`);
             setServiceData(res?.data?.data);
             
-            const resp = await axios.get(`https://daycare-tas4.onrender.com/api/claimedService/ServiceById/${id}`);
+            const resp = await axios.get(`${apiurl}/api/claimedService/ServiceById/${id}`);
             console.log(resp?.data?.data);
 
             setObtainingDate( formatDate(resp?.data?.data[0].obtainingdate));
@@ -62,7 +62,7 @@ function Editclaimservice() {
         form_Data.append('obtainingdate', obtainingdate);
         
         try {
-          const response = await axios.put(`https://daycare-tas4.onrender.com/api/claimedService/editClaimedService/${id}`, form_Data, {
+          const response = await axios.put(`${apiurl}/api/claimedService/editClaimedService/${id}`, form_Data, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -78,47 +78,57 @@ function Editclaimservice() {
     <>
         <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-            <h1>Edit Claimed Service Details </h1>
+            <h1>Claimed Service  </h1>
           <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Service Name:
-                <select value={service_id}  className="form-control" onChange={(e)=>{
-                  setServiceId(e.target.value);
-                }}>
-                   {servicedata.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.servicename}
-                      </option>
-                    ))}
-                </select>
-              </label>
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="form-group">
+                          <label>
+                              Service Name:
+                              <select value={service_id}  onChange={(e)=>{
+                                setServiceId(e.target.value);
+                              }} placeholder="Service Name" required>
+                                {servicedata.map((option, index) => (
+                                    <option key={index} value={option.id}>
+                                      {option.servicename}
+                                    </option>
+                                  ))}
+                              </select>
+                            </label>
+                        </div>
+                        <div className="form-group">
+                            <label>
+                              School Name: <br/>
+                              <select value={schoolid}  onChange={(e)=>{
+                                setSchoolId(e.target.value);
+                              }} placeholder="School Id" required>
+                                {schooldata.map((option, index) => (
+                                    <option key={index} value={option.id}>
+                                      {option.name}
+                                    </option>
+                                  ))}
+                              </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label>
+                              Date:
+                              <input type="date" value={obtainingdate} onChange={(e)=>{
+                                  setObtainingDate(e.target.value);
+                              }} placeholder="Date" required />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
               <br />
-              <label>
-                Date:
-                <input type="date" value={obtainingdate} onChange={(e)=>{
-                    setObtainingDate(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                School Name: <br/>
-                <select value={schoolid}  className="form-control" onChange={(e)=>{
-                  setSchoolId(e.target.value);
-                }}>
-                   {schooldata.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.name}
-                      </option>
-                    ))}
-                </select>
-              </label>
-              <br /><br />
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>
           </div>

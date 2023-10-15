@@ -15,8 +15,7 @@ function Childattendence() {
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
     const history = useNavigate ();
-    const { schoolId, setSchoolId,parentId,setParentId,loginType,principalId} = useContext(ContextData);
-    
+    const { schoolId, setSchoolId,parentId,setParentId,loginType,principalId,apiurl} = useContext(ContextData);
     const [childId, setChildId] = useState("");
     //when the page or event is loaded then this method will automatically called 
     useEffect(() => {
@@ -31,12 +30,13 @@ function Childattendence() {
             formData.append('attendenceby', principalId);
             formData.append('attendencefrom', loginType);
           try {
-            const response = await axios.post('http://54.172.2.94:5000/api/student/studentCheckIn', formData, {
+            const response = await axios.post(`${apiurl}/api/student/studentCheckIn`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
             });
             alert('Student CheckIn');
+
           } catch (error) {
             console.error(error);
           }
@@ -46,29 +46,27 @@ function Childattendence() {
             formData.append('studentid', checkboxValue);
             formData.append('schoolId', schoolId);
           try {
-            const response = await axios.post('http://54.172.2.94:5000/api/student/studentCheckOut', formData, {
+            const response = await axios.post(`${apiurl}/api/student/studentCheckOut`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
             });
-          
-            alert('student Checkout ');
+            alert('student Checkout');
           } catch (error) {
             console.error(error);
           }
-
         }
-
+        fetchData();  
     };
 
     const fetchData = async () => {
         try {
           if(roomid){
-            const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentByRoomId?id=${roomid}`);
+            const response = await axios.get(`${apiurl}/api/student/getStudentByRoomId?id=${roomid}`);
             setData(response?.data?.data);
-            console.log('roomID',roomid);
+            console.log('attendence record=--',response?.data?.data);
           }else{
-            const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentBySchoolId?id=${schoolId}`);
+            const response = await axios.get(`${apiurl}/api/student/getStudentBySchoolId?id=${schoolId}`);
             setData(response?.data?.data);
           }
         } catch (error) {
@@ -80,14 +78,12 @@ function Childattendence() {
     <>
         <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
             <div className="allRecord">
-                 <h1>Select Child for Attendence </h1> 
+                 <h1>Attendence </h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>
@@ -95,6 +91,7 @@ function Childattendence() {
                         <th>Name</th>
                         <th>Room No </th>
                         <th>Attendence</th>
+                        <th>status</th>
                         <th>Attendence Report</th>
                       </tr>
                     </thead>
@@ -110,9 +107,11 @@ function Childattendence() {
                             className="checkBox" value={item.id}
                             id={`checkbox-${item.id}`}
                             onChange={handleCheckboxChange}
+                            checked={item.checkinStatus===true?true:false}
                             // checked={selectedCheckboxes.includes(item.id)}
                             />
                           </td>
+                          <td>{item.checkinStatus.toString()}</td>
                           <td>
                           <Link to={`/attendenceReport?studentid=${item.id}`}> 
                             <img src={viewReport} title="View Report"/> 

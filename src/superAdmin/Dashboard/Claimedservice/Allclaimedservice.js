@@ -11,7 +11,7 @@ import del from '../../../Assets/delete.png';
 function Allclaimedservice() {
   const history = useNavigate ();
   //get all entries so we can show the record 
-  const { schoolId } = useContext(ContextData);
+  const { schoolId,apiurl } = useContext(ContextData);
   const [data, setData] = useState([]);
   const [status,setStatus]=useState('');
   //when the page or event is loaded then this method will automatically called 
@@ -20,7 +20,7 @@ function Allclaimedservice() {
   },[]);
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://54.172.2.94:5000/api/claimedService/getClaimServiceBySchoolId?id=${schoolId}`);
+      const response = await axios.get(`${apiurl}/api/claimedService/getClaimServiceBySchoolId?id=${schoolId}`);
       setData(response?.data?.data);
       console.log(response.data.data);
     } catch (error) {
@@ -28,9 +28,12 @@ function Allclaimedservice() {
     }
   };
 async function deleteService(id){
+  const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+  if(confirmDelete){
   console.log(id);
-  await axios.delete(`http://54.172.2.94:5000/api/claimedService/deleteService?id=${id}`);
+  await axios.delete(`${apiurl}/api/claimedService/deleteService?id=${id}`);
   fetchData();  
+  }
  }
 
  async function deactivateService(id,status){
@@ -39,7 +42,7 @@ async function deleteService(id){
   const form_Data = new FormData();
   form_Data.append('status', status);
   try {
-    const response = await axios.put(`http://54.172.2.94:5000/api/claimedService/deactivateService?id=${id}`, form_Data, {
+    const response = await axios.put(`${apiurl}/api/claimedService/deactivateService?id=${id}`, form_Data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -61,14 +64,11 @@ async function deleteService(id){
    <>
     <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Claimnewservice`} > <img src={add}/>   </Link>
-          <br/><br/>
+            <p><Link to={`/Claimnewservice`} > <img src={add}/>   </Link></p>
             <div className="allRecord">
                  <h1>View All Claimed Service</h1> 
                  <table className="table table-striped table-hover">

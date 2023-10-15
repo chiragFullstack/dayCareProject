@@ -13,9 +13,6 @@ import admin_icon from '../../../Assets/admin_icon.png';
 import staff_icon from '../../../Assets/staff_icon.png';
 import parent_icon from '../../../Assets/parnet_icon.png';
 import service_icon from '../../../Assets/service_icon.png';
-
-
-
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavigate } from 'react-router-dom';
 
 function Schooldetails() {
@@ -23,7 +20,7 @@ function Schooldetails() {
     const urlSearchParams = new URLSearchParams(window.location.search);
     // Get the value of the "id" variable
     const Sid = urlSearchParams.get('id');
-    const { schoolId, setSchoolId } = useContext(ContextData);
+    const { schoolId, setSchoolId,apiurl } = useContext(ContextData);
     const [id, setId] = useState(Sid);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
@@ -42,7 +39,7 @@ function Schooldetails() {
         try {
          setSchoolId(id);
          console.log('school_Id',id);
-          const response = await axios.get(`http://54.172.2.94:5000/api/School/schoolById?id=${id}`);
+          const response = await axios.get(`${apiurl}/api/School/schoolById?id=${id}`);
           console.log(response.data.data);
           setName(response?.data?.data[0].name);
             setAddress(response?.data?.data[0].address);

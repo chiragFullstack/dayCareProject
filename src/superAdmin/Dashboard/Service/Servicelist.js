@@ -1,13 +1,16 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
-
+import add from '../../../Assets/add.png';
+import edit from '../../../Assets/edit.png';
+import del from '../../../Assets/delete.png';
+import ContextData from '../../Context/ContextData';
 
 function Servicelist() {
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
-    
+    const { apiurl } = useContext(ContextData);
     //when the page or event is loaded then this method will automatically called 
     useEffect(() => {
       fetchData();  
@@ -15,7 +18,7 @@ function Servicelist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://54.172.2.94:5000/api/service/allService');
+        const response = await axios.get(`${apiurl}/api/service/allService`);
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -23,24 +26,26 @@ function Servicelist() {
       }
     };
   async function deleteService(id){
-    console.log(id);
-    await axios.delete(`http://54.172.2.94:5000/api/service/deleteService/${id}`);
-    fetchData();  
+    const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+    if(confirmDelete){
+      console.log(id);
+      await axios.delete(`${apiurl}/api/service/deleteService?id=${id}`);
+      fetchData();  
+    }
    }
   return (
     <>
     <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Addservice`} className="btn btn-primary"> Add Service </Link>
-          <br/><br/>
+            <p>
+            <Link to={`/Addservice`} className="icon"><img src={add}/></Link>
+            </p>
             <div className="allRecord">
-                 <h1>View All service</h1> 
+                 <h1>Service</h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>
@@ -58,9 +63,10 @@ function Servicelist() {
                           <td>{item.servicename}</td>
                           <td>{item.description}</td>
                           <td>
-                            <input type="button" className="btn btn-danger" 
-                            onClick={(e)=> deleteService(item.id)} value="delete" />
-                            <Link to={`/EditService/${item.id}`} className="btn btn-success"> Edit </Link>
+                            <Link to={`/EditService?id=${item.id}`}> <img src={edit}/> </Link>
+                            <span onClick={(e)=> deleteService(item.id)}>
+                                <img src={del}/>
+                            </span>
                            </td>
                         </tr>
                       )):(

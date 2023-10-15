@@ -26,7 +26,7 @@ function Attendencereport() {
        const [todate, setToDate] = useState([]);
 
        const history = useNavigate ();
-       const { schoolId, setSchoolId,parentId,setParentId } = useContext(ContextData);
+       const { schoolId, setSchoolId,parentId,apiurl } = useContext(ContextData);
        //when the page or event is loaded then this method will automatically called 
 
        useEffect(() => {
@@ -41,7 +41,7 @@ function Attendencereport() {
        const fetchData = async () => {
          try {
            if(studentId){
-             const response = await axios.get(`http://54.172.2.94:5000/api/student/studentAttendenceReport?id=${studentId}&fromdate=${formattedDate}&todate=${formattedDate}`);
+             const response = await axios.get(`${apiurl}/api/student/studentAttendenceReport?id=${studentId}&fromdate=${formattedDate}&todate=${formattedDate}`);
              setData(response?.data?.data);
              console.log(response.data.data);
            }
@@ -58,7 +58,7 @@ function Attendencereport() {
           if(studentId){
             console.log(fromdate);
             console.log(todate);
-            const response = await axios.get(`http://54.172.2.94:5000/api/student/studentAttendenceReport?id=${studentId}&fromdate=${fromdate}&todate=${todate}`);
+            const response = await axios.get(`${apiurl}/api/student/studentAttendenceReport?id=${studentId}&fromdate=${fromdate}&todate=${todate}`);
             setData(response?.data?.data);
             console.log(response.data);
           }
@@ -76,29 +76,37 @@ function Attendencereport() {
     
  <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          
           <div className="allRecord">
-                 <h1>Search Report </h1> 
+                 <h1>Attendence Report </h1> 
                  <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-                 <label>
-                    from Date:
-                    <input type="date" value={fromdate} onChange={(e)=>{
-                        setFromDate(e.target.value);
-                    }} />
-                 </label>
-                 <br />  
-                 <label>
-                    To Date:
-                    <input type="date" value={todate} onChange={(e)=>{
-                        setToDate(e.target.value);
-                    }} />
-                 </label>
+                  <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>
+                                  from Date:
+                                  <input type="date" value={fromdate} onChange={(e)=>{
+                                      setFromDate(e.target.value);
+                                  }} required />
+                                </label>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>
+                                  To Date:
+                                  <input type="date" value={todate} onChange={(e)=>{
+                                      setToDate(e.target.value);
+                                  }} />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
                  <br /> 
                  <button type="submit" className='btn btn-primary'>View Report</button> 
                 </form>

@@ -1,15 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavigate } from 'react-router-dom';
+import ContextData from '../../Context/ContextData';
 
 function Editschool() {
-    
-    const history = useNavigate ();
 
+    const history = useNavigate ();
     const [id,setId]=useState();
-    
-    
+    const { apiurl } = useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
     const [address, setAddress] = useState('');
@@ -34,7 +33,7 @@ function Editschool() {
         const Sid = urlSearchParams.get('id');
         console.log('school Id',Sid);
         setId(Sid);
-        const response = await axios.get(`http://54.172.2.94:5000/api/School/schoolById?id=${Sid}`);
+        const response = await axios.get(`${apiurl}/api/School/schoolById?id=${Sid}`);
         setData(response?.data?.data);
         console.log(response?.data?.data);
         setName(response?.data?.data[0].name);
@@ -66,7 +65,7 @@ function Editschool() {
         formData.append('websiteurl', websiteUrl);
         
         try {
-          const response = await axios.put(`http://54.172.2.94:5000/api/School/editSchool?id=${id}`, formData, {
+          const response = await axios.put(`${apiurl}/api/School/editSchool?id=${id}`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -91,77 +90,93 @@ function Editschool() {
     <>
        <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Name:
-                <input type="text" value={name} onChange={(e)=>{
-                    setName(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Contact:
-                <input type="text" value={contact} onChange={(e)=>{
-                    setContact(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Address:
-                <input type="text" value={address} onChange={(e)=>{
-                    setAddress(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e)=>{
-                    setEmail(e.target.value);
-                  }}
-                />
-              </label>
-              <br />
-              <label>
-                Website Url:
-                <input type="text" value={websiteUrl} onChange={(e)=>{
-                    setWebsiteURL(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Background Color Code
-                <input type="text" value={bgcolor} onChange={(e)=>{
-                    setBgColorCode(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Font Color Code
-                <input type="text" value={forecolor} onChange={(e)=>{
-                    setForeColorCode(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Image:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e)=>{
-                    const selectedImage = e.target.files[0];
-                    setImage(selectedImage);
-                  }}
-                />
-              </label>
+              <div className="container">
+                <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Name:
+                          <input type="text" value={name} onChange={(e)=>{
+                              setName(e.target.value);
+                          }} placeholder="Name" required />
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <label>
+                          Address:
+                          <input type="text" value={address} onChange={(e)=>{
+                              setAddress(e.target.value);
+                          }} placeholder=" Address " required/>
+                        </label>
+                      </div>
+                      <div className="form-group">
+                         <label>
+                          Website Url:
+                          <input type="text" value={websiteUrl} onChange={(e)=>{
+                              setWebsiteURL(e.target.value);
+                          }} placeholder="website URL" required/>
+                        </label>
+                      </div>
+                      <div className="form-group">  
+                          <label>
+                            Font Color Code
+                            <input type="text" value={forecolor} onChange={(e)=>{
+                                setForeColorCode(e.target.value);
+                            }} placeholder="Font Color" required />
+                          </label>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label>
+                          Contact:
+                          <input type="text" value={contact} onChange={(e)=>{
+                              setContact(e.target.value);
+                          }} placeholder="Contact" required />
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <label>
+                          Email:
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e)=>{
+                              setEmail(e.target.value);
+                            }}
+                            placeholder="Email" required
+                          />
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <label>
+                            Background Color Code
+                            <input type="text" value={bgcolor} onChange={(e)=>{
+                                setBgColorCode(e.target.value); 
+                            }} placeholder="background color" required />
+                        </label>
+                      </div>
+                      <div className="form-group">
+                        <label>
+                          Image:
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e)=>{
+                              const selectedImage = e.target.files[0];
+                              setImage(selectedImage);
+                            }} placeholder="Logo" required
+                          />
+                        </label>
+                      </div>
+                    </div>
+                </div>
+              </div>
               <br />
               <button type="submit" className='btn btn-primary'>Update Record</button>
             </form>

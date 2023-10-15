@@ -9,7 +9,7 @@ import video from '../../../Assets/video.png';
 
 
 function ChatRoomid() {
-    const {schoolId}= useContext(ContextData);
+    const {schoolId,apiurl}= useContext(ContextData);
 
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
@@ -21,7 +21,7 @@ function ChatRoomid() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://54.172.2.94:5000/api/message/getChatRoomId?id=${schoolId}`);
+        const response = await axios.get(`${apiurl}/api/message/getChatRoomId?id=${schoolId}`);
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -34,16 +34,15 @@ function ChatRoomid() {
     <>
       <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Addroom`} ><img src={add}/> </Link>
-          <br/><br/>
+            {/* <p>
+            <Link to={`/Addroom`} ><img src={add}/> </Link>
+            </p> */}
             <div className="allRecord">
-                 <h1>View All Rooms</h1> 
+                 <h1>Chat</h1> 
                  <table className="table table-striped  table-hover">
                     <thead>
                       <tr>

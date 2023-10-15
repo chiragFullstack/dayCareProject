@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link } from 'react-router-dom';
@@ -6,12 +6,12 @@ import add from '../../../Assets/add.png';
 import edit from '../../../Assets/edit.png';
 import del from '../../../Assets/delete.png';
 import more from '../../../Assets/more.png';
-
+import ContextData from '../../Context/ContextData';
 
 function Schoollist() {
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
-    
+    const { apiurl } = useContext(ContextData);
     //when the page or event is loaded then this method will automatically called 
     useEffect(() => {
       fetchData();  
@@ -19,7 +19,7 @@ function Schoollist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://54.172.2.94:5000/api/School/allSchool');
+        const response = await axios.get(`${apiurl}/api/School/allSchool`);
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -27,26 +27,28 @@ function Schoollist() {
       }
     };
   async function deleteSchool(id){
-    console.log(id);
-    const res=await axios.delete(`http://54.172.2.94:5000/api/School/deleteSchool?id=${id}`);
-   //const res=await axios.delete(`http://localhost:5000/api/School/deleteSchool?id=${id}`);
-   console.log(res);
-    fetchData();  
+    
+    const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+    if(confirmDelete){
+      const res=await axios.delete(`${apiurl}/api/School/deleteSchool?id=${id}`);
+      //const res=await axios.delete(`http://localhost:5000/api/School/deleteSchool?id=${id}`);
+      console.log(res);
+      fetchData();  
+    }
    }
   return (
     <>
       <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/AddSchool`} className="icon"> <img src={add}/> </Link>
-          <br/><br/>
+          <p>
+            <Link to={`/AddSchool`} className="icon"> <img src={add}/> </Link>
+          </p>
             <div className="allRecord">
-                 <h1>View All School</h1> 
+                 <h1>Organization</h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>

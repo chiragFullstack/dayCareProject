@@ -16,7 +16,7 @@ function ParentDetails() {
     // Get the value of the "id" variable
     const id = urlSearchParams.get('id');
     console.log('Parent ID ',id);
-    const { schoolId, setSchoolId,parentId,setParentId } = useContext(ContextData);
+    const { schoolId, setSchoolId,parentId,setParentId,apiurl } = useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
     const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ function ParentDetails() {
 
       const fetchData = async () => {
         try {
-          const response = await axios.get(`http://54.172.2.94:5000/api/parent/ParentById?id=${id}`);
+          const response = await axios.get(`${apiurl}/api/parent/ParentById?id=${id}`);
           console.log(response.data.data?.parent[0].name);
             setName(response?.data?.data?.parent[0].name);
             setContact(response?.data?.data?.parent[0].contact);

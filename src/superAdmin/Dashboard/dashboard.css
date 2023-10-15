@@ -26,7 +26,7 @@
   overflow-y: auto;
 }
 img.card-img-top{
-    height: calc(100vh - 500px);
+    height: calc(100vh - 600px);
     object-fit: contain;
 }
 .sidebar::-webkit-scrollbar, .db-content-display::-webkit-scrollbar {
@@ -97,7 +97,13 @@ img.card-img-top{
     font-size: 24px;
     color: #04070c;
 }
-
+.db-content-display p{
+    text-align: right;
+    margin-bottom:0px !important;
+}
+.table-hover td a{
+    text-decoration: none;
+}
 .db-content-display, .db-content-display-login {
     width: 100%;
     background-color: #fff;
@@ -122,8 +128,18 @@ h1.login-heading{
     padding-top: 8px;
     text-align: left;
 }
-
-.db-content-display input, .db-content-display-login input {
+input[type=file]::file-selector-button {
+    background-color: transparent;
+    color: #000;
+    border: 0px;
+    padding: 10px 15px;
+    margin-right: 20px;
+    transition: .5s;
+  }
+.db-content-display .card-text{
+    text-align: left !important;
+}
+.db-content-display input, .db-content-display-login input, .db-content-display select{
     width: 100%;
     min-height: 45px;
     border-radius: 10px;
@@ -152,6 +168,7 @@ h1.login-heading{
     border: 1px solid #35bfbf;
     font-size: 16px !important;
     margin: 20px 0;
+    min-height: 45px;
 }
 .five-school-btn a {
     width: 18.5%;

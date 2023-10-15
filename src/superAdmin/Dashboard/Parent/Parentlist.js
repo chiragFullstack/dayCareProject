@@ -10,7 +10,7 @@ import del from '../../../Assets/delete.png';
 import more from '../../../Assets/more.png';
 
 function Parentlist() {
-  const {schoolId}= useContext(ContextData);
+  const {schoolId,apiurl}= useContext(ContextData);
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
     
@@ -21,7 +21,7 @@ function Parentlist() {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://54.172.2.94:5000/api/parent/allParent?id=${schoolId}`);
+        const response = await axios.get(`${apiurl}/api/parent/allParent?id=${schoolId}`);
         setData(response?.data?.data?.parent);
         console.log(response?.data?.data.parent);
         console.log('---',data);
@@ -30,24 +30,24 @@ function Parentlist() {
       }
     };
     async function deleteParent(id){
+      const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+      if(confirmDelete && id!=""){
         console.log(id);
-        await axios.delete(`http://54.172.2.94:5000/api/Parent/deleteParent?id=${id}`);
+        await axios.delete(`${apiurl}/api/Parent/deleteParent?id=${id}`);
         fetchData();  
+      }
     }
    return (
     <>
     <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/AddParent`} > <img src={add}/></Link>
-          <br/><br/>
+            <p><Link to={`/AddParent`} > <img src={add}/></Link></p>
             <div className="allRecord">
-                 <h1>View All Parents</h1> 
+                 <h1>Parents</h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>

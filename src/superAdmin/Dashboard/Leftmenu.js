@@ -14,18 +14,58 @@ function Leftmenu() {
   const { schoolId, setSchoolId,loginType,setLoginType,parentId} = useContext(ContextData);
   const [show,setShow]=useState('');
 
+  const [isSchool,setIsSchool]=useState(false);
+  const [isService,setIsService]=useState(false);
+  const [isNotice,setIsNotice]=useState(false);
+  const [isMessage,setIsMessage]=useState(false);
+  const [isSearchReport,setIsSearchReport]=useState(false);
+  const [isStaff,setIsStaff]=useState(false);
+  const [isRoom,setIsRoom]=useState(false);
+  const [isParent,setParent]=useState(false);
+  const [isActivityReport,setIsActivityReport]=useState(false);
+  const [ischatRoom,setIsChatRoom]=useState(false);
+
+  let currentURL='';
   useEffect(() => {
     console.log(loginType,'school ID of the ',schoolId,'----',parentId);
+    currentURL = window.location.href;
+    if(currentURL.toLowerCase().includes('school') || currentURL.toLowerCase().includes('subadmin')){
+        setIsSchool(true);
+    }else if(currentURL.toLowerCase().includes('service')){
+      setIsService(true);
+    }else if(currentURL.toLowerCase().includes('notice')){
+      setIsNotice(true);
+    }else if(currentURL.toLowerCase().includes('message')){
+      setIsMessage(true);
+    }else if(currentURL.toLowerCase().includes('searchreport')){
+      setIsSearchReport(true);
+    }else if(currentURL.toLowerCase().includes('staff')){
+      setIsStaff(true);
+    }else if(currentURL.toLowerCase().includes('room') && currentURL.toLowerCase().includes('?')==false || currentURL.toLowerCase().includes('attendence')){
+      setIsRoom(true);
+    }else if(currentURL.toLowerCase().includes('parent') || currentURL.toLowerCase().includes('child')){
+      setParent(true);
+    }else if(currentURL.toLowerCase().includes('selectchild') || currentURL.toLowerCase().includes('addreport')){
+      setIsActivityReport(true);
+    } 
+    if(currentURL.toLowerCase().includes('chatroomlist') || currentURL.toLowerCase().includes('message') || currentURL.toLowerCase().includes('video')){
+      setIsChatRoom(true);
+      setIsRoom(false);
+    }
+    
   },[]);
 
   function logout(){
-    window.localStorage.removeItem('userType');
+    const confirmDelete = window.confirm('Are you sure you want to Logout?');
+    if(confirmDelete ){
+      window.localStorage.removeItem('userType');
+    }
   }
 
   return (
     <>
         <ul className="p-0 left_side">    
-            <li className="sidenav-item sidenav-active" style={{display:loginType=='super admin'?'block':'none'}}>
+            <li className={`sidenav-item ${isSchool ? 'sidenav-active' : ''}`} style={{display:loginType=='super admin'?'block':'none'}}>
               <Link to="/schoollist" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -40,7 +80,7 @@ function Leftmenu() {
                 School 
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='admin'?'block':'none'}}>
+            <li className={`sidenav-item ${isStaff ? 'sidenav-active' : ''}`} style={{display:loginType=='admin'?'block':'none'}}>
               <Link to="/AllStaff" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -55,7 +95,7 @@ function Leftmenu() {
                 Staff 
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='admin' || loginType=='staff'?'block':'none'}}>
+            <li className={`sidenav-item ${isRoom ? 'sidenav-active' : ''}`} style={{display:loginType=='admin' || loginType=='staff'?'block':'none'}}>
               <Link to="/AllRoom" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -70,8 +110,8 @@ function Leftmenu() {
                 Room 
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='super admin'?'block':'none'}}>
-              <Link to="/AllClaimedService" className="d-flex align-items-center gap-3">
+            <li className={`sidenav-item ${isService ? 'sidenav-active' : ''}`} style={{display:loginType=='super admin'?'block':'none'}}>
+              <Link to="/Servicelist" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
                     <path
@@ -85,7 +125,7 @@ function Leftmenu() {
                 Service 
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='admin' || loginType=='staff'?'block':'none'}}>
+            <li className={`sidenav-item ${isParent ? 'sidenav-active' : ''}`} style={{display:loginType=='admin' || loginType=='staff'?'block':'none'}}>
               <Link to="/AllParent" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -100,7 +140,7 @@ function Leftmenu() {
                 Parent 
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='admin' || loginType=='staff'?'block':'none'}}>
+            <li className={`sidenav-item ${isActivityReport? 'sidenav-active' : ''}`} style={{display:loginType=='admin' || loginType=='staff'?'block':'none'}}>
               <Link to="/selectChild" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -112,11 +152,11 @@ function Leftmenu() {
                     ></path>
                   </g>
                 </svg>
-                Report  
+                Activity Report 
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='parent'?'block':'none'}}>
-              <Link to="/selectChild" className="d-flex align-items-center gap-3">
+            <li className={`sidenav-item ${isSearchReport ? 'sidenav-active' : ''}`} style={{display:loginType==='parent'?'block':'none'}}>
+              <Link to="/searchReport" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
                     <path
@@ -127,10 +167,10 @@ function Leftmenu() {
                     ></path>
                   </g>
                 </svg>
-                child Report  
+                Report
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType=='parent' || loginType=='admin' || loginType=='staff'?'block':'none'}}>
+            <li className={`sidenav-item ${isNotice ? 'sidenav-active' : ''}`} style={{display:loginType=='parent' || loginType=='admin' || loginType=='staff'?'block':'none'}}>
               <Link to="/noticeList" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -142,10 +182,10 @@ function Leftmenu() {
                     ></path>
                   </g>
                 </svg>
-                Notes
+                Notice
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType==='admin' || loginType==='staff'?'block':'none'}}>
+            <li className={`sidenav-item ${ischatRoom ? 'sidenav-active' : ''}`} style={{display:loginType==='admin' || loginType==='staff'?'block':'none'}}>
               <Link to="/chatroomlist" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
@@ -160,7 +200,7 @@ function Leftmenu() {
                 Chat Room
               </Link>
             </li>
-            <li className="sidenav-item" style={{display:loginType==='parent'?'block':'none'}}>
+            <li className={`sidenav-item ${isMessage ? 'sidenav-active' : ''}`} style={{display:loginType==='parent'?'block':'none'}}>
               <Link to={`/message?id=${parentId}`} className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>

@@ -15,7 +15,7 @@ function AddStaff() {
       const history = useNavigate ();
       const[data,setData]=useState([]);
 
-      const { schoolId } = useContext(ContextData);
+      const { schoolId,apiurl } = useContext(ContextData);
       const [name, setName] = useState('');
       const [contact, setContact] = useState('');
       const [email, setEmail] = useState('');
@@ -23,13 +23,14 @@ function AddStaff() {
       const [designation, setDesignation] = useState('');
       const [classId, setClassId] = useState('');
       const [image, setImage] = useState(null);
-      
+      const [gender, setGender] = useState('');
+
       useEffect(() => {
         fetchData();  
       },[]);
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
+                const response = await axios.get(`${apiurl}/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(response.data.data);
                 setData(response.data.data);
             } catch (error) {
@@ -49,9 +50,10 @@ function AddStaff() {
             formData.append('classId',classId);
             formData.append('picUrl', image);
             formData.append('username', username);
-
+            formData.append('gender', gender);
+            
             try {
-                const response = await axios.post('http://54.172.2.94:5000/api/staff/addStaff', formData, {
+                const response = await axios.post(`${apiurl}/api/staff/addStaff`, formData, {
                   headers: {
                     'Content-Type': 'multipart/form-data',
                   },
@@ -74,59 +76,87 @@ function AddStaff() {
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Name:
-                <input type="text" value={name} onChange={(e)=>{
-                    setName(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Contact:
-                <input type="text" value={contact} onChange={(e)=>{
-                    setContact(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e)=>{
-                    setEmail(e.target.value);
-                  }}
-                />
-              </label>
+              <div className="container">
+                  <div className="row">
+                      <div className="col-md-6">
+                          <div className="formgroup">
+                            <label>
+                              Name:
+                              <input type="text" value={name} onChange={(e)=>{
+                                  setName(e.target.value);
+                              }} placeholder="Name" required/>
+                            </label>
+                          </div>
+                          <div className="formgroup">  
+                              <label>
+                                Email:
+                                <input
+                                  type="email"
+                                  value={email}
+                                  onChange={(e)=>{
+                                    setEmail(e.target.value);
+                                  }} placeholder="Email" required
+                                />
+                              </label>
+                          </div>
+                          <div className="formgroup">  
+                            <label>
+                                Room ID:
+                                <select value={classId}  onChange={(e)=>{
+                                  setClassId(e.target.value);
+                                }} placeholder="Room Id" required>
+                                  <option value=""> Select </option>
+                                  {data.map((option, index) => (
+                                      <option key={index} value={option.id}>
+                                        {option.name}
+                                      </option>
+                                    ))}
+                                </select>
+                              </label>
+                          </div>
+                          <div className="formgroup">  
+                              <label>
+                                Gender:
+                                <input
+                                  type="text"
+                                  value={gender}
+                                  onChange={(e)=>{
+                                    setGender(e.target.value);
+                                  }} placeholder="gender" required
+                                />
+                              </label>
+                          </div>
+                      </div>
+                      
+                      <div className="col-md-6">
+                          <div className="formgroup">
+                              <label>
+                                Contact:
+                                <input type="text" value={contact} onChange={(e)=>{
+                                    setContact(e.target.value);
+                                }} placeholder="Contact" required/>
+                              </label>
+                          </div>
+                          <div className="formgroup">
+                              <label>
+                                Designation:
+                                <input type="text" value={designation} onChange={(e)=>{
+                                    setDesignation(e.target.value);
+                                }} placeholder="Designation" required />
+                              </label>
+                          </div>
+                          <div className="formgroup">
+                             <label>
+                                Username:
+                                <input type="text" value={username} onChange={(e)=>{
+                                    setUsername(e.target.value);
+                                }} placeholder="Username" required />
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
               <br/>
-              <label>
-                Designation:
-                <input type="text" value={designation} onChange={(e)=>{
-                    setDesignation(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Room ID:
-                <select value={classId}  className="form-control" onChange={(e)=>{
-                  setClassId(e.target.value);
-                }}>
-                   {data.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.name}
-                      </option>
-                    ))}
-
-                </select>
-              </label>
-
-              <label>
-                Username:
-                <input type="text" value={username} onChange={(e)=>{
-                    setUsername(e.target.value);
-                }} />
-              </label>
-              <br />
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>
           </div>

@@ -9,11 +9,12 @@ import sent from '../../../Assets/sent.png';
 import io from 'socket.io-client';
 
 
+
 function Message() {
     
-    const socket = io('http://54.172.2.94:5000/');
-
-    const {schoolId, loginType}= useContext(ContextData);
+    const {schoolId, loginType,apiurl}= useContext(ContextData);
+    
+    const socket = io(`${apiurl}/`);
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     // Get the value of the "id" variable
@@ -33,7 +34,7 @@ function Message() {
     },[]);
 
   const getMessage=()=>{
-    console.log(';logon Type', loginType);
+    console.log('logon Type', loginType);
     if(loginType=='admin' || loginType=='staff'){
         const recordData={
             "senderid":schoolId,
@@ -42,8 +43,8 @@ function Message() {
         }
         socket.emit("join_room",recordData);
         socket.on('receive_message', (data) => {
-            console.log('get all messages',data);
             setMessages([...messages, ...data]);
+            console.log('get all messages',messages);
         });
     }
     if(loginType=='parent'){
@@ -62,7 +63,6 @@ function Message() {
 
     const sendMessage = () => {
         // Send a message to the server
-       
         const recordData={
             "senderid":schoolId,
             "recieverid":parentId,
@@ -70,7 +70,6 @@ function Message() {
             "message":message,
             "roomid":chatroomid
         }
-
         socket.emit('send_message',recordData);
         // Clear the input field
         setMessage('');
@@ -80,8 +79,6 @@ function Message() {
    <>
     <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
@@ -118,7 +115,7 @@ function Message() {
                     setMessage(e.target.value);
                 }} />
               </label>
-              <img className="" src={sent} onClick={(e)=>{
+              <img src={sent} onClick={(e)=>{
                 sendMessage();
               }}/>
              </div>

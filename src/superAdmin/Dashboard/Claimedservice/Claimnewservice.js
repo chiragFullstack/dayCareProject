@@ -8,7 +8,7 @@ import ContextData from '../../Context/ContextData';
 function Claimnewservice() {
     const history = useNavigate ();
 
-    const { schoolId } = useContext(ContextData);
+    const { schoolId,apiurl } = useContext(ContextData);
 
     const [service_id, setServiceId] = useState('');
     const [status, setStatus] = useState('Activate');
@@ -25,7 +25,7 @@ function Claimnewservice() {
       const fetchData = async () => {
         try {
             //get all service and id
-            const res = await axios.get('http://54.172.2.94:5000/api/service/allService');
+            const res = await axios.get(`${apiurl}/api/service/allService`);
             setServiceData(res?.data?.data);
             
         } catch (error) {
@@ -46,7 +46,7 @@ function Claimnewservice() {
     form_Data.append('obtainingdate', obtainingdate);
     
     try {
-      const response = await axios.post('http://54.172.2.94:5000/api/claimedService/claimedService', form_Data, {
+      const response = await axios.post(`${apiurl}/api/claimedService/claimedService`, form_Data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -62,32 +62,41 @@ function Claimnewservice() {
     <>
         <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
           <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Service Name:
-                <select value={service_id}  className="form-control" onChange={(e)=>{
-                  setServiceId(e.target.value);
-                }}>
-                   {servicedata.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.servicename}
-                      </option>
-                    ))}
-                </select>
-              </label>
-              <br />
-              <label>
-                Date:
-                <input type="date" value={obtainingdate} onChange={(e)=>{
-                    setObtainingDate(e.target.value);
-                }} />
-              </label>
+            <div className="container">
+              <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                       <label>
+                          Service Name:
+                          <select value={service_id}  onChange={(e)=>{
+                            setServiceId(e.target.value);
+                          }}>
+                            {servicedata.map((option, index) => (
+                                <option key={index} value={option.id}>
+                                  {option.servicename}
+                                </option>
+                              ))}
+                          </select>
+                        </label>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                      <div className="form-group">
+                          <label>
+                            Date:
+                            <input type="date" value={obtainingdate} onChange={(e)=>{
+                                setObtainingDate(e.target.value);
+                            }} />
+                          </label>
+                      </div>
+                  </div>
+              </div>
+            </div>              
               <br />
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>

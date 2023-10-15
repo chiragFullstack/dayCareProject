@@ -9,9 +9,10 @@ import Whammy from 'whammy';
 
 function SendVideo() {
 
-   const socket = io('http://54.172.2.94:5000');
+  const {schoolId, loginType,apiurl}= useContext(ContextData);
+   const socket = io(`${apiurl}/`);
 
-    const {schoolId, loginType}= useContext(ContextData);
+   
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     // Get the value of the "id" variable
@@ -57,15 +58,14 @@ function SendVideo() {
     <>
      <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
+         
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
                 <div className="messagearea">
                     <div className="inputArea">
-                      <h1>Image to Video Converter</h1>
+                      <h1>Send Video</h1>
                         <div>
                         <input
                             type="file"
@@ -74,7 +74,7 @@ function SendVideo() {
                             onChange={handleImageUpload}
                         />
                         
-                          <button onClick={generateVideo}>Generate Video</button>
+                          <button onClick={generateVideo} className="btn btn-primary">Generate Video</button>
 
                           <div id="captureDiv">
                             {/* Place your content to capture here */}

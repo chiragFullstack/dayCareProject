@@ -24,7 +24,7 @@ function SearchReport() {
         const [todate, setToDate] = useState([]);
 
         const history = useNavigate ();
-        const { schoolId, setSchoolId,parentId,setParentId } = useContext(ContextData);
+        const { schoolId, setSchoolId,parentId,setParentId,apiurl } = useContext(ContextData);
         //when the page or event is loaded then this method will automatically called 
 
         useEffect(() => {
@@ -39,17 +39,19 @@ function SearchReport() {
     
         const fetchData = async () => {
           try {
-            if(roomid){
-              const response = await axios.get(`http://54.172.2.94:5000/api/report/getReportByRoomId?id=${roomid}&fromdate=${formattedDate}`);
+            if(roomid!==""){
+              const response = await axios.get(`${apiurl}/api/report/getReportByRoomId?id=${roomid}&fromdate=${formattedDate}`);
               setData(response?.data?.data);
-              console.log(response.data.data);
+              console.log('room ID---',response.data.data);
+              setParentId('');
             }
             if(parentId!==""){
-              const response = await axios.get(`http://54.172.2.94:5000/api/report/getTodayReportByParentId?id=${parentId}&fromdate=${formattedDate}`);
+              const response = await axios.get(`${apiurl}/api/report/getTodayReportByParentId?id=${parentId}&fromdate=${formattedDate}`);
               setData(response?.data?.data);
               console.log(response.data.data);
+              
             }
-         
+            
            
           } catch (error) {
             console.error(error); 
@@ -62,17 +64,17 @@ function SearchReport() {
           const formData = new FormData();
          // formData.append('studentId', studentId);
           try {
-            if(roomid){
-              console.log(fromdate);
-              console.log(todate);
-              const response = await axios.get(`http://54.172.2.94:5000/api/report/getFullReportByRoomId?id=${roomid}&fromdate=${fromdate}&todate=${todate}`);
+            if(roomid!=""){
+              console.log('room ID---',fromdate);
+              const response = await axios.get(`${apiurl}/api/report/getFullReportByRoomId?id=${roomid}&fromdate=${fromdate}&todate=${todate}`);
               setData(response?.data?.data);
-              console.log(response.data);
+              console.log('child Record',response.data?.data,'---',parentId);
+              setParentId('');
             }
             if(parentId!==""){
-              console.log(fromdate);
-              console.log(todate);
-              const response = await axios.get(`http://54.172.2.94:5000/api/report/getReportByParentId?id=${parentId}&fromdate=${fromdate}&todate=${todate}`);
+              console.log('parent Id---',fromdate);
+              
+              const response = await axios.get(`${apiurl}/api/report/getReportByParentId?id=${parentId}&fromdate=${fromdate}&todate=${todate}`);
               setData(response?.data?.data);
               console.log(response.data);
             }
@@ -87,29 +89,38 @@ function SearchReport() {
 
  <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
           
           <div className="allRecord">
-                 <h1>Search Report </h1> 
+                 <h1>Activity Report </h1> 
                  <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-                 <label>
-                    from Date:
-                    <input type="date" value={fromdate} onChange={(e)=>{
-                        setFromDate(e.target.value);
-                    }} />
-                 </label>
-                 <br />  
-                 <label>
-                    To Date:
-                    <input type="date" value={todate} onChange={(e)=>{
-                        setToDate(e.target.value);
-                    }} />
-                 </label>
+                  <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>
+                                  from Date:
+                                  <input type="date" value={fromdate} onChange={(e)=>{
+                                      setFromDate(e.target.value);
+                                  }} required />
+                              </label>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>
+                                  To Date:
+                                  <input type="date" value={todate} onChange={(e)=>{
+                                      setToDate(e.target.value);
+                                  }}  required />
+                              </label>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
                  <br /> 
                  <button type="submit" className='btn btn-primary'>View Report</button> 
                 </form>

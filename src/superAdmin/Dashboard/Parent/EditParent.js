@@ -13,13 +13,14 @@ function EditParent() {
     const id = urlSearchParams.get('id');
     console.log('Parent ID ',id);
 
-
-    const {schoolId}=useContext(ContextData);
+    const {schoolId,apiurl}=useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
     const [email, setEmail] = useState('');
     const[username,setUsername]=useState('');
     const[password,setPassword]=useState('');
+    const [gender, setGender] = useState('');
+    const [relation, setRelation] = useState('');
 
     useEffect(() => {
         fetchData();  
@@ -30,13 +31,15 @@ function EditParent() {
                 history('/Schoollist');
             }else{
                 try {
-                    const response = await axios.get(`http://54.172.2.94:5000/api/parent/ParentById?id=${id}`);
-                    console.log(response?.data?.data);
-                    setName(response?.data?.data[0].name);
-                    setContact(response?.data?.data[0].contact);
-                    setEmail(response?.data?.data[0].email);
-                    setUsername(response?.data?.data[0].username);
-                    setPassword(response?.data?.data[0].password);
+                    const response = await axios.get(`${apiurl}/api/parent/ParentById?id=${id}`);
+                    console.log('=---',response?.data?.data.parent);
+                    setName(response?.data?.data.parent[0].name);
+                    setContact(response?.data?.data.parent[0].contact);
+                    setEmail(response?.data?.data.parent[0].email);
+                    setUsername(response?.data?.data.parent[0].username);
+                    setPassword(response?.data?.data.parent[0].password);
+                    setGender(response?.data?.data.parent[0].gender);
+                    setRelation(response?.data?.data.parent[0].relation);
                   } catch (error) {
                     console.error(error);
                   }
@@ -59,9 +62,10 @@ function EditParent() {
             formData.append('username', username);
             formData.append('password', password);
             formData.append('schoolId',schoolId);
-
+            formData.append('gender',gender);
+            formData.append('relation',relation);
             try {
-            const response = await axios.put(`http://54.172.2.94:5000/api/parent/editParent?id=${id}`, formData, {
+            const response = await axios.put(`${apiurl}/api/parent/editParent?id=${id}`, formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },
@@ -81,39 +85,72 @@ function EditParent() {
     <>
      <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Name:
-                <input type="text" value={name} onChange={(e)=>{
-                    setName(e.target.value);
-                }} />
-              </label>
+              <div className="container">
+                  <div className="row">
+                      <div className="col-md-6">
+                          <div className="form-group">
+                            <label>
+                              Name:
+                              <input type="text" value={name} onChange={(e)=>{
+                                  setName(e.target.value);
+                              }} placeholder="Name" required />
+                            </label>
+                          </div>
+                          <div className="form-group">
+                             <label>
+                                Email:
+                                <input
+                                  type="email"
+                                  value={email}
+                                  onChange={(e)=>{
+                                    setEmail(e.target.value);
+                                  }} placeholder="Email" required
+                                />
+                              </label>
+                          </div>
+                          <div className="form-group">
+                             <label>
+                                Relation:
+                                <input
+                                  type="text"
+                                  value={relation}
+                                  onChange={(e)=>{
+                                    setRelation(e.target.value);
+                                  }} placeholder="Relation" required
+                                />
+                              </label>
+                          </div>
+                      </div>
+                      <div className="col-md-6">
+                          <div className="form-group">
+                              <label>
+                                Contact:
+                                <input type="text" value={contact} onChange={(e)=>{
+                                    setContact(e.target.value);
+                                }} placeholder="Contact" required/>
+                              </label>
+                          </div>
+                          <div className="form-group">
+                             <label>
+                                Gender:
+                                <input
+                                  type="text"
+                                  value={gender}
+                                  onChange={(e)=>{
+                                    setGender(e.target.value);
+                                  }} placeholder="Gender" required
+                                />
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
               <br />
-              <label>
-                Contact:
-                <input type="text" value={contact} onChange={(e)=>{
-                    setContact(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e)=>{
-                    setEmail(e.target.value);
-                  }}
-                />
-              </label>
-              <br />
-              
               <button type="submit" className='btn btn-primary'>Update Record</button>
             </form>
           </div>

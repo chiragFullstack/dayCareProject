@@ -14,7 +14,7 @@ import ContextData from '../../Context/ContextData';
 function Subadmin() {
 
   const history = useNavigate ();
-  const { schoolId } = useContext(ContextData);
+  const { schoolId,apiurl } = useContext(ContextData);
     const [name, setName] = useState('');
     const [contact, setContact] = useState('');
     const [address, setAddress] = useState('');
@@ -22,6 +22,7 @@ function Subadmin() {
     const [username, setUsername] = useState('');
     const [schoolid, setSchoolId] = useState('');
     const [image, setImage] = useState(null);
+    const [gender, setGender] = useState('');
 
     //this method can be used to generate random password 
     function generateRandomPassword(length) {
@@ -56,9 +57,10 @@ function Subadmin() {
         formData.append('username', username);
         formData.append('schoolid',schoolId);
         formData.append('picurl', image);
+        formData.append('gender', gender);
 
         try {
-          const response = await axios.post('http://54.172.2.94:5000/api/subadmin/addSubadmin', formData, {
+          const response = await axios.post(`${apiurl}/api/subadmin/addSubadmin`, formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -81,56 +83,83 @@ function Subadmin() {
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Name:
-                <input type="text" value={name} onChange={(e)=>{
-                    setName(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Contact:
-                <input type="text" value={contact} onChange={(e)=>{
-                    setContact(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Address:
-                <input type="text" value={address} onChange={(e)=>{
-                    setAddress(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Username:
-                <input type="text" value={username} onChange={(e)=>{
-                    setUsername(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Email:
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e)=>{
-                    setEmail(e.target.value);
-                  }}
-                />
-              </label>
-              <br />
-              <label>
-                Image:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e)=>{
-                    const selectedImage = e.target.files[0];
-                    setImage(selectedImage);
-                  }}
-                />
-              </label>
+              <div className="container">
+                  <div className="row">
+                      <div className="col-md-6">
+                          <div className="form-group">
+                            <label>
+                              Name:
+                              <input type="text" value={name} onChange={(e)=>{
+                                  setName(e.target.value);
+                              }} placeholder="Name" required />
+                            </label>
+                          </div>
+                          <div className="form-group">
+                            <label>
+                              Address:
+                              <input type="text" value={address} onChange={(e)=>{
+                                  setAddress(e.target.value);
+                              }} placeholder="Address" required />
+                            </label>
+                          </div>
+                          <div className="form-group">
+                              <label>
+                                Email:
+                                <input
+                                  type="email"
+                                  value={email}
+                                  onChange={(e)=>{
+                                    setEmail(e.target.value);
+                                  }} placeholder="Email" required
+                                />
+                              </label>
+                          </div>
+                          <div className="form-group">
+                              <label>
+                                Gender:
+                                <input
+                                  type="text"
+                                  value={gender}
+                                  onChange={(e)=>{
+                                    setGender(e.target.value);
+                                  }} placeholder="sex" required
+                                />
+                              </label>
+                          </div>
+                      </div>
+                      <div className="col-md-6">
+                          <div className="form-group">
+                             <label>
+                              Contact:
+                              <input type="text" value={contact} onChange={(e)=>{
+                                  setContact(e.target.value);
+                              }} placeholder="Contact" required/>
+                            </label>
+                          </div>
+                          <div className="form-group">
+                            <label>
+                              Username:
+                              <input type="text" value={username} onChange={(e)=>{
+                                  setUsername(e.target.value);
+                              }} placeholder="User Name" required/>
+                            </label>
+                          </div>
+                          <div className="form-group">
+                              <label>
+                                Image:
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e)=>{
+                                    const selectedImage = e.target.files[0];
+                                    setImage(selectedImage);
+                                  }} placeholder="Image" required
+                                />
+                              </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
               <br />
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>

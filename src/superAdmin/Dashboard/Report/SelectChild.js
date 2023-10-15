@@ -12,15 +12,27 @@ function SelectChild() {
         const roomid = urlSearchParams.get('roomid');
         //get all entries so we can show the record 
         const [data, setData] = useState([]);
+        const [isVisible, setIsVisible] = useState(false);
         const history = useNavigate ();
-        const { schoolId, setSchoolId,parentId,setParentId } = useContext(ContextData);
+        const { schoolId, setSchoolId,parentId,setParentId,apiurl } = useContext(ContextData);
         
         const [childId, setChildId] = useState("");
         //when the page or event is loaded then this method will automatically called 
         useEffect(() => {
-          fetchData();  
+          fetchData(); 
+          console.log('child ID---',childId);
+          if(childId.toString().includes(',')>0){
+            setIsVisible(true);
+          } 
         },[]);
-      
+
+      function checkReport(){
+        if(childId.toString().includes(',')){
+          history(`/Addreport?id=${childId}`)
+        }else{
+          alert('Select Child First');
+        }
+      }
      const handleCheckboxChange = (event) => {
         const checkboxValue = event.target.value;
         if (event.target.checked) {
@@ -31,15 +43,13 @@ function SelectChild() {
         const fetchData = async () => {
           try {
             if(roomid){
-
-              const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentByRoomId?id=${roomid}`);
+              const response = await axios.get(`${apiurl}/api/student/getStudentByRoomId?id=${roomid}`);
               setData(response?.data?.data);
               console.log('roomID',roomid);
             }else{
-              const response = await axios.get(`http://54.172.2.94:5000/api/student/getStudentBySchoolId?id=${schoolId}`);
+              const response = await axios.get(`${apiurl}/api/student/getStudentBySchoolId?id=${schoolId}`);
               setData(response?.data?.data);
-            }
-            
+            }  
           } catch (error) {
             console.error(error); 
           }
@@ -49,15 +59,13 @@ function SelectChild() {
     <>
  <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
         
             <div className="allRecord">
-                 <h1>select Child to Add Report </h1> 
+                 <h1>Activity Report </h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>
@@ -75,7 +83,6 @@ function SelectChild() {
                           <td>{item.name}</td>
                           <td>{item.roomid}</td>
                           <td>
-                          <img src={activityReport}/>
                           <input type="checkbox"
                             className="checkBox" value={item.id}
                             id={`checkbox-${item.id}`}
@@ -92,11 +99,12 @@ function SelectChild() {
                     </tbody>
                   </table>
                   <button
-                        className="btn btn-success"
-                        onClick={() => history(`/Addreport?id=${childId}`)}
-                      >
+                      className="btn btn-success"
+                      onClick={ checkReport}
+                      style={{ display:data.length==0?'none':'block'}}>
                         Activity Report
-                    </button>
+                      
+                  </button>
 
           </div>
           </div>

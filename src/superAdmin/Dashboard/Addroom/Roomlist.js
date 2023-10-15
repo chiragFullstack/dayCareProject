@@ -12,7 +12,7 @@ import attendence from '../../../Assets/attendence.png';
 
 //this component work with the room module 
 function Roomlist() {
-        const {schoolId}= useContext(ContextData);
+        const {schoolId,apiurl}= useContext(ContextData);
 
         //get all entries so we can show the record 
         const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ function Roomlist() {
     
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
+            const response = await axios.get(`${apiurl}/api/room/roomBySchoolId?id=${schoolId}`);
             setData(response?.data?.data);
             console.log(response.data.data);
           } catch (error) {
@@ -33,24 +33,26 @@ function Roomlist() {
         };
     
         async function deleteService(id){
+          const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+          if(confirmDelete){
             console.log(id);
-            await axios.delete(`http://54.172.2.94:5000/api/room/deleteRoom?id=${id}`);
+            await axios.delete(`${apiurl}/api/room/deleteRoom?id=${id}`);
             fetchData();  
+          }
         }
   return (
     <>
         <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Addroom`} ><img src={add}/> </Link>
-          <br/><br/>
+            <p>
+              <Link to={`/Addroom`} ><img src={add}/> </Link>
+            </p>
             <div className="allRecord">
-                 <h1>View All Rooms</h1> 
+                 <h1>Rooms</h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>
@@ -74,7 +76,7 @@ function Roomlist() {
                             <span onClick={(e)=> deleteService(item.id)} >
                                 <img src={del} title="Delete"/>
                             </span>
-                            <Link to={`/selectChild?roomid=${item.id}`}> <img src={activityReport} title="Add Report"/> </Link>
+                            <Link to={`/selectChild?roomid=${item.id}`}> <img src={activityReport} title="Activity Report"/> </Link>
                             <Link to={`/searchReport?roomid=${item.id}`}> <img src={viewReport} title="View Report"/> </Link>
                             <Link to={`/childAttendence?roomid=${item.id}`}> <img src={attendence} title="Attendence "/> </Link>
                            </td>

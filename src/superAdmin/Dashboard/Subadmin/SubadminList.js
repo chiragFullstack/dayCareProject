@@ -10,7 +10,7 @@ import del from '../../../Assets/delete.png';
 function SubadminList() {
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
-    const { schoolId } = useContext(ContextData);
+    const { schoolId,apiurl } = useContext(ContextData);
     //when the page or event is loaded then this method will automatically called 
     useEffect(() => {
     fetchData();  
@@ -18,7 +18,7 @@ function SubadminList() {
 
     const fetchData = async () => {
     try {
-        const response = await axios.get('http://54.172.2.94:5000/api/subadmin/subadminlist');
+        const response = await axios.get(`${apiurl}/api/subadmin/subadminlist`);
         setData(response?.data?.data);
         console.log(response.data.data);
     } catch (error) {
@@ -26,26 +26,26 @@ function SubadminList() {
     }
     };
     async function deleteService(id){
-    console.log(id);
-    await axios.delete(`http://54.172.2.94:5000/api/subadmin/deleteSubadmin?id=${id}`);
-    fetchData();  
+      const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+        if(confirmDelete){
+          console.log(id);
+          await axios.delete(`${apiurl}/api/subadmin/deleteSubadmin?id=${id}`);
+          fetchData();  
+        }
     }
-
   return (
     <>
         <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/Subadmin`} className="icon"> <img src={add}/> </Link>
-          
-          <br/><br/>
+            <p>
+            <Link to={`/Subadmin`} className="icon"> <img src={add}/> </Link>
+            </p>
             <div className="allRecord">
-                 <h1>View All Sub Admin</h1> 
+                 <h1>School Admin</h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>

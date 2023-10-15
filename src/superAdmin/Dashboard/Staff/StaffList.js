@@ -12,7 +12,7 @@ import del from '../../../Assets/delete.png';
 function StaffList() {
     //get all entries so we can show the record 
     const [data, setData] = useState([]);
-    const { schoolId } = useContext(ContextData);
+    const { schoolId,apiurl } = useContext(ContextData);
     //when the page or event is loaded then this method will automatically called 
     useEffect(() => {
       fetchData();  
@@ -21,7 +21,7 @@ function StaffList() {
     const fetchData = async () => {
       try {
         console.log('staff list of school id==',schoolId);
-        const response = await axios.get(`http://54.172.2.94:5000/api/staff/getSchoolStaff?id=${schoolId}`);
+        const response = await axios.get(`${apiurl}/api/staff/getSchoolStaff?id=${schoolId}`);
         setData(response?.data?.data);
         console.log(response.data.data);
       } catch (error) {
@@ -30,24 +30,25 @@ function StaffList() {
     };
 
     async function deleteStaff(id){
-        console.log(id);
-        await axios.delete(`http://54.172.2.94:5000/api/staff/deleteStaff?id=${id}`);
+      const confirmDelete = window.confirm('Are you sure you want to delete this record?');
+      if(confirmDelete && id!=""){
+        await axios.delete(`${apiurl}/api/staff/deleteStaff?id=${id}`);
         fetchData();  
+      }
     }
   return (
     <>
       <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/AddStaff`} className="icon"><img src={add}/></Link>
-          <br/><br/>
+            <p>
+            <Link to={`/AddStaff`} className="icon"><img src={add}/></Link>
+            </p>
             <div className="allRecord">
-                 <h1>View All Staff Member</h1> 
+                 <h1>Staff</h1> 
                  <table className="table table-striped table-hover">
                     <thead>
                       <tr>

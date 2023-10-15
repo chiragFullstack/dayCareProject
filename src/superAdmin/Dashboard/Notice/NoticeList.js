@@ -14,7 +14,7 @@ import date from '../../../Assets/date.png';
 function NoticeList() {
      //get all entries so we can show the record 
      const [data, setData] = useState([]);
-     const { schoolId,parentId,loginType } = useContext(ContextData);
+     const { schoolId,parentId,loginType,apiurl } = useContext(ContextData);
      //when the page or event is loaded then this method will automatically called 
      useEffect(() => {
        fetchData();  
@@ -22,8 +22,7 @@ function NoticeList() {
  
      const fetchData = async () => {
        try {
-         console.log('notes list of school id==',loginType);
-         const response = await axios.get(`http://54.172.2.94:5000/api/Notice/allNoticeBySchoolId?id=${schoolId}`);
+         const response = await axios.get(`${apiurl}/api/Notice/allNoticeBySchoolId?id=${schoolId}`);
          setData(response?.data?.data);
          console.log(response.data.data);
        } catch (error) {
@@ -39,19 +38,17 @@ function NoticeList() {
     <>
 <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
-          <Link to={`/addNotes`} className="icon" style={{ display:loginType=='admin' ||loginType=='staff'?"block":'none' }}><img src={add}/></Link>
-          <br/><br/>
+            <p><Link to={`/addNotes`} className="icon" style={{ display:loginType=='admin' ||loginType=='staff'?"block":'none' }}><img src={add}/></Link></p>
+          
             <div className="allRecord">
-                 <h1>View All Notes</h1>  
+                 <h1>Notice</h1>  
                     {
                     data.length>0 ? data.map((item) => (
-                        <div class="card" key={item.id} style={{width:"18rem",padding:"5px", margin:"5px",float:"left"}}>
+                        <div class="card" key={item.id} style={{width:"18rem",padding:"2px", margin:"5px",float:"left"}}>
                         <img src={profile} className="card-img-top" alt="..." />
                         <div className="card-body">
                             <p className="card-text"><img src={message} />{item.message}</p>

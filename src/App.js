@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState,React } from 'react'
 
@@ -48,6 +47,8 @@ import ChatRoomid from './superAdmin/Dashboard/chat/ChatRoomid';
 import Message from './superAdmin/Dashboard/chat/Message';
 import SendVideo from './superAdmin/Dashboard/chat/SendVideo';
 
+import logo from './Assets/logo.jpeg';
+
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
   
@@ -59,13 +60,15 @@ function App() {
 
   const [principalId, setPrincipalId] = useState("");
 
+  const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
+  //const [apiurl, setAPIUrl] = useState("http://localhost:5000");
   
   return (
     <>
 <nav className="navbar navbar-expand-sm">
       <div className="container-fluid">
         <a className="navbar-brand logo">
-          Day Care Services 
+         <img src={logo} height="60px" width="60px"/> Hello Everyone
         </a>
         <button
           className="navbar-toggler"
@@ -79,7 +82,7 @@ function App() {
         </div>
       </div>
     </nav>
-<ContextData.Provider value={{loginType, setLoginType, schoolId, setSchoolId,parentId,setParentId,principalId,setPrincipalId }}>
+<ContextData.Provider value={{loginType, setLoginType, schoolId, setSchoolId,parentId,setParentId,principalId,setPrincipalId,apiurl, setAPIUrl }}>
     <Router>
         <Routes>
           <Route path="/" element={<AdminLogin/>}/>

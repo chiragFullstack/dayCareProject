@@ -30,13 +30,13 @@ function Addreport() {
      const [activity, setActivity] = useState("");
 
      const history = useNavigate ();
-     const { schoolId, setSchoolId,parentId,setParentId } = useContext(ContextData);
+     const { schoolId, setSchoolId,parentId,setParentId,apiurl } = useContext(ContextData);
      
-     const [reportId, setReportId] = useState(null);
+     const [reportId, setReportId] = useState(0);
      //when the page or event is loaded then this method will automatically called 
      useEffect(() => {
         console.log('add report all child Id',id);
-            
+        reportType(0);
      },[]);
    
   const reportType = (Id) => {
@@ -63,7 +63,7 @@ function Addreport() {
     formData.append('notes', notes);
 
     try {
-        const response = await axios.post('http://54.172.2.94:5000/api/report/addReport', formData, {
+        const response = await axios.post(`${apiurl}/api/report/addReport`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -73,28 +73,23 @@ function Addreport() {
       } catch (error) {
         console.error(error);
       }
-
 }
-
-
   return (
     <>
 <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
             <div className="allRecord">
-                <img src={activityIcon} className="reportIcon" onClick={() => reportType(0)} />
-                <img src={healthIcon} className="reportIcon"    onClick={() => reportType(1)}/>
-                <img src={mealIcon} className="reportIcon" onClick={() => reportType(2)}/>
-                <img src={sleepIcon} className="reportIcon" onClick={() => reportType(3)}/>
-                <img src={allergyIcon} className="reportIcon" onClick={() => reportType(4)}/>
+                <img src={activityIcon} className="reportIcon" style={{border:reportId===0 ? '2px solid black':'1px solid rgb(224, 224, 224)'}} onClick={() => reportType(0)} />
+                <img src={healthIcon} className="reportIcon" style={{border:reportId===1 ? '2px solid black':'1px solid rgb(224, 224, 224)'}}   onClick={() => reportType(1)}/>
+                <img src={mealIcon} className="reportIcon" style={{border:reportId===2 ? '2px solid black':'1px solid rgb(224, 224, 224)'}} onClick={() => reportType(2)}/>
+                <img src={sleepIcon} className="reportIcon" style={{border:reportId===3 ? '2px solid black':'1px solid rgb(224, 224, 224)'}} onClick={() => reportType(3)}/>
+                <img src={allergyIcon} className="reportIcon" style={{border:reportId===4 ? '2px solid black':'1px solid rgb(224, 224, 224)'}} onClick={() => reportType(4)}/>
                 
-                <img src={notesIcon} className="reportIcon" onClick={() => reportType(5)}/>
+                <img src={notesIcon} className="reportIcon" style={{border:reportId===5 ? '2px solid black':'1px solid rgb(224, 224, 224)'}} onClick={() => reportType(5)}/>
             </div>
             <div>   
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>

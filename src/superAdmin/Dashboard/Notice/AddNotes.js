@@ -16,7 +16,7 @@ function AddNotes() {
     const history = useNavigate ();
       const[data,setData]=useState([]);
 
-      const { schoolId } = useContext(ContextData);
+      const { schoolId,apiurl } = useContext(ContextData);
       const [message, setMessage] = useState('');
       let noticedate=new Date();
       function convertDate(){
@@ -32,7 +32,7 @@ function AddNotes() {
         formData.append('message',message);
         formData.append('noticedate',convertDate().toString());
         try {
-            const response = await axios.post('http://54.172.2.94:5000/api/Notice/addNotice', formData, {
+            const response = await axios.post(`${apiurl}/api/Notice/addNotice`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -42,8 +42,6 @@ function AddNotes() {
           } catch (error) {
             console.error(error);
           }
-          
-
     }
   return (
     <>
@@ -54,12 +52,19 @@ function AddNotes() {
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Message:
-                <input type="text" value={message} onChange={(e)=>{
-                    setMessage(e.target.value);
-                }} />
-              </label>
+              <div className="container">
+                  <div className="row">
+                      <div className="col-md-12">
+                          <label>
+                            Message:
+                            <input type="text" value={message} onChange={(e)=>{
+                                setMessage(e.target.value);
+                            }} />
+                          </label>
+                      </div>
+                  </div>
+              </div>
+             
               <br />
              
               <button type="submit" className='btn btn-primary'>Submit</button>

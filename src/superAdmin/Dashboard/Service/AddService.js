@@ -1,10 +1,13 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useNavigate  } from 'react-router-dom';
+import ContextData from '../../Context/ContextData';
 
 function AddService() {
+
     const history = useNavigate ();
+    const { apiurl } = useContext(ContextData);
     const [servicename, setServiceName] = useState('');
     const [description, setDescription] = useState('');
 
@@ -17,7 +20,7 @@ function AddService() {
         form_Data.append('description', description);
         console.log(form_Data);
         try {
-          const response = await axios.post('http://54.172.2.94:5000/api/service/addService', form_Data, {
+          const response = await axios.post(`${apiurl}/api/service/addService`, form_Data, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -37,28 +40,36 @@ function AddService() {
     <>
       <div className="maiv-div-box">
         <div className="sidebar">
-          <p className="logo pb-2">Daycare</p>
-          <hr className="" />
           <Leftmenu/>
         </div>
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Service Name:
-                <input type="text" value={servicename} onChange={(e)=>{
-                    setServiceName(e.target.value);
-                }} />
-              </label>
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                       <label>
+                        Service Name:
+                        <input type="text" value={servicename} onChange={(e)=>{
+                            setServiceName(e.target.value);
+                        }} placeholder="Name"  required />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                     <div className="form-group">
+                        <label>
+                          description:
+                          <input type="text" value={description} onChange={(e)=>{
+                              setDescription(e.target.value);
+                          }} placeholder="Description" required/>
+                        </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <br />
-              <label>
-                description:
-                <input type="text" value={description} onChange={(e)=>{
-                    setDescription(e.target.value);
-                }} />
-              </label>
-              
-              
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>
           </div>

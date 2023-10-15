@@ -6,7 +6,7 @@ import ContextData from '../../Context/ContextData';
 
 function Addchild() {
 
-    const {schoolId,parentId}=useContext(ContextData);
+    const {schoolId,parentId,apiurl}=useContext(ContextData);
     
     const history = useNavigate ();
 
@@ -15,6 +15,7 @@ function Addchild() {
     const [dateofbirth, setDateofbirth] = useState('');
     const[image,setImage]=useState('');
     const[roomId,setRoomId]=useState('');
+    const[gender,setGender]=useState('');
     useEffect(() => {
         fetchData();  
       },[]);
@@ -25,7 +26,7 @@ function Addchild() {
             if(schoolId=="" || parentId==""){
                 history('/AllChild');
             }else{
-                const response = await axios.get(`http://54.172.2.94:5000/api/room/roomBySchoolId?id=${schoolId}`);
+                const response = await axios.get(`${apiurl}/api/room/roomBySchoolId?id=${schoolId}`);
                 console.log(response.data.data);
                 setData(response?.data?.data);
             }
@@ -46,8 +47,9 @@ function Addchild() {
         formData.append('roomid',roomId);
         formData.append('parentid',parentId);
         formData.append('logo', image);
+        formData.append('gender', gender);
         try {
-            const response = await axios.post('http://54.172.2.94:5000/api/student/addStudent', formData, {
+            const response = await axios.post(`${apiurl}/api/student/addStudent`, formData, {
               headers: {
                 'Content-Type': 'multipart/form-data',
               },
@@ -69,45 +71,71 @@ function Addchild() {
         <div className="right-box">
           <div className="db-content-display">
             <form onSubmit={handleSubmit} encType='multiplart/form-data'>
-              <label>
-                Name:
-                <input type="text" value={name} onChange={(e)=>{
-                    setName(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Date of Birth:
-                <input type="date" value={dateofbirth} onChange={(e)=>{
-                    setDateofbirth(e.target.value);
-                }} />
-              </label>
-              <br />
-              <label>
-                Room Name:
-                 <select value={roomId}  className="form-control" onChange={(e)=>{
-                  setRoomId(e.target.value);
-                }}>
-                   {data.map((option, index) => (
-                      <option key={index} value={option.id}>
-                        {option.name}
-                      </option>
-                    ))}
-                </select>
-              </label>
+              <div className="container">
+                  <div className="row">
+                      <div className="col-md-6">
+                          <div className="form-group">
+                             <label>
+                                Name:
+                                <input type="text" value={name} onChange={(e)=>{
+                                    setName(e.target.value);
+                                }} placeholder="Name" required/>
+                              </label>
+                          </div>
+                          <div className="form-group">
+                               <label>
+                                  Room Name:
+                                  <select value={roomId} onChange={(e)=>{
+                                    setRoomId(e.target.value);
+                                  }} required placeholder="Room ID">
+                                    <option>select</option>
+                                    {data.map((option, index) => (
+                                        <option key={index} value={option.id}>
+                                          {option.name}
+                                        </option>
+                                      ))}
+                                  </select>
+                               </label>
+                          </div>
+                          <div className="form-group">
+                             <label>
+                                Gender:
+                                <input type="text" value={gender} onChange={(e)=>{
+                                    setGender(e.target.value);
+                                }} placeholder="Sex" required/>
+                              </label>
+                          </div>
+                      </div>
+                      <div className="col-md-6">
+                          <div className="form-group">
+                             <label>
+                                Date of Birth:
+                                <input type="date" value={dateofbirth} onChange={(e)=>{
+                                    setDateofbirth(e.target.value);
+                                }} placeholder="Select Date of Birth" required  />
+                              </label>
+                          </div>
+                          <div className="form-group">
+                                <label>
+                                  Upload Image:
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e)=>{
+                                      const selectedImage = e.target.files[0];
+                                      setImage(selectedImage);
+                                    }}
+                                  />
+                                </label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+             
+            
               <br />
               
-              <label>
-                Upload Image:
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e)=>{
-                    const selectedImage = e.target.files[0];
-                    setImage(selectedImage);
-                  }}
-                />
-              </label>
+             
               <button type="submit" className='btn btn-primary'>Submit</button>
             </form>
           </div>
