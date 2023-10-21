@@ -44,7 +44,8 @@ function AdminLogin() {
               history('/Schoollist');
             }else if(response.data?.data[0]?.usertype=='admin'){
               console.log('admin matched');
-              history('/AllStaff');
+              setParentId(response.data?.data[0]?.id);
+              history('/Adminprofile');
             }else if(response.data?.data[0]?.usertype=='staff'){
               history('/AllRoom');
             }else if(response.data?.data[0]?.usertype=='parent'){

@@ -8,6 +8,7 @@ import chat from '../../../Assets/chat.png';
 import sent from '../../../Assets/sent.png';
 import io from 'socket.io-client';
 import { logDOM } from "@testing-library/react";
+import ScrollToBottom  from "react-scroll-to-bottom";
 
 
 
@@ -106,6 +107,7 @@ function Message() {
         <div className="right-box">
           <div className="db-content-display">
                 <div className="messagearea">
+                    <ScrollToBottom>
                 <div className="allMessages">
                     {allmessages.map((msg, index) => (
                         loginType=='admin'||loginType=='staff'?
@@ -132,6 +134,7 @@ function Message() {
                         </div>   
                     ))}
                 </div>
+                </ScrollToBottom>
              <div className="inputArea_chatbox">
                 <label>
                     Message:

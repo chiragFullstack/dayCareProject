@@ -46,6 +46,7 @@ import AddNotes from './superAdmin/Dashboard/Notice/AddNotes';
 import ChatRoomid from './superAdmin/Dashboard/chat/ChatRoomid';
 import Message from './superAdmin/Dashboard/chat/Message';
 import SendVideo from './superAdmin/Dashboard/chat/SendVideo';
+import Adminprofile from './superAdmin/Dashboard/profile/Adminprofile';
 
 import logo from './Assets/logo.jpeg';
 
@@ -60,8 +61,8 @@ function App() {
 
   const [principalId, setPrincipalId] = useState("");
 
-  const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
-  //const [apiurl, setAPIUrl] = useState("http://localhost:5000");
+  //const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
+  const [apiurl, setAPIUrl] = useState("http://localhost:5000");
   
   return (
     <>
@@ -104,6 +105,7 @@ function App() {
           <Route path="/SubadminList" element={<SubadminList/>}/>
           <Route path='/SubAdmin' element={<Subadmin/>}/>
           <Route path='/EditSubadmin' element={<EditSubadmin/>}/>
+          <Route path='/Adminprofile' element={<Adminprofile/>}/>
 
           <Route path="/Allclaimedservice" element={<Allclaimedservice/>}/>
           <Route path="/Claimnewservice" element={<Claimnewservice/>}/>

@@ -24,6 +24,8 @@ function Leftmenu() {
   const [isParent,setParent]=useState(false);
   const [isActivityReport,setIsActivityReport]=useState(false);
   const [ischatRoom,setIsChatRoom]=useState(false);
+  const [isprofile,setIsProfile]=useState(false);
+  const [isprofilelink,setIsProfileLink]=useState();
 
   let currentURL='';
   useEffect(() => {
@@ -47,7 +49,17 @@ function Leftmenu() {
       setParent(true);
     }else if(currentURL.toLowerCase().includes('selectchild') || currentURL.toLowerCase().includes('addreport')){
       setIsActivityReport(true);
+    }else if(currentURL.toLowerCase().includes('Adminprofile')){
+      setIsProfile(true);
+      setIsProfileLink('/Adminprofile');
+    }else if(currentURL.toLowerCase().includes('Staffprofile')){
+      setIsProfile(true);
+      setIsProfileLink('/Staffprofile');
+    }else if(currentURL.toLowerCase().includes('Parentprofile')){
+      setIsProfile(true);
+      setIsProfileLink('/Parentprofile');
     } 
+    
     if(currentURL.toLowerCase().includes('chatroomlist') || currentURL.toLowerCase().includes('message') || currentURL.toLowerCase().includes('video')){
       setIsChatRoom(true);
       setIsRoom(false);
@@ -65,6 +77,21 @@ function Leftmenu() {
   return (
     <>
         <ul className="p-0 left_side">    
+        <li className={`sidenav-item ${isprofile ? 'sidenav-active' : ''}`}>
+              <Link to={loginType==='admin'?'/Adminprofile':''} className="d-flex align-items-center gap-3">
+                <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
+                  <g>
+                    <path
+                      d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zM197.332 512h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zM474.668 298.668h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0"
+                      fill="#565656"
+                      data-original="#000000"
+                      className=""
+                    ></path>
+                  </g>
+                </svg>
+                Profile
+              </Link>
+            </li>
             <li className={`sidenav-item ${isSchool ? 'sidenav-active' : ''}`} style={{display:loginType=='super admin'?'block':'none'}}>
               <Link to="/schoollist" className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
@@ -429,16 +456,7 @@ function Leftmenu() {
             </li>
             <li className={`sidenav-item ${isMessage ? 'sidenav-active' : ''}`} style={{display:loginType==='parent'?'block':'none'}}>
               <Link to={`/message?id=${parentId}`} className="d-flex align-items-center gap-3">
-                <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
-                  <g>
-                    <path
-                      d="M197.332 170.668h-160C16.746 170.668 0 153.922 0 133.332v-96C0 16.746 16.746 0 37.332 0h160c20.59 0 37.336 16.746 37.336 37.332v96c0 20.59-16.746 37.336-37.336 37.336zM37.332 32A5.336 5.336 0 0 0 32 37.332v96a5.337 5.337 0 0 0 5.332 5.336h160a5.338 5.338 0 0 0 5.336-5.336v-96A5.337 5.337 0 0 0 197.332 32zM197.332 512h-160C16.746 512 0 495.254 0 474.668v-224c0-20.59 16.746-37.336 37.332-37.336h160c20.59 0 37.336 16.746 37.336 37.336v224c0 20.586-16.746 37.332-37.336 37.332zm-160-266.668A5.337 5.337 0 0 0 32 250.668v224A5.336 5.336 0 0 0 37.332 480h160a5.337 5.337 0 0 0 5.336-5.332v-224a5.338 5.338 0 0 0-5.336-5.336zM474.668 512h-160c-20.59 0-37.336-16.746-37.336-37.332v-96c0-20.59 16.746-37.336 37.336-37.336h160c20.586 0 37.332 16.746 37.332 37.336v96C512 495.254 495.254 512 474.668 512zm-160-138.668a5.338 5.338 0 0 0-5.336 5.336v96a5.337 5.337 0 0 0 5.336 5.332h160a5.336 5.336 0 0 0 5.332-5.332v-96a5.337 5.337 0 0 0-5.332-5.336zM474.668 298.668h-160c-20.59 0-37.336-16.746-37.336-37.336v-224C277.332 16.746 294.078 0 314.668 0h160C495.254 0 512 16.746 512 37.332v224c0 20.59-16.746 37.336-37.332 37.336zM314.668 32a5.337 5.337 0 0 0-5.336 5.332v224a5.338 5.338 0 0 0 5.336 5.336h160a5.337 5.337 0 0 0 5.332-5.336v-224A5.336 5.336 0 0 0 474.668 32zm0 0"
-                      fill="#565656"
-                      data-original="#000000"
-                      className=""
-                    ></path>
-                  </g>
-                </svg>
+              <svg id="Capa_1" enable-background="new 0 0 512 512" height="16" viewBox="0 0 512 512" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m480.052 369.741c49.476-69.417 41.913-164.522-25.665-226.473-30.877-28.305-70.24-45.926-112.761-50.847-.265-.326-.536-.649-.833-.958-36.991-38.425-90.135-60.463-145.805-60.463-105.939 0-194.988 78.933-194.988 180 0 35.435 11.007 69.404 31.916 98.741l-29.209 91.706c-1.836 5.764-.03 12.065 4.579 15.982 4.617 3.924 11.13 4.678 16.511 1.941l88.827-45.167c18.242 7.855 37.586 13.009 57.618 15.354 38.642 40.636 92.073 61.443 146.738 61.443 28.416 0 56.729-5.791 82.36-16.798l88.831 45.169c2.151 1.094 4.48 1.629 6.795 1.629 10.123 0 17.38-9.865 14.295-19.553zm-361.374-25.72c-4.201-1.995-9.088-1.929-13.233.179l-63.267 32.17 20.66-64.866c1.504-4.723.579-9.883-2.473-13.788-19.866-25.43-30.367-55.415-30.367-86.716 0-82.71 74.014-150 164.99-150 36.636 0 71.905 11.099 100.514 31.086-96.348 9.688-173.51 84.942-173.51 178.914 0 29.228 7.492 57.366 21.617 82.576-8.552-2.547-16.881-5.732-24.931-9.555zm287.845 60.178c-4.085-2.077-8.976-2.202-13.233-.178-23.385 11.108-49.772 16.979-76.31 16.979-90.976 0-164.99-67.29-164.99-150s74.014-150 164.99-150 164.99 67.29 164.99 150c0 31.301-10.501 61.286-30.368 86.715-3.051 3.905-3.976 9.065-2.473 13.788l20.66 64.866z"/><circle cx="255.984" cy="271" r="15"/><circle cx="315.981" cy="271" r="15"/><circle cx="375.977" cy="271" r="15"/></svg>
                 Send Message
               </Link>
             </li>
