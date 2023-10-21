@@ -61,8 +61,8 @@ function App() {
 
   const [principalId, setPrincipalId] = useState("");
 
-  //const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
-  const [apiurl, setAPIUrl] = useState("http://localhost:5000");
+  const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
+//  const [apiurl, setAPIUrl] = useState("http://localhost:5000");
   
   return (
     <>
