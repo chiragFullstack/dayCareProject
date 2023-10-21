@@ -111,7 +111,7 @@ function Childattendence() {
                             // checked={selectedCheckboxes.includes(item.id)}
                             />
                           </td>
-                          <td>{item.checkinStatus.toString()}</td>
+                          <td>{item.checkinStatus===true?'Checked In':'Checked Out'}</td>
                           <td>
                           <Link to={`/attendenceReport?studentid=${item.id}`}> 
                             <img src={viewReport} title="View Report"/> 
