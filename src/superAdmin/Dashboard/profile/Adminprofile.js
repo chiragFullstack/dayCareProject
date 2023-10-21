@@ -65,7 +65,7 @@ function Adminprofile() {
                             <hr/>
                             <h1>Address</h1>
                             <hr/>
-                            <p>Address: {address} </p>
+                            <p>{address} </p>
                             
                         </div>
                     </div>
