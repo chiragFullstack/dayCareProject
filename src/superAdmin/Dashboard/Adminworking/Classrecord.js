@@ -32,7 +32,7 @@ function Classrecord() {
   return (
     <>
     <div className='viewdata'>
-        <table className="table table-hover ">
+        <table className="table table-striped table-hover">
             <tr>
                 <td>Class Rooms</td>
                 <td>{totalclass}</td>

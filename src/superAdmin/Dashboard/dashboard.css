@@ -324,13 +324,3 @@ p.logo.pb-2, hr{
 .viewdata span{
    margin-right: 0px;
 }
-
-.viewdata table,tr,td{
-    border:1px solid grey;
-    text-align: left;
-    padding:5px;
-    margin: 5px;
-}
-.viewdata  tr:hover{
-    background-color: lightgrey;
-}
