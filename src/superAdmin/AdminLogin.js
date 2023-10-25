@@ -45,7 +45,8 @@ function AdminLogin() {
             }else if(response.data?.data[0]?.usertype=='admin'){
               console.log('admin matched');
               setParentId(response.data?.data[0]?.id);
-              history('/Adminprofile');
+              history('/Dashboard');
+
             }else if(response.data?.data[0]?.usertype=='staff'){
               history('/Staffprofile');
             }else if(response.data?.data[0]?.usertype=='parent'){

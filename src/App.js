@@ -51,6 +51,7 @@ import Adminprofile from './superAdmin/Dashboard/profile/Adminprofile';
 import logo from './Assets/logo.jpeg';
 import Staffprofile from './superAdmin/Dashboard/profile/Staffprofile';
 import Parentprofile from './superAdmin/Dashboard/profile/Parentprofile';
+import Alloption from './superAdmin/Dashboard/Adminworking/Alloption';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -66,7 +67,7 @@ function App() {
   const [principalId, setPrincipalId] = useState("");
 
   const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
-//  const [apiurl, setAPIUrl] = useState("http://localhost:5000");
+ // const [apiurl, setAPIUrl] = useState("http://localhost:5000");
   
   return (
     <>
@@ -94,7 +95,7 @@ function App() {
           <Route path='/Staff' element={<Staff/>}/>
 
           <Route path='/AddClass' element={<Addclass/>}/>
-          <Route path="/Dashboard" element={<Dashboard/>}/>
+          <Route path="/Dashboard" element={<Alloption/>}/>
           
           <Route path="/Schoollist" element={<Schoollist/>}/>
           <Route path='/AddSchool' element={<AddSchool/>}/>

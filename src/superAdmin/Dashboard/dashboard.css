@@ -312,3 +312,25 @@ p.logo.pb-2, hr{
 .profile_age p{ text-align: center;opacity: .75; }
 .profile_age span{ font-style: italic; opacity: .75; }
 .personalDetails p{ text-align: left; margin-bottom: 10px !important }
+
+.workingZone{
+    text-align:center;
+    width:32%;
+    padding:10px;
+}
+.viewdata p{
+    margin: 10px;
+ }
+.viewdata span{
+   margin-right: 0px;
+}
+
+.viewdata table,tr,td{
+    border:1px solid grey;
+    text-align: left;
+    padding:5px;
+    margin: 5px;
+}
+.viewdata  tr:hover{
+    background-color: lightgrey;
+}
