@@ -47,11 +47,11 @@ function AdminLogin() {
               setParentId(response.data?.data[0]?.id);
               history('/Adminprofile');
             }else if(response.data?.data[0]?.usertype=='staff'){
-              history('/AllRoom');
+              history('/Staffprofile');
             }else if(response.data?.data[0]?.usertype=='parent'){
               setParentId(response.data?.data[0]?.id);
               console.log('parent Login Type==',loginType);
-              history('/searchReport');
+              history('/Parentprofile');
             }
 
           }else{

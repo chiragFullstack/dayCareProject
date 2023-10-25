@@ -271,3 +271,44 @@ p.logo.pb-2, hr{
     width: 18px;padding: 0;
     padding-bottom: 5px;
 }
+.img.img-thumbnail.profileImg {
+    border:1px solid red;
+    height:100px;
+    width:200px;
+}
+/* .personalDetails{
+    border: 3px solid #e4f1ff;
+    box-shadow: 0 0 10px #a4d1ff81;
+    padding:15px;
+    margin:5px;
+} */
+.childMainSection{
+    border: 1px solid #e4f1ff;
+    box-shadow: 0 0 10px #a4d1ff81;
+    padding:15px;
+    margin:10px;
+}
+.childSection{
+    border: 1px solid #e4f1ff;
+    box-shadow: 0 0 10px #a4d1ff81;
+    padding:15px;
+}
+.profileSection{
+    border: 3px solid #e4f1ff;
+    box-shadow: 0 0 10px #a4d1ff81;
+    padding:15px;
+    height:50%;
+    margin:5px;
+    
+}
+.childrightSide p{
+    text-align:left;
+}
+
+.profile_age {
+    background-color: #edf5ff;
+    color: #121212;
+}
+.profile_age p{ text-align: center;opacity: .75; }
+.profile_age span{ font-style: italic; opacity: .75; }
+.personalDetails p{ text-align: left; margin-bottom: 10px !important }

@@ -33,29 +33,42 @@ function Leftmenu() {
     currentURL = window.location.href;
     if(currentURL.toLowerCase().includes('school') || currentURL.toLowerCase().includes('subadmin')){
         setIsSchool(true);
-    }else if(currentURL.toLowerCase().includes('service')){
+    }
+    if(currentURL.toLowerCase().includes('service')){
       setIsService(true);
-    }else if(currentURL.toLowerCase().includes('notice')){
+    }
+     if(currentURL.toLowerCase().includes('notice')){
       setIsNotice(true);
-    }else if(currentURL.toLowerCase().includes('message')){
+    }
+    if(currentURL.toLowerCase().includes('message')){
       setIsMessage(true);
-    }else if(currentURL.toLowerCase().includes('searchreport')){
+    }
+    if(currentURL.toLowerCase().includes('searchreport')){
       setIsSearchReport(true);
-    }else if(currentURL.toLowerCase().includes('staff')){
+    }
+    if(currentURL.toLowerCase().includes('staff')){
       setIsStaff(true);
-    }else if(currentURL.toLowerCase().includes('room') && currentURL.toLowerCase().includes('?')==false || currentURL.toLowerCase().includes('attendence')){
+    }
+    if(currentURL.toLowerCase().includes('room') && currentURL.toLowerCase().includes('?')==false || currentURL.toLowerCase().includes('attendence')){
       setIsRoom(true);
-    }else if(currentURL.toLowerCase().includes('parent') || currentURL.toLowerCase().includes('child')){
+    }
+     if(currentURL.toLowerCase().includes('parent') || currentURL.toLowerCase().includes('child')){
       setParent(true);
-    }else if(currentURL.toLowerCase().includes('selectchild') || currentURL.toLowerCase().includes('addreport')){
+    }
+    if(currentURL.toLowerCase().includes('selectchild') || currentURL.toLowerCase().includes('addreport')){
       setIsActivityReport(true);
-    }else if(currentURL.toLowerCase().includes('Adminprofile')){
+    }
+    if(currentURL.toLowerCase().includes('adminprofile')){
       setIsProfile(true);
       setIsProfileLink('/Adminprofile');
-    }else if(currentURL.toLowerCase().includes('Staffprofile')){
+      console.log('admin login profile ');
+    }
+    if(currentURL.toLowerCase().includes('staffprofile')){
       setIsProfile(true);
       setIsProfileLink('/Staffprofile');
-    }else if(currentURL.toLowerCase().includes('Parentprofile')){
+      console.log('staff login profile ');
+    }
+    if(currentURL.toLowerCase().includes('parentprofile')){
       setIsProfile(true);
       setIsProfileLink('/Parentprofile');
     } 
@@ -78,7 +91,7 @@ function Leftmenu() {
     <>
         <ul className="p-0 left_side">    
         <li className={`sidenav-item ${isprofile ? 'sidenav-active' : ''}`}>
-              <Link to={loginType==='admin'?'/Adminprofile':''} className="d-flex align-items-center gap-3">
+              <Link to={loginType==='admin'?'/Adminprofile':loginType==='staff'?'/Staffprofile':loginType==='parent'?'/Parentprofile':''} className="d-flex align-items-center gap-3">
                 <svg width="16" height="16" x="0" y="0" viewBox="0 0 512 512">
                   <g>
                     <path

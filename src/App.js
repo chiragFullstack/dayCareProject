@@ -49,6 +49,8 @@ import SendVideo from './superAdmin/Dashboard/chat/SendVideo';
 import Adminprofile from './superAdmin/Dashboard/profile/Adminprofile';
 
 import logo from './Assets/logo.jpeg';
+import Staffprofile from './superAdmin/Dashboard/profile/Staffprofile';
+import Parentprofile from './superAdmin/Dashboard/profile/Parentprofile';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -58,6 +60,8 @@ function App() {
   const [parentId, setParentId] = useState("");
 
   const [loginType, setLoginType] = useState("");
+
+  const [profileId, setProfileId] = useState("");
 
   const [principalId, setPrincipalId] = useState("");
 
@@ -83,7 +87,7 @@ function App() {
         </div>
       </div>
     </nav>
-<ContextData.Provider value={{loginType, setLoginType, schoolId, setSchoolId,parentId,setParentId,principalId,setPrincipalId,apiurl, setAPIUrl }}>
+<ContextData.Provider value={{loginType, setLoginType, schoolId, setSchoolId,parentId,setParentId,principalId,setPrincipalId,apiurl, setAPIUrl,profileId,setProfileId }}>
     <Router>
         <Routes>
           <Route path="/" element={<AdminLogin/>}/>
@@ -121,10 +125,12 @@ function App() {
           <Route path="/AddParent" element={<AddParent/>}/>
           <Route path="/EditParent" element={<EditParent/>}/>
           <Route path="/ParentDetails" element={<ParentDetails/>}/>
+          <Route path='/Parentprofile' element={<Parentprofile/>}/>
 
           <Route path="/AllStaff" element={<StaffList/>}/>
           <Route path="/AddStaff" element={<AddStaff/>}/>
           <Route path="/EditStaff" element={<EditStaff/>}/>
+          <Route path='/Staffprofile' element={<Staffprofile/>}/>
 
           <Route path="/Allchild" element={<Childlist/>}/>
           <Route path="/Addchild" element={<Addchild/>}/>

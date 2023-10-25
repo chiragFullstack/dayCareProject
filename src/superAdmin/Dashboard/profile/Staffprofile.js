@@ -1,3 +1,4 @@
+
 import  { useState,useEffect,useContext,React  } from "react";
 import axios from 'axios';
 import Leftmenu from "../Leftmenu";
@@ -6,12 +7,12 @@ import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavi
 import add from '../../../Assets/add.png';
 import activityReport from '../../../Assets/report.png';
 import attendence from '../../../Assets/attendence.png';
-import viewReport from '../../../Assets/pro_pic.png';
+import viewReport from '../../../Assets/viewReport.png';
 
 
-function Adminprofile() {
+function Staffprofile() {
 
-
+    //get all entries so we can show the record 
     const [data, setData] = useState([]);
     const history = useNavigate ();
     const { schoolId,principalId,apiurl} = useContext(ContextData);
@@ -21,13 +22,13 @@ function Adminprofile() {
     const [contact,setContact]=useState('');
     //when the page or event is loaded then this method will automatically called 
     useEffect(() => {
-        console.log('sub Admin ID: ',principalId);
+        console.log('sub Staff ID: ',principalId);
       fetchData();  
     },[]);
    
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${apiurl}/api/subadmin/getSubadminById?id=${principalId}`);
+            const response = await axios.get(`${apiurl}/api/staff/staffById?id=${principalId}`);
             setData(response?.data?.data);
             console.log('Profile record=--',response?.data?.data);
             setName(response?.data?.data[0].name);
@@ -40,6 +41,7 @@ function Adminprofile() {
     };
   return (
     <>
+         
      <div className="maiv-div-box">
         <div className="sidebar">
           <Leftmenu/>
@@ -49,7 +51,7 @@ function Adminprofile() {
                 <div className="allRecord profileSection">
                     <div className="row justify-content-around">
                         <div className="col-12 pb-2 mb-1">
-                          <h2>Admin Profile</h2>
+                          <h2>Staff Profile</h2>
                         </div>
                         <div className="col-md-3 border pb-2">
                           <img src={viewReport} className="img img-fluid profileImg rounded-circle"/>
@@ -82,4 +84,4 @@ function Adminprofile() {
   )
 }
 
-export default Adminprofile
+export default Staffprofile
