@@ -7,8 +7,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink, Link,useParams,useNavi
 import add from '../../../Assets/add.png';
 import activityReport from '../../../Assets/report.png';
 import attendence from '../../../Assets/attendence.png';
-import viewReport from '../../../Assets/viewReport.png';
-
+import viewReport from '../../../Assets/pro_pic.png';
 
 function Staffprofile() {
 
