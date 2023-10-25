@@ -29,7 +29,7 @@ function Parentprofile() {
             const response = await axios.get(`${apiurl}/api/parent/parentById?id=${principalId}`);
             setData(response?.data?.data);
             setChildData(response?.data?.data?.child);
-            console.log('Profile record=--',childdata);
+            console.log('Profile record=--',response?.data?.data?.child);
             setName(response?.data?.data.parent[0].name);
             setEmail(response?.data?.data.parent[0].email);
             setContact(response?.data?.data.parent[0].contact);
@@ -81,10 +81,10 @@ function Parentprofile() {
                                 <img src={item.picurl} className="img img-thumbnail"/>
                             </div>
                             <div className="childrightSide">
-                                <p><b>Name: </b>{item.studentname}</p>
+                                <p><b>Name: </b>{item.name}</p>
                                 <p><b>Gender: </b>{item.gender}</p>
-                                <p><b>Relation: </b>{item.relation}</p>
                                 <p><b>Room Id: </b>{item.roomid}</p>
+                                <p><b>Checkin-Status: </b>{item.checkinStatus?'Checked In':'Checked Out'}</p>
                             </div>
                         </div>
                     )):(
