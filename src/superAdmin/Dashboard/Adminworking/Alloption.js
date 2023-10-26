@@ -11,6 +11,7 @@ import {
 import Leftmenu from "../Leftmenu";
 import ContextData from '../../Context/ContextData';
 import Classrecord from "./Classrecord";
+import Activityreport from "./Activityreport";
 function Alloption() {
     const { schoolId,loginType} = useContext(ContextData);
   return (
@@ -25,13 +26,15 @@ function Alloption() {
                     <div className="row justify-content-around">
                     {loginType==='admin' || loginType==='staff'?
                         <>
+                         <div className="col-md-4 border personalDetails workingZone">
+                            <span>Activity Record</span><br/><br/>
+                            <Activityreport/>
+                        </div>
                         <div className="col-md-4 border personalDetails workingZone">
-                            <span>Overview</span><br/>
+                            <span>Overview</span><br/><br/>
                             <Classrecord/>
                         </div>
-                        <div className="col-md-4 border personalDetails workingZone">
-                            <span>Attendence Record</span><br/>
-                        </div>
+                       
                         </>
                         :''
                     }

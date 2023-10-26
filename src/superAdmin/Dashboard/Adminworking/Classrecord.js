@@ -2,7 +2,7 @@ import React, { useState,useEffect,useContext } from "react";
 import axios from 'axios';
 import { BrowserRouter as Router, Routes, Route, NavLink, Link,useNavigate  } from 'react-router-dom';
 import ContextData from "../../Context/ContextData";
-
+import add from '../../../Assets/add.png';
 
 function Classrecord() {
     const { schoolId,loginType,apiurl} = useContext(ContextData);
@@ -21,7 +21,7 @@ function Classrecord() {
         try {
             const response = await axios.get(`${apiurl}/api/Dashboard/classData?schoolId=${schoolId}`);
             setData(response?.data?.data);
-            console.log('Profile record=--',response?.data?.data[0].classCount);
+            console.log('class record=--',response?.data?.data[0].classCount);
              setTotalClass(response?.data?.data[0].classCount);
              setTotalChild(response?.data?.data[1].studentCount);
             // setAddress(response?.data?.data[0].address);
@@ -50,6 +50,7 @@ function Classrecord() {
                 <td>{totalchild}/{totalchild}</td>
             </tr>
         </table>
+        <Link to={`/AllRoom`} className="btn btn-warning">Add Room </Link>
     </div>
     </>
   )
