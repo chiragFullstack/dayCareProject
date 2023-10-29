@@ -12,6 +12,9 @@ import Leftmenu from "../Leftmenu";
 import ContextData from '../../Context/ContextData';
 import Classrecord from "./Classrecord";
 import Activityreport from "./Activityreport";
+import Kidsdata from "./Kidsdata";
+import AttendenceGraph from "./AttendenceGraph";
+
 function Alloption() {
     const { schoolId,loginType} = useContext(ContextData);
   return (
@@ -27,6 +30,10 @@ function Alloption() {
                     {loginType==='admin' || loginType==='staff'?
                         <>
                          <div className="col-md-4 border personalDetails workingZone">
+                            <span>Attendence Graph </span><br/><br/>
+                            <AttendenceGraph/>
+                        </div>
+                         <div className="col-md-4 border personalDetails workingZone">
                             <span>Activity Record</span><br/><br/>
                             <Activityreport/>
                         </div>
@@ -34,7 +41,13 @@ function Alloption() {
                             <span>Overview</span><br/><br/>
                             <Classrecord/>
                         </div>
-                       
+                        
+                      <div className="row my-3">
+                          <div className="col-md-12 border personalDetails">
+                            <h1 className="m-3">Kids Details Section</h1><hr/>
+                              <Kidsdata/>
+                          </div>
+                       </div>
                         </>
                         :''
                     }
