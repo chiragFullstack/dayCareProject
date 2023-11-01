@@ -52,6 +52,8 @@ import logo from './Assets/logo.jpeg';
 import Staffprofile from './superAdmin/Dashboard/profile/Staffprofile';
 import Parentprofile from './superAdmin/Dashboard/profile/Parentprofile';
 import Alloption from './superAdmin/Dashboard/Adminworking/Alloption';
+import StaffAttendence from './superAdmin/Dashboard/Staff/StaffAttendence';
+import Employeecheckinrecord from './superAdmin/Dashboard/Staff/Employeecheckinrecord';
 
 function App() {
   const [loginDashboard, setloginDashboard] = useState('hidden'); // useState to store First Name
@@ -66,8 +68,8 @@ function App() {
 
   const [principalId, setPrincipalId] = useState("");
 
-  const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
-  //const [apiurl, setAPIUrl] = useState("http://localhost:5000");
+  //const [apiurl, setAPIUrl] = useState("http://54.172.2.94:5000");
+  const [apiurl, setAPIUrl] = useState("http://localhost:5000");
   
   return (
     <>
@@ -132,6 +134,8 @@ function App() {
           <Route path="/AddStaff" element={<AddStaff/>}/>
           <Route path="/EditStaff" element={<EditStaff/>}/>
           <Route path='/Staffprofile' element={<Staffprofile/>}/>
+          <Route path="/employeechecking" element={<StaffAttendence/>}/>
+          <Route path="/employeecheckingrecord" element={<Employeecheckinrecord/>}/>
 
           <Route path="/Allchild" element={<Childlist/>}/>
           <Route path="/Addchild" element={<Addchild/>}/>
