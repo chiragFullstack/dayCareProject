@@ -52,8 +52,8 @@ function Leftmenu() {
       setIsStaff(true);
     }
     if(currentURL.toLowerCase().includes('employeechecking')){
+      console.log('staff Checking truee ho gya '); 
       setIsStaffAttendence(true);
-      setIsStaff(false);
     }
     if(currentURL.toLowerCase().includes('room') && currentURL.toLowerCase().includes('?')==false){
       setIsRoom(true);
@@ -195,7 +195,7 @@ function Leftmenu() {
                 Staff 
               </Link>
             </li>
-        <li className={`sidenav-item ${isStaffAttendence ? 'sidenav-active' : ''}`} style={{display:loginType=='admin'|| loginType=='staff'?'block':'none'}}>
+        <li className={`sidenav-item ${isStaffAttendence ? 'sidenav-active' : ''}`} style={{display:loginType==='admin' || loginType==='staff'?'block':'none'}}>
               <Link to="/employeechecking" className="d-flex align-items-center gap-3">
               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 	 width="16" height="16" viewBox="0 0 80.13 80.13">
