@@ -14,6 +14,7 @@ import Classrecord from "./Classrecord";
 import Activityreport from "./Activityreport";
 import Kidsdata from "./Kidsdata";
 import AttendenceGraph from "./AttendenceGraph";
+import Ratiodata from "./Ratiodata";
 
 function Alloption() {
     const { schoolId,loginType} = useContext(ContextData);
@@ -44,10 +45,20 @@ function Alloption() {
                         
                       <div className="row my-3">
                           <div className="col-md-12 border personalDetails">
+                            <h1 className="m-3">Ratio of Student and Staff</h1><hr/>
+                              <div className='row'>
+                                <Ratiodata/>
+                              </div>
+                          </div>
+                       </div>
+                       
+                        <div className="row my-3">
+                          <div className="col-md-12 border personalDetails">
                             <h1 className="m-3">Kids Details Section</h1><hr/>
                               <Kidsdata/>
                           </div>
                        </div>
+
                         </>
                         :''
                     }
