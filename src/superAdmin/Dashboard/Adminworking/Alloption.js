@@ -45,7 +45,7 @@ function Alloption() {
                         
                       <div className="row my-3">
                           <div className="col-md-12 border personalDetails">
-                            <h1 className="m-3">Ratio of Student and Staff</h1><hr/>
+                            <h1 className="mt-3 mb-1">Ratio of Student and Staff</h1><hr/>
                               <div className='row'>
                                 <Ratiodata/>
                               </div>
@@ -54,7 +54,7 @@ function Alloption() {
                        
                         <div className="row my-3">
                           <div className="col-md-12 border personalDetails">
-                            <h1 className="m-3">Kids Details Section</h1><hr/>
+                            <h1 className="mt-3 mb-1">Kids Details Section</h1><hr/>
                               <Kidsdata/>
                           </div>
                        </div>

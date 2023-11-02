@@ -11,7 +11,7 @@ const Piechart=({data})=> {
 
   return (
     <>
-    <div>  
+    <div className="pie-chart-div d-flex justify-content-center">  
         {
             data?
             <Pie

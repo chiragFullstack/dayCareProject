@@ -8,20 +8,18 @@
 .maiv-div-box {
     display: flex;
     gap: 25px;
-    margin: 110px 30px 30px;
-    height: calc(100vh - 140px);
+    margin: 90px 30px 0 0;
+    height: calc(100vh - 90px);
 }
 .section img{
     margin-left: -13px !important;
 }
 .sidebar{
-  width: 300px;
-  height: calc(100vh - 141px);
-  background-color: #fff;
-  border-radius: 20px;
-  border: 3px solid #e4f1ff;
+  width: 270px;
+  height: calc(100vh - 90px);
+  background-color: #f5ffff;
   box-shadow: 0  0 10px #a4d1ff81;
-  padding: 30px;
+  padding: 30px 0;
   color: #00204e;
   overflow-y: auto;
 }
@@ -68,11 +66,10 @@ img.card-img-top{
     display: block;
     color: #565656;
     text-decoration: none;
-    padding: 15px;
+    padding: 15px 40px;
 }
 .sidenav-active {
     background-color: #3B99FC;
-    border-radius: 30px;
 }
 .sidebar .sidenav-active a {
     color: #fff;
@@ -82,12 +79,17 @@ img.card-img-top{
     fill: #fff;
 }
 .right-box{
-    width: calc(100% - 300px);
+    width: calc(100% - 270px);
+    height: calc(100vh - 90px);
+    overflow: auto;
+}
+
+.right-box::-webkit-scrollbar{
+    display: none;
 }
 .topbar, .navbar{
     width: 100%;
-    background-color: #fff;
-    border: 3px solid #e4f1ff;
+    background-color: #f5ffff;
     padding: 10px 10px;
     position:absolute;
     top:0px;
@@ -106,9 +108,6 @@ img.card-img-top{
 }
 .db-content-display, .db-content-display-login {
     width: 100%;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 20px #d7d7d733;
     padding: 30px;
 }
 .db-content-display-login {
@@ -161,7 +160,7 @@ input[type=file]::file-selector-button {
 .db-content-display .icon{
     text-align: right;
 }
-.db-content-display .btn, .db-content-display-login .btn, .five-school-btn a {
+.db-content-display .btn, .db-content-display-login .btn, .five-school-btn a{
     background:#35bfbf;
     border-radius: 10px;
     width:100%;
@@ -200,6 +199,34 @@ input[type=file]::file-selector-button {
 }
 p.logo.pb-2, hr{
     display: none;
+}
+.pie-chart-div canvas {
+    max-width: 200px;
+    max-height: 200px;
+}
+.workingZone span {
+    font-size: 18px;
+    font-weight: 500;
+}
+.viewdata tr td {
+    font-size: 15px;
+    color: #525252;
+    font-weight: 700;
+}
+.viewdata tr td:nth-child(1) {
+    text-align: left;
+    font-weight: 400;
+}
+.workingZone .viewdata .btn {
+    color: #fff;
+    width: auto;
+    padding: 5px 20px;
+    min-height: 0;
+    font-size: 14px !important;
+}
+.personalDetails h1 {
+    font-size: 22px;
+    margin-bottom: 10px;
 }
 @media (max-width: 1240px) {
     
@@ -285,12 +312,18 @@ p.logo.pb-2, hr{
 .kidsProfileData table{
     width:100%;
 }
+.kidsProfileData tr th {
+    font-weight: 500;
+}
+.kidsProfileData tr td:nth-child(2), .kidsProfileData tr td:nth-child(3) {
+    padding-top: 20px;
+}
 .viewdata .ratioClass {
-    border: 1px solid black;
+    background-color: #f5ffff;
     height: auto;
     width: 20%;
     float: left;
-    margin:10px;
+    margin:20px 20px 20px 0;
 }
 .viewdata .ratioClass p{
     text-align: center;
@@ -298,13 +331,16 @@ p.logo.pb-2, hr{
 .ratioClass h3{ 
     background-color:#3b99fc;
     color:white;
-    font-size:20px;
+    font-size:15px;
+    font-weight: 400;
+    padding: 8px 20px;
     text-align: center;
 }
 .kidImg{
     border-radius:50px;
-    height:80px !important;
-    width:80px !important;
+    height:60px !important;
+    width:60px !important;
+    padding: 0 !important;
 }
 
 .childMainSection{
@@ -319,8 +355,6 @@ p.logo.pb-2, hr{
     padding:15px;
 }
 .profileSection{
-    border: 3px solid #e4f1ff;
-    box-shadow: 0 0 10px #a4d1ff81;
     padding:15px;
     height:50%;
     margin:5px;
